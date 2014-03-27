@@ -11,6 +11,7 @@ API Primer
 
 - [HTTP Method Negotiation](/api-primer/http-negotiation.md)
 - [Hypermedia Application Layer](/api-primer/halprimer.md)
+- [Error Reporting](/api-primer/error-reporting.md)
 
 Authentication and Authorization
 --------------------------------
