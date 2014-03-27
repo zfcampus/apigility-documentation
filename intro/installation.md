@@ -1,10 +1,7 @@
-Apigility
-=========
-
 Installation
-------------
+============
 
-### From the terminal
+## From the terminal
 
 The easiest way to install `Apigility` is from your terminal, executing the following command:
 
@@ -19,7 +16,7 @@ php -r "readfile('http://apigility.org/install');" | php
 ```
 Otherwise you can install `Apigility` using one of the alternative following procedures.
 
-### Via release tarball
+## Via release tarball
 
 Grab the latest release from the Apigility [download](http://apigility.org/download) page.
 
@@ -29,7 +26,7 @@ Untar it:
 tar xzf zf-apigility-skeleton-1.0.0beta1.tgz
 ```
 
-### Via Composer (create-project)
+## Via Composer (create-project)
 
 You can use the `create-project` command from [Composer](http://getcomposer.org/)
 to create the project in one go:
@@ -39,7 +36,7 @@ curl -s https://getcomposer.org/installer | php --
 php composer.phar create-project -sdev zfcampus/zf-apigility-skeleton path/to/install
 ```
 
-### Via Git (clone)
+## Via Git (clone)
 
 First, clone the repository:
 
@@ -55,7 +52,7 @@ dependencies. Assuming you already have Composer:
 composer.phar install
 ```
 
-### All methods
+## All methods
 
 Once you have the basic installation, you need to put it in development mode:
 
