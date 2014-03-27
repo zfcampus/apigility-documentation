@@ -6,6 +6,12 @@ Introduction
 
 - [Installation](/intro/installation.md)
 
+API Primer
+----------
+
+- [HTTP Method Negotiation](/api-primer/http-negotiation.md)
+- [Hypermedia Application Layer](/api-primer/halprimer.md)
+
 Authentication and Authorization
 --------------------------------
 - [Introduction](/auth/intro.md)
