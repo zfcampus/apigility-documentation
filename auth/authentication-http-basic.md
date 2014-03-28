@@ -38,7 +38,7 @@ to use.  A successfully authenticated identity will allow the user to access the
 
 Whereas incorrect username or password should result in an 401 Unauthorized attempt:
 
-![auth-authentication-http-basic-httpie-failure.jpg](/asset/apigility-documentation/img/auth-authentication-http-httpie-failure.jpg)
+![auth-authentication-http-basic-httpie-failure.jpg](/asset/apigility-documentation/img/auth-authentication-http-basic-httpie-failure.jpg)
 
 Important notes:
 
