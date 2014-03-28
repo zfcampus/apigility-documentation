@@ -10,6 +10,7 @@ API Primer
 ----------
 
 - [What is an API?](/api-primer/what-is-an-api.md)
+- [Representation Formats](/api-primer/representation-formats.md)
 - [HTTP Method Negotiation](/api-primer/http-negotiation.md)
 - [Hypermedia Application Layer](/api-primer/halprimer.md)
 - [Error Reporting](/api-primer/error-reporting.md)
