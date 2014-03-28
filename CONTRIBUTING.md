@@ -16,6 +16,18 @@ Documentation Standards
 Documentation is being written using [GitHub-flavored
 Markdown](https://help.github.com/articles/github-flavored-markdown).
 
+### Headings
+
+Every file MUST contain a level 1 heading.
+
+Level 1 headings MUST use the `====` format, with an equal number of `=` signs as the number of
+characters in the preceding header line.
+
+Level 2 headings MUST use the `----` format, with an equal number of `-` signs as the number of
+characters in the preceding header line.
+
+Level 3 and lower headings MUST use the `#` prefix, with one such character per level indicated.
+
 ### Line Length
 
 Line lengths SHOULD be 100 characters or less; the only exception to this rule is when a URI on
