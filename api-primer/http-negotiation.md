@@ -16,8 +16,8 @@ URI.
 
 Consider the following request:
 
-```
-OPTIONS /api/user
+```HTTP
+OPTIONS /api/user HTTP/1.1
 Host: example.org
 ```
 

@@ -182,8 +182,8 @@ When creating or updating a resource (or collection), you will submit the object
 links; the API is responsible for assigning the links. If we consider the embedded resources example
 from above, I would create it like this:
 
-```
-POST /api/user
+```HTTP
+POST /api/user HTTP/1.1
 Accept: application/json
 Content-Type: application/vnd.example.user+json
 
