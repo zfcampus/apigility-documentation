@@ -56,8 +56,7 @@ are effectively 3 listeners that deal with Authorization related workflows:
 
 * `ZF\MvcAuth\Authorization\DefaultResourceResolverListener` is registered at 
   `ZF\MvcAuth\MvcAuthEvent::EVENT_AUTHORIZATION` (1000 priority) time.  This listener is generally 
-  responsible for taking the matched route and determining the Resource name which is later used for 
-  checking against the ACL.
+  responsible for taking the matched route and determining the Resource name which is later used for checking against the ACL.
 
 * `ZF\MvcAuth\Authorization\DefaultAuthorizationListener` is registered at 
   `ZF\MvcAuth\MvcAuthEvent::EVENT_AUTHORIZATION` time.  This listener is generally responsible for 
