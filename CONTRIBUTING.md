@@ -18,22 +18,71 @@ Markdown](https://help.github.com/articles/github-flavored-markdown).
 
 ### Line Length
 
-Please keep line widths to 100 characters or less; the only exception to this rule is when a URI on
+Line lengths SHOULD be 100 characters or less; the only exception to this rule is when a URI on
 the current line would push past the limit.
+
+### File Names
+
+File names MUST be enclosed in code tags ("\`\`"): `config/application.config.php`, `data/htpasswd`,
+etc.
+
+### PHP Class, Constant, Method, and Variable Names
+
+All references to PHP code, including namespaces, classes, constants, methods, and variables, MUST
+be enclosed in code tags ("\`\`"): `ZF\ApiProblem\ApiProblem`, `MvcEvent::EVENT_ROUTE`,
+`AuthenticationService::authenticate()`, `$event`.
+
+### HTTP
+
+HTTP status codes/reason phrases and HTTP header names MUST be enclosed in code tags
+("\`\`"): `200 OK`, `Authorization`.
+
+HTTP request and response messages MUST use the "HTTP" syntax in fenced code blocks. In order to
+ensure proper syntax highlighting, requests MUST include a full request line (including the HTTP
+version), and responses MUST include a full status line (including the HTTP version, status code,
+and reason phrase).
+
+- Request
+
+  ```HTTP
+  OPTIONS /foo HTTP/1.1
+  ```
+
+- Response
+
+  ```HTTP
+  HTTP/1.1 200 OK
+  ```
 
 ### Images
 
-Images can be submitted as part of a pull request. These should be placed in the
-`asset/apigility-documentation/img/` directory. The name should be prefixed with the directory name
+Images can be submitted as part of a pull request. Images MUST be placed in the
+`asset/apigility-documentation/img/` directory. The name MUST be prefixed with the directory name
 in which the documentation page occurs, the documentation page, and any clarifying verbiage; these
-segments should be dash (`-`) separated.
+segments MUST be dash (`-`) separated.
 
 As an example, an image detailing RPC HTTP methods for use in the `api-primer/http-negotiation.md`
-file might be called `api-primer-http-negotiation-rpc.png`.
+file would be called `api-primer-http-negotiation-rpc.png`.
+
+When writing the image markup, the text in square braces is the text for the `Alt` tag for the
+generated image, and MUST be a descriptive phrase for the image:
+
+```
+![RPC HTTP Negotiation options](/asset/apigility-documentation/img/api-primer-http-negotiation-rpc.png)
+```
+
+### Tables
+
+GitHub-flavored Markdown table markup MUST be used for all tables.
+
+### Lists
+
+For consistency, unordered lists MUST use the `-` character to denote a list item; you MUST NOT use
+the `*` character.
 
 ### Screencasts and Videos
 
-We encourage the use of screencasts and videos for explaining concepts. However, please do not
+We encourage the use of screencasts and videos for explaining concepts. However, you MUST NOT 
 include them in pull requests. Post them to public locations, such as [YouTube](http://youtube.com),
 [Vimeo](http://vimeo.com), Google Drive, etc.; somewhere where they will likely persist. Then use
 whatever HTML embed code they provide within your document in order to embed the video.
