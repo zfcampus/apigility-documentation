@@ -98,3 +98,9 @@ We encourage the use of screencasts and videos for explaining concepts. However,
 include them in pull requests. Post them to public locations, such as [YouTube](http://youtube.com),
 [Vimeo](http://vimeo.com), Google Drive, etc.; somewhere where they will likely persist. Then use
 whatever HTML embed code they provide within your document in order to embed the video.
+
+Recommendations
+---------------
+
+- To ensure your document can be found and automatically linked via the http://apigility.org/
+  website, please add a link to the document in the [Table of Contents](TOC.md).
