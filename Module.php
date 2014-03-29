@@ -19,7 +19,7 @@ class Module
                 ),
             ),
             'apigility-documentation' => array(
-                'path' => __DIR__,
+                'path' => realpath(__DIR__),
             ),
         );
     }
