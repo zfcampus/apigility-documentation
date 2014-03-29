@@ -1,0 +1,36 @@
+{
+    "name": "zfcampus/apigility-documentation",
+    "description": "Apigility Documentation",
+    "type": "library",
+    "license": "BSD-3-Clause",
+    "keywords": [
+        "api",
+        "apigility",
+        "framework",
+        "zf2"
+    ],
+    "homepage": "http://apigility.org/",
+    "support": {
+        "email": "apigility-users@zend.com",
+        "irc": "irc://irc.freenode.net/apigility",
+        "source": "https://github.com/zfcampus/apigility-documentation",
+        "issues": "https://github.com/zfcampus/apigility-documentation/issues"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    },
+    "require": {
+        "php": ">=5.3.23"
+    },
+    "suggest": {
+        "erusev/parsedown": ">=0.9.4 for rendering GitHub-flavored Markdown in PHP",
+        "rwoverdijk/assetmanager": "~1.3 for exposing image assets"
+    },
+    "autoload": {
+        "classmap": [
+            "Module.php"
+        ]
+    }
+}
