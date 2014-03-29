@@ -273,7 +273,7 @@ RPC services in Apigility display slightly different characteristics:
   requests methods are allowed.
 - A single service endpoint can provide multiple representations. By default, we return JSON.
 - Errors are reported in a consistent fashion (specifically,
-  [application/problem+json](error-reporting.md#api-problem).
+  [application/problem+json](/api-primer/error-reporting.md#api-problem).
 
 We see RPC as a bucket for one-off operations, or operations that are more "action" oriented
 (performing operations) than "resource" oriented (operating on a "thing"). 
@@ -289,10 +289,10 @@ In Apigility, we make the following choices for REST services:
   collections. Each type can specify HTTP request methods allowed; requests using methods outside
   those configured result in a `405 Method Not Allowed` status; `OPTIONS` requests will detail which
   requests methods are allowed.
-- By default, we use [Hypermedia Application Language](halprimer.md), which provides both relational
+- By default, we use [Hypermedia Application Language](/api-primer/halprimer.md), which provides both relational
   links as well as the ability to embed other addressable resources.
 - Errors are reported in a consistent fashion (specifically,
-  [application/problem+json](error-reporting.md#api-problem).
+  [application/problem+json](/api-primer/error-reporting.md#api-problem).
 
 A typical REST URI will look like `/status[/:status_id]`; a request to `/status` will return a
 _collection_, while adding a unique value for the `status_id`, such as `/status/12345678`, would

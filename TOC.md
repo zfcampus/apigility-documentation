@@ -17,6 +17,7 @@ API Primer
 
 Authentication and Authorization
 --------------------------------
+
 - [Introduction](/auth/intro.md)
 - [Authentication](/auth/authentication.md)
     - [HTTP Basic Auth](/auth/authentication-http-basic.md)
@@ -28,4 +29,5 @@ Authentication and Authorization
 
 Recipes
 -------
+
 - [Customising Authorization for Specific Identities](/recipes/how-do-i-customize-authorization-for-a-particular-identity.md)

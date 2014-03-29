@@ -1,7 +1,7 @@
 Representation Formats
 ======================
 
-As noted in the ["What is an API?"](what-is-an-api.md) chapter, APIs can come in a variety of
+As noted in the ["What is an API?"](/api-primer/what-is-an-api.md) chapter, APIs can come in a variety of
 formats. XML-RPC and SOAP both use XML. REST APIs can choose whatever they want, with XML and JSON
 being the most common, with many custom formats of each, many with their own [media
 types](http://en.wikipedia.org/wiki/Media_type).
@@ -29,7 +29,7 @@ quandary: how should links be represented in JSON?
 Several emerging standards/projects attempt to answer this question. Among the most popular
 solutions are:
 
-- [Hypermedia Application Language](halprimer.md), or HAL. The specification for this comes in both
+- [Hypermedia Application Language](/api-primer/halprimer.md), or HAL. The specification for this comes in both
   XML and JSON variants. Links and embedded resources fall under reserved keys; otherwise, you
   return whatever you want in the payload, however you want.
 - [Collection+JSON](http://amundsen.com/media-types/collection/). Collection+JSON is a JSON-only
@@ -46,4 +46,4 @@ controls in a straight-forward way, and does not complicate the payload with add
 or nest the important bits - the data - several layers deep. That said, any of the above formats
 would have posed an excellent choice.
 
-Read the [HAL Primer](halprimer.md) for more details on the HAL format and how it works.
+Read the [HAL Primer](/api-primer/halprimer.md) for more details on the HAL format and how it works.

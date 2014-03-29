@@ -45,13 +45,13 @@ being addressed, or a collection); Apigility will then respond to `OPTIONS` requ
 
 As an example, the following RPC service indicates only the `GET` method is available:
 
-![RPC HTTP Methods](../asset/apigility-documentation/img/api-primer-http-negotiation-rpc.png)
+![RPC HTTP Methods](/asset/apigility-documentation/img/api-primer-http-negotiation-rpc.png)
 
 The next example is of a REST service. REST services can respond for either collections (the URI
 without an identifier) or entities (the URI _with_ an identifier). As such, you need to configure
 two sets of HTTP methods:
 
-![REST HTTP Methods](../asset/apigility-documentation/img/api-primer-http-negotiation-rest.png)
+![REST HTTP Methods](/asset/apigility-documentation/img/api-primer-http-negotiation-rest.png)
 
 In the above case, when accessing the collection, you can use either `GET` or `POST`, but when
 accessing an individual item in the collection (an entity), only `GET` is allowed.
