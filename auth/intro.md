@@ -11,9 +11,9 @@ as the set of allowed HTTP methods.  These methods are labeled as _allowed_ in t
 REST or RPC service can respond to that method regarless of what authentication/authorization is 
 configured, or which identity is present on any given request to that particular service; see [the section on HTTP negotiation](/api-primer/http-negotiation.md) for more information.
 
-- [Authentication](authentication.md)
-    - [HTTP Basic Auth](authentication-http-basic.md)
-    - [HTTP Digest Auth](authentication-http-digest.md)
-    - [OAuth2](authentication-oauth2.md)
-- [Authorization](authorization.md)
-- [Advanced Auth Events and Services](advanced.md)
+- [Authentication](/auth/authentication.md)
+    - [HTTP Basic Auth](/auth/authentication-http-basic.md)
+    - [HTTP Digest Auth](/auth/authentication-http-digest.md)
+    - [OAuth2](/auth/authentication-oauth2.md)
+- [Authorization](/auth/authorization.md)
+- [Advanced Auth Events and Services](/auth/advanced.md)
