@@ -10,7 +10,13 @@ is not present on your system, there are a number of web based tools that will a
 Like HTTP Basic authentication, a digest file will need to exist before configuration of this 
 authentication scheme takes place:
 
-![Creating an htdigest file](/asset/apigility-documentation/img/auth-authentication-http-digest-htdigest-create-file.jpg)
+```sh
+$ htdigest -c data/users.htdigest "Secure API" ralph
+Adding password for ralph in realm Secure API
+New password:
+Re-type new password:
+$ 
+```
 
 Once the file has been created, its path can be used to configure the required `htdigest` file input 
 of the HTTP Digest authentication configuration screen:
@@ -25,11 +31,44 @@ production `config/autoload/local.php` configuration file.
 
 At this point, HTTP Digest authentication has been setup and is ready to use.
 
-![HTTP Digest successful authentication](/asset/apigility-documentation/img/auth-authentication-http-digest-httpie-success.jpg)
+```HTTP
+GET /foo HTTP/1.1
+Accept: application/json
+Authorization: Digest username="ralph", realm="Secure API", nonce="2f3fdb4e7670ae34f0b5c092d720961c", uri="/foo", response="eaaf8d5ac41022635277a4196b747ba1", opaque="e66a41ca5bf6992a5479102cc787bc9", algorithm="MD5", qop=auth, nc=00000001, cnonce="c07b87e1b0cc5115"
+
+
+```
+
+```HTTP
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+    "foo": "bar"
+}
+```
 
 And a failed attempt at authentication:
 
-![HTTP Digest authentication failure](/asset/apigility-documentation/img/auth-authentication-http-digest-httpie-failure.jpg)
+```HTTP
+GET /foo HTTP/1.1
+Accept: application/json
+Authorization: Digest clearly-invalid-token
+
+
+```
+
+```HTTP
+HTTP/1.1 401 Unauthorized
+Content-Type: application/problem+json
+
+{
+    "type": "http://www.w3c.org/Protocols/rfc2616/rfc2616-sec10.html",
+    "title": "Unauthorized",
+    "status": 401,
+    "detail": "Unauthorized"
+}
+```
 
 Important notes:
 

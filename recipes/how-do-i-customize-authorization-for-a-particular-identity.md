@@ -106,7 +106,81 @@ class AuthorizationListener
 
 ```
 
-To demonstrate this particular rule in action, see the following [HTTPie](http://httpie.org/) output
-(there are two users configured: "ralph" and "joe"):
+To demonstrate this particular rule in action, consider the following HTTP requests.
 
-![Custom ACL usage](/asset/apigility-documentation/img/recipe-custom-authorization-acl.jpg)
+First, we'll request without passing any credentials.
+
+```HTTP
+GET /foo HTTP/1.1
+Accept: application/json
+
+
+```
+
+This results in the following `403` status, containing a `WWW-Authenticate` header that indicates no
+valid credentials were provided:
+
+```HTTP
+HTTP/1.1 403 Forbidden
+WWW-Authenticate: Basic realm="Secure API"
+Content-Type: application/problem+json
+
+{
+    "type": "http://www.w3c.org/Protocols/rfc2616/rfc2616-sec10.html",
+    "title": "Forbidden",
+    "status": 403,
+    "detail": "Forbidden"
+}
+```
+
+Next, we'll try with the user "joe":
+
+```HTTP
+GET /foo HTTP/1.1
+Accept: application/json
+Authorization: Basic am9lOmpvZQ==
+
+
+```
+
+The above requests results in the following response. Even though "joe" is a valid user (which we
+can tell by the absence of the `WWW-Authenticate` header), the ACLs do not allow him access to the
+resource, so we still get a `403` status:
+
+```HTTP
+HTTP/1.1 403 Forbidden
+Content-Type: application/problem+json
+
+{
+    "type": "http://www.w3c.org/Protocols/rfc2616/rfc2616-sec10.html",
+    "title": "Forbidden",
+    "status": 403,
+    "detail": "Forbidden"
+}
+```
+
+Finally, let's try the user "ralph":
+
+```HTTP
+GET /foo HTTP/1.1
+Accept: application/json
+Authorization: Basic cmFscGg6cmFscGg=
+
+
+```
+
+Finally, we have success:
+
+```HTTP
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+    "foo": "bar"
+}
+```
+
+The above examples demonstrate that you can customize the ACLs present in the application without
+needing to alter any logic in your RPC controllers or REST resource classes. This also means that
+authorization failure responses will continue to return as early as possible, before any heavy
+operations that your application code might invoke.

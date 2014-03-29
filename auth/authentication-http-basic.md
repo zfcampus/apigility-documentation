@@ -15,7 +15,13 @@ one username and password.
 
 A good place to store this file would be in `data/users.htpasswd`.
 
-![Create an htpasswd file](/asset/apigility-documentation/img/auth-authentication-http-basic-htpasswd-create-file.jpg)
+```sh
+$ htpasswd -cs data/users.htpasswd ralph
+New password:
+Re-type new password:
+Adding password for user ralph
+$ 
+```
 
 Once the file has been created, its path can be used to configure the required `htpasswd` file input 
 of the HTTP Basic authentication configuration screen:
@@ -33,16 +39,76 @@ store is not available in your VCS.  At this point, your production system shoul
 user/password `htpasswd` file to ensure proper authentication of identities with HTTP Basic is
 possible.
 
-![HTTP Basic configuration](/asset/apigility-documentation/img/auth-authentication-http-basic-code.jpg)
+```php
+// config/autoload/global.php
+return array(
+    'zf-mvc-auth' = >array(
+        'authentication' => array(
+            'http' => array(
+                'accept_schemes' => array(
+                    'basic',
+                ),
+                'realm' => 'My Realm'
+            ),
+        ),
+    ),
+);
+```
+
+```php
+// config/autoload/local.php
+return array(
+    'zf-mvc-auth' = >array(
+        'authentication' => array(
+            'http' => array(
+                'htpasswd' => 'data/users.htpasswd',
+            ),
+        ),
+    ),
+);
+```
 
 At this point, HTTP Basic authentication with the previously entered username and password is ready 
 to use. A successfully authenticated identity will allow the user to access the given API:
 
-![HTTP Basic successful authentication](/asset/apigility-documentation/img/auth-authentication-http-basic-httpie-success.jpg)
+```HTTP
+GET /foo HTTP/1.1
+Accept: application/json
+Authorization: Basic cmFscGg6cmFscGg=
+
+
+```
+
+```HTTP
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+    "foo": "bar"
+}
+```
 
 An incorrect username or password should result in an `401 Unauthorized` attempt:
 
-![HTTP Basic authentication failure](/asset/apigility-documentation/img/auth-authentication-http-basic-httpie-failure.jpg)
+```HTTP
+GET /foo HTTP/1.1
+Accept: application/json
+Authorization: Basic clearly-invalid-token
+
+
+```
+
+```HTTP
+HTTP/1.1 401 Unauthorized
+Content-Type: application/problem+json
+
+{
+    "type": "http://www.w3c.org/Protocols/rfc2616/rfc2616-sec10.html",
+    "title": "Unauthorized",
+    "status": 401,
+    "detail": "Unauthorized"
+}
+```
 
 Important notes:
 
