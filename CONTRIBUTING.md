@@ -33,6 +33,30 @@ Level 3 and lower headings MUST use the `#` prefix, with one such character per 
 Line lengths SHOULD be 100 characters or less; the only exception to this rule is when a URI on
 the current line would push past the limit.
 
+### Links
+
+Links to other documents within the repository MUST be relative to the project root, not to the
+current directory. For example, consider the following tree:
+
+```
+api-primer/
+    halprimer.md
+    error-reporting.md
+```
+
+If the file `api-primer/halprimer.md` links to the file `api-primer/error-reporting.md`, the
+following IS NOT correct:
+
+```Markdown
+(chapter on Error Reporting)[error-reporting.md]
+```
+
+The following IS correct:
+
+```Markdown
+(chapter on Error Reporting)[/api-primer/error-reporting.md]
+```
+
 ### File Names
 
 File names MUST be enclosed in code tags ("\`\`"): `config/application.config.php`, `data/htpasswd`,
@@ -82,6 +106,9 @@ generated image, and MUST be a descriptive phrase for the image:
 ```
 ![RPC HTTP Negotiation options](/asset/apigility-documentation/img/api-primer-http-negotiation-rpc.png)
 ```
+
+Finally, just as defined for [Links](#links), the path to the image MUST be relative to the
+repository root, as in the above example.
 
 ### Tables
 
