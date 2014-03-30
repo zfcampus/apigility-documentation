@@ -57,6 +57,14 @@ The following IS correct:
 (chapter on Error Reporting)[/api-primer/error-reporting.md]
 ```
 
+### Notes/Warnings/Etc.
+
+Notes MUST be written using Markdown "blockquote" syntax:
+
+```Markdown
+> This is a note
+```
+
 ### File Names
 
 File names MUST be enclosed in code tags ("\`\`"): `config/application.config.php`, `data/htpasswd`,

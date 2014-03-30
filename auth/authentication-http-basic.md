@@ -10,8 +10,8 @@ produce a valid `htpasswd` file; google for "htpasswd generator" for a selection
 The first thing to do, before anything else, is to create an `htpasswd` file that contains at least 
 one username and password. 
 
-    It is important that the `htpasswd` file exists before configuration, as having a path to a
-    non-existent file in the configuration could break the Apigility installation.
+> It is important that the `htpasswd` file exists before configuration, as having a path to a
+> non-existent file in the configuration could break the Apigility installation.
 
 A good place to store this file would be in `data/users.htpasswd`.
 
