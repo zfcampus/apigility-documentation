@@ -35,6 +35,8 @@ effectively two listeners that deal with authentication related workflows:
   authenticated. If it was not, this listener will inject a `401 Unauthorized` status code to the
   current HTTP response object and return it, ending the request.
 
+| `zf-mvc-auth` event | MVC event in which triggered | MVC event priority |
+| ------------------- | ---------------------------- | ------------------ |
 | `ZF\MvcAuth\MvcAuthEvent::EVENT_AUTHORIZATION` | (`Zend\Mvc\MvcEvent::EVENT_ROUTE`, -600) |
 | `ZF\MvcAuth\MvcAuthEvent::EVENT_AUTHORIZATION_POST` | (`Zend\Mvc\MvcEvent::EVENT_ROUTE`, -601) |
 
@@ -61,6 +63,8 @@ are effectively three listeners that deal with authorization related workflows:
 
 The following table describes services and models that are accessible through the Service Manager:
 
+| Service | Class/Interface returned by service |
+| ------- | ----------------------------------- |
 | api-identity | `ZF\MvcAuth\Identity\IdentityInterface` (either a `GuestIdentity` or an `AuthenticatedIdentity`) |
 | authentication | `Zend\Authentication\AuthenticationService` |
 | authorization | `ZF\MvcAuth\Authorization\AuthorizationInterface` (likely a `ZF\MvcAuth\Authorization\AclAuthorization`, a variant of `Zend\Permissions\Acl\Acl`) |
