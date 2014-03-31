@@ -110,4 +110,5 @@ If you are only growing your API, adding services and fields, you may be able to
 versioning. However, for most long-lived APIs, versioning is typically inevitable.
 
 Apigility provides versioning immediately upon creation of an API, via both URI and media type,
-ensuring future expandability of your API.
+ensuring future expandability of your API. For more information on Apigility's versioning features,
+read the [versioning](/versioning/index.md) chapter.

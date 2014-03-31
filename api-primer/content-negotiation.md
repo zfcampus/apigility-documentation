@@ -112,4 +112,4 @@ Content negotiation is configuration driven, and handled by the
 service can indicate what `Accept` media types it can handle, what `Content-Type` media types it can
 deserialize, and specify a map of `Accept` media types to the view models, and hence view renderers,
 that will handle creating a representation. You can read more about these subjects in the [content
-negotiation chapter](/content-negotiation/index).
+negotiation chapter](/content-negotiation/index.md).

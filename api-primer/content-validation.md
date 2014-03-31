@@ -105,4 +105,4 @@ returning a "response" object. Apigility leverages this fact by registering an e
 after [content negotiation](/api-primer/content-negotiation.md) completes, but before the service
 itself executes, ensuring we intercept validation errors early.
 
-Read the [content validation](/content-validation/index) chapter for more details.
+Read the [content validation](/content-validation/index.md) chapter for more details.
