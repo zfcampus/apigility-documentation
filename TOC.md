@@ -11,10 +11,11 @@ API Primer
 
 - [What is an API?](/api-primer/what-is-an-api.md)
 - [Representation Formats](/api-primer/representation-formats.md)
-- [HTTP Method Negotiation](/api-primer/http-negotiation.md)
-- [Content Negotiation](/api-primer/content-negotiation.md)
 - [Hypermedia Application Layer](/api-primer/halprimer.md)
 - [Error Reporting](/api-primer/error-reporting.md)
+- [HTTP Method Negotiation](/api-primer/http-negotiation.md)
+- [Content Negotiation](/api-primer/content-negotiation.md)
+- [Content Validation](/api-primer/content-validation.md)
 
 Authentication and Authorization
 --------------------------------
