@@ -16,6 +16,7 @@ API Primer
 - [HTTP Method Negotiation](/api-primer/http-negotiation.md)
 - [Content Negotiation](/api-primer/content-negotiation.md)
 - [Content Validation](/api-primer/content-validation.md)
+- [Versioning](/api-primer/versioning.md)
 
 Authentication and Authorization
 --------------------------------
