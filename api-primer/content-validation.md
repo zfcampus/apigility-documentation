@@ -2,7 +2,7 @@ Content Validation
 ==================
 
 Once incoming data has been
-[deserialized](/api-primer/content-negotioation.md#content-type-negotiation), how and when do you
+[deserialized](/api-primer/content-negotiation.md#content-type-negotiation), how and when do you
 ensure it's valid? And if you determine it's invalid, how do you report that information?
 
 Taking a layered security approach, the sooner you can deliver validation errors, the better. Denial
@@ -102,7 +102,7 @@ Summary
 
 Zend Framework 2 provides the ability to short-circuit the request lifecycle at any point by
 returning a "response" object. Apigility leverages this fact by registering an event listener
-after [content negotiation](/api-primer/content-negotioation.md) completes, but before the service
+after [content negotiation](/api-primer/content-negotiation.md) completes, but before the service
 itself executes, ensuring we intercept validation errors early.
 
 Read the [content validation](/content-validation/index) chapter for more details.
