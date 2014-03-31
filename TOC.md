@@ -6,8 +6,21 @@ Introduction
 
 - [Installation](/intro/installation.md)
 
+API Primer
+----------
+
+- [What is an API?](/api-primer/what-is-an-api.md)
+- [Representation Formats](/api-primer/representation-formats.md)
+- [Hypermedia Application Layer](/api-primer/halprimer.md)
+- [Error Reporting](/api-primer/error-reporting.md)
+- [HTTP Method Negotiation](/api-primer/http-negotiation.md)
+- [Content Negotiation](/api-primer/content-negotiation.md)
+- [Content Validation](/api-primer/content-validation.md)
+- [Versioning](/api-primer/versioning.md)
+
 Authentication and Authorization
 --------------------------------
+
 - [Introduction](/auth/intro.md)
 - [Authentication](/auth/authentication.md)
     - [HTTP Basic Auth](/auth/authentication-http-basic.md)
@@ -19,4 +32,5 @@ Authentication and Authorization
 
 Recipes
 -------
+
 - [Customising Authorization for Specific Identities](/recipes/how-do-i-customize-authorization-for-a-particular-identity.md)
