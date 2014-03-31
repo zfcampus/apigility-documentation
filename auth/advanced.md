@@ -37,8 +37,8 @@ effectively two listeners that deal with authentication related workflows:
 
 | `zf-mvc-auth` event | MVC event in which triggered | MVC event priority |
 | ------------------- | ---------------------------- | ------------------ |
-| `ZF\MvcAuth\MvcAuthEvent::EVENT_AUTHORIZATION` | (`Zend\Mvc\MvcEvent::EVENT_ROUTE`, -600) |
-| `ZF\MvcAuth\MvcAuthEvent::EVENT_AUTHORIZATION_POST` | (`Zend\Mvc\MvcEvent::EVENT_ROUTE`, -601) |
+| `ZF\MvcAuth\MvcAuthEvent::EVENT_AUTHORIZATION` | `Zend\Mvc\MvcEvent::EVENT_ROUTE` | -600 |
+| `ZF\MvcAuth\MvcAuthEvent::EVENT_AUTHORIZATION_POST` | `Zend\Mvc\MvcEvent::EVENT_ROUTE` | -601 |
 
 As you can tell from their `EVENT_ROUTE` priorities, authorization happens *after* routing.  There 
 are effectively three listeners that deal with authorization related workflows:
