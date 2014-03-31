@@ -15,7 +15,7 @@ one username and password.
 
 A good place to store this file would be in `data/users.htpasswd`.
 
-```sh
+```console
 $ htpasswd -cs data/users.htpasswd ralph
 New password:
 Re-type new password:
