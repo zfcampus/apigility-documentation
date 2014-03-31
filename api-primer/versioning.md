@@ -23,9 +23,9 @@ URL Versioning
 
 One method for indicating versioning is via the URI, typically via a path prefix:
 
-- Twitter: http://api.twitter.com/1.1/
-- Last.fm: http://ws.audioscrobbler.com/2.0/
-- Etsy: http://openapi.etsy.com/v2
+- Twitter: `http://api.twitter.com/1.1/`
+- Last.fm: `http://ws.audioscrobbler.com/2.0/`
+- Etsy: `http://openapi.etsy.com/v2`
 
 Some APIs will provide the version via a query string parameter:
 
@@ -68,9 +68,9 @@ The above two versioning types are the most common. However, other types exist:
 - Custom header. As an example, `X-API-Version: 2`, `GData-Version: 2.0`, `X-MS-Version:
   2011-08-18`, etc.
 - Hostname. Facebook, when migrating from the first API version, switched from the host
-  http://api.facebook.com to http://graph.facebook.com.
+  `http://api.facebook.com` to `http://graph.facebook.com`.
 - Data parameter. This could be a query string parameter for `GET` requests, as noted above, but a
-  content body parameter for other requests.
+  content body parameter for other request methods.
 
 What About the Code?
 --------------------
