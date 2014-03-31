@@ -76,6 +76,22 @@ All references to PHP code, including namespaces, classes, constants, methods, a
 be enclosed in code tags ("\`\`"): `ZF\ApiProblem\ApiProblem`, `MvcEvent::EVENT_ROUTE`,
 `AuthenticationService::authenticate()`, `$event`.
 
+### Console Examples
+
+Console examples MUST use a fenced code block with a language of "console":
+
+```Markdown
+\```console
+$ htpasswd -s data/htpasswd matthew
+New password:
+Re-type new password:
+$ 
+\```
+```
+
+(Note that escape characters in the sample are only for purposes of ensuring syntax highlighting
+occurs for the sample!)
+
 ### HTTP
 
 HTTP status codes/reason phrases and HTTP header names MUST be enclosed in code tags

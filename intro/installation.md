@@ -5,13 +5,13 @@ Installation
 
 The easiest way to install `Apigility` is from your terminal, executing the following command:
 
-```bash
+```console
 curl -sS http://apigility.org/install | php
 ```
 
 If you do not have [curl](http://curl.haxx.se/) installed you can use PHP itself:
 
-```bash
+```console
 php -r "readfile('http://apigility.org/install');" | php
 ```
 Otherwise you can install `Apigility` using one of the alternative following procedures.
@@ -22,7 +22,7 @@ Grab the latest release from the Apigility [download](http://apigility.org/downl
 
 Untar it:
 
-```bash
+```console
 tar xzf zf-apigility-skeleton-1.0.0beta1.tgz
 ```
 
@@ -31,7 +31,7 @@ tar xzf zf-apigility-skeleton-1.0.0beta1.tgz
 You can use the `create-project` command from [Composer](http://getcomposer.org/)
 to create the project in one go:
 
-```bash
+```console
 curl -s https://getcomposer.org/installer | php --
 php composer.phar create-project -sdev zfcampus/zf-apigility-skeleton path/to/install
 ```
@@ -40,7 +40,7 @@ php composer.phar create-project -sdev zfcampus/zf-apigility-skeleton path/to/in
 
 First, clone the repository:
 
-```bash
+```console
 git clone https://github.com/zfcampus/zf-apigility-skeleton.git # optionally, specify the directory in which to clone
 cd path/to/install
 ```
@@ -48,7 +48,7 @@ cd path/to/install
 At this point, you need to use [Composer](https://getcomposer.org/) to install
 dependencies. Assuming you already have Composer:
 
-```bash
+```console
 composer.phar install
 ```
 
@@ -56,7 +56,7 @@ composer.phar install
 
 Once you have the basic installation, you need to put it in development mode:
 
-```bash
+```console
 cd path/to/install
 php public/index.php development enable # put the skeleton in development mode
 ```
@@ -70,7 +70,7 @@ Now, fire it up! Do one of the following:
 
 In the latter case, do the following:
 
-```bash
+```console
 cd path/to/install
 php -S 0.0.0.0:8080 -t public public/index.php
 ```

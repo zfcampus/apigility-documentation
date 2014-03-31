@@ -10,7 +10,7 @@ is not present on your system, there are a number of web based tools that will a
 Like HTTP Basic authentication, a digest file will need to exist before configuration of this 
 authentication scheme takes place:
 
-```sh
+```console
 $ htdigest -c data/users.htdigest "Secure API" ralph
 Adding password for ralph in realm Secure API
 New password:
