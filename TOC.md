@@ -34,3 +34,4 @@ Recipes
 -------
 
 - [Customising Authorization for Specific Identities](/recipes/how-do-i-customize-authorization-for-a-particular-identity.md)
+- [Returning HAL from RPC Services](/recipes/hal-from-rpc.md)
