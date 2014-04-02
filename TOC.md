@@ -29,6 +29,10 @@ Authentication and Authorization
 - [Authorization](/auth/authorization.md)
 - [Advanced Auth Events and Services](/auth/advanced.md)
 
+Content Validation
+------------------
+
+- [Introduction](/content-validation/intro.md)
 
 Recipes
 -------
