@@ -11,7 +11,7 @@ the filtering phase of content validation.
 
 For a list of the currently available filters, see the Zend/Filter branch of the ZF2 repository:
 
-[Filter List in ZF2 master](https://github.com/zendframework/zf2/tree/master/library/Zend/Filter)
+- [Filter List in ZF2 master](https://github.com/zendframework/zf2/tree/master/library/Zend/Filter)
 
 While in most cases fields will need validation, in some cases it might make sense to first send
 the fields data through a filter *before* validation.
