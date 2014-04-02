@@ -1,5 +1,5 @@
-Customizing the API Documentation Module
-========================================
+Customizing API Documentation
+=============================
 
 The API documentation feature is provided via the [zf-apigility-documentation](https://github.com/zfcampus/zf-apigility-documentation)
 module. This module provides an object model of all captured documentation information, including:

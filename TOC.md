@@ -35,7 +35,7 @@ API Documentation
 
 - [Introduction](/api-doc/intro.md)
 - [Swagger format](/api-doc/swagger.md)
-- [Customize the API doc](/api-doc/customize.md)
+- [Customize API documentation](/api-doc/customize.md)
 
 
 Recipes
