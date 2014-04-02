@@ -11,7 +11,7 @@ the resource *Failed Validation*.  In this situation the controller will never b
 For example, in the following AddressBook & Contact example, a contact must have a valid age passed 
 in, the setup looks like:
 
-![]() // setup of 
+![content-validation-validating-required-field](/asset/apigility-documentation/img/content-validation-validating-required-field.jpg)
 
 A request without an age:
 
@@ -52,7 +52,7 @@ Having one or more validators attached to a field would ensure more rigourous va
 data coming into the system.  In the following example, the "age" field will have more than 1 
 validator that will need to be checked:
 
-![]() // setup 3 validators
+![content-validation-validating-3-validators](/asset/apigility-documentation/img/content-validation-validating-3-validators.jpg)
 
 And a request that has "age" as both the wrong type and not inside the proper range, also "email" 
 is omitted:
@@ -96,7 +96,7 @@ identify each field that did not pass validation, and a message from each valida
 Sometimes, you may want a more specific message for a validator, these can be added through options 
 for the validator:
 
-![]() // image of validator with message
+![content-validation-validating-special-validator-message](/asset/apigility-documentation/img/content-validation-validating-special-validator-message.jpg)
 
 Which would result in the response including that message in that validator:
 
@@ -124,7 +124,7 @@ Content-Type: application/problem+json
 In some cases, it makes more sense to assign a single consolidated error message for the group of 
 validators.  To do this, simply add an error message to the field:
 
-![]() // Error Message
+![content-validation-validating-consolidated-field-message](/asset/apigility-documentation/img/content-validation-validating-consolidated-field-message.jpg)
 
 And with the same request as above, the response will look like:
 

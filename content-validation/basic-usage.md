@@ -84,3 +84,11 @@ zf-content-validation key and the input_filter_specs key.  Here is a sample:
     ),
 );
 ```
+
+The above configuration describes the linking of a particular Input Filter specification with a
+particular _controller service name_.  Any time a route matches that will eventually attempt to
+execute a controller service name, if there is an Input Filter specification for that controller
+this Input Filter will attempt to filter and validate any deserialized request content body
+paramters that are present in the request according to the Input Filter specification.  If it
+filters and validates, then the MVC lifecycle will continue, if not, then the MVC dispatch process
+will not execute, and generally a 422 HTTP error will be returned in a response.
