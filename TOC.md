@@ -30,6 +30,14 @@ Authentication and Authorization
 - [Advanced Auth Events and Services](/auth/advanced.md)
 
 
+API Documentation
+-----------------
+
+- [Introduction](/api-doc/intro.md)
+- [Swagger format](/api-doc/swagger.md)
+- [Customize the API doc](/api-doc/customize.md)
+
+
 Recipes
 -------
 
