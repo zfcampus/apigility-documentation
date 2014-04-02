@@ -33,6 +33,9 @@ Content Validation
 ------------------
 
 - [Introduction](/content-validation/intro.md)
+- [Basic Usage](/content-validation/basic-usage.md)
+- [Filtering](/content-validation/filtering.md)
+- [Validating](/content-validation/validating.md)
 
 Recipes
 -------

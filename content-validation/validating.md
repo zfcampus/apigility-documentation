@@ -1,12 +1,12 @@
 Validating
-----------
+==========
 
 https://github.com/zendframework/zf2/tree/master/library/Zend/Validator
 
 In addition to per-field configuration, each field can be assigned a set of validators and filters.
-When an Input Filter is present, all validation must pass in order for the controller to be
+When an Input Filter is present, all validation must pass in order for the service to be
 executed.  If an Input Filter does not validate, a *422 Unprocessable Entity* with a message that
-the resource *Failed Validation*.  In this situation the controller will never be executed.
+the resource *Failed Validation*.  In this situation the service will never be executed.
 
 For example, in the following AddressBook & Contact example, a contact must have a valid age passed 
 in, the setup looks like:
@@ -43,10 +43,11 @@ Content-Type: application/problem+json
         }
     }
 }
+```
 
-Note: When a field is defined as being requried and not empty, if those conditions are not 
-immediately met, no other validators will be executed and subsequently their messages will not be 
-returned in the response.
+> Note: When a field is defined as being requried and not empty, if those conditions are not 
+> immediately met, no other validators will be executed and subsequently their messages will not be 
+> returned in the response.
 
 Having one or more validators attached to a field would ensure more rigourous validation of the 
 data coming into the system.  In the following example, the "age" field will have more than 1 
@@ -66,6 +67,7 @@ Content-Type: application/json; charset=utf-8
     "age": "foo",
     "name": "Ralph"
 }
+```
 
 Our response:
 
@@ -122,7 +124,7 @@ Content-Type: application/problem+json
 ```
 
 In some cases, it makes more sense to assign a single consolidated error message for the group of 
-validators.  To do this, simply add an error message to the field:
+validators.  To do this, add an error message to the field:
 
 ![content-validation-validating-consolidated-field-message](/asset/apigility-documentation/img/content-validation-validating-consolidated-field-message.jpg)
 

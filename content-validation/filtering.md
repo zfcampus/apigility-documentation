@@ -1,13 +1,13 @@
 Filtering
----------
+=========
 
 In addition to per-field configuration, each field can be assigned a set of validators and filters. 
-It is important to note that like with `Zend\InputFilter\InputFilter`'s, filters are run before 
-validators.  Filters give you the opportunity to "cleanup" data that might be sent through any 
-particular field of a resource in any number of different ways.
+`Zend\InputFilter\InputFilter`'s runs filters before validators.  Filters give you the opportunity
+to "cleanup" data that might be sent through any particular field of a resource in any number of
+different ways.
 
 The `Zend\Filter` component is used in conjuction with `Zend\InputFilter\InputFilter` to accomplish 
-the filtering phase of filtering and validating input fields.
+the filtering phase of content validation.
 
 For a list of the currently available filters, see the Zend/Filter branch of the ZF2 repository:
 
@@ -16,7 +16,7 @@ For a list of the currently available filters, see the Zend/Filter branch of the
 While in most cases fields will need validation, in some cases it might make sense to first send
 the fields data through a filter *before* validation.
 
-In this example, we'll add a _StringTrim_ filter to the name field.
+In this example, we'll add a `StringTrim` filter to the name field.
 
 ![content-validation-filtering-setup](/asset/apigility-documentation/img/content-validation-filtering-setup.jpg)
 
