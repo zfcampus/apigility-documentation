@@ -48,13 +48,13 @@ If the file `api-primer/halprimer.md` links to the file `api-primer/error-report
 following IS NOT correct:
 
 ```Markdown
-(chapter on Error Reporting)[error-reporting.md]
+[chapter on Error Reporting](error-reporting.md)
 ```
 
 The following IS correct:
 
 ```Markdown
-(chapter on Error Reporting)[/api-primer/error-reporting.md]
+[chapter on Error Reporting](/api-primer/error-reporting.md)
 ```
 
 ### Notes/Warnings/Etc.
