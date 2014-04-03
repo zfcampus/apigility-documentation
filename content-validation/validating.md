@@ -9,7 +9,7 @@ In this situation the service will not be executed.
 For example, in the following AddressBook and Contact example, a contact must provide a valid age.
 The setup looks like:
 
-![content-validation-validating-required-field](/asset/apigility-documentation/img/content-validation-validating-required-field.jpg)
+![Content Validation Required Field](/asset/apigility-documentation/img/content-validation-validating-required-field.jpg)
 
 A request without an age:
 
@@ -54,7 +54,7 @@ Having one or more validators attached to a field would ensure more rigourous va
 data coming into the system. In the following example, the `age` field has more than one validator
 defined:
 
-![content-validation-validating-3-validators](/asset/apigility-documentation/img/content-validation-validating-3-validators.jpg)
+![Content Validation Multiple Validators](/asset/apigility-documentation/img/content-validation-validating-3-validators.jpg)
 
 In the following request, an `age` value is provided that is both the wrong type and outside the
 specified range, and the `email` field is omitted entirely:
@@ -100,7 +100,7 @@ messages.
 You may customize the message returned for each validator via the `message` option for the
 validator:
 
-![content-validation-validating-special-validator-message](/asset/apigility-documentation/img/content-validation-validating-special-validator-message.jpg)
+![Content Validation Validator Error Message](/asset/apigility-documentation/img/content-validation-validating-special-validator-message.jpg)
 
 When you provide a message in this way, this will be the only error message returned by the
 validator on validation failure.
@@ -131,7 +131,7 @@ Content-Type: application/problem+json
 In some cases, it makes more sense to assign a single consolidated error message for the field.
 To do this, provide a value for the "Validation Failure Message" of the field:
 
-![content-validation-validating-consolidated-field-message](/asset/apigility-documentation/img/content-validation-validating-consolidated-field-message.jpg)
+![Content Validation Consolidated Field Message](/asset/apigility-documentation/img/content-validation-validating-consolidated-field-message.jpg)
 
 And with the same request as above, the response will look like:
 

@@ -14,7 +14,7 @@ switch to the "Fields" tab.  At this point, you should enter the field names as 
 present in the deserialized payload of the request (typically, the top level keys in a JSON
 request).
 
-![content-validation-basic-usage-fields](/asset/apigility-documentation/img/content-validation-basic-usage-fields.jpg)
+![Content Validation Fields](/asset/apigility-documentation/img/content-validation-basic-usage-fields.jpg)
 
 For each field, the same information that is utilized to build an input filter from a factory
 in ZF2 is the same information that this UI screen will collect to create a service input filter.

@@ -16,7 +16,7 @@ Filters are executed prior to validation, allowing you to perform normalization 
 
 In this example, we'll add a `StringTrim` filter to the name field.
 
-![content-validation-filtering-setup](/asset/apigility-documentation/img/content-validation-filtering-setup.jpg)
+![Content Validation Filtering Setup](/asset/apigility-documentation/img/content-validation-filtering-setup.jpg)
 
 Once this is in place, we'll issue a request to the contact service that looks like this:
 
