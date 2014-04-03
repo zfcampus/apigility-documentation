@@ -36,6 +36,7 @@ Content Validation
 - [Basic Usage](/content-validation/basic-usage.md)
 - [Filtering](/content-validation/filtering.md)
 - [Validating](/content-validation/validating.md)
+- [Advanced Content Validation](/content-validation/advanced.md)
 
 API Documentation
 -----------------

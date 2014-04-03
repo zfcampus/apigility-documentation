@@ -1,20 +1,18 @@
 Filtering
 =========
 
-In addition to per-field configuration, each field can be assigned a set of validators and filters. 
-`Zend\InputFilter\InputFilter`'s runs filters before validators.  Filters give you the opportunity
-to "cleanup" data that might be sent through any particular field of a resource in any number of
-different ways.
+In addition to per-field configuration, each field can be assigned a set of validators and filters.
+`Zend\InputFilter\InputFilter` runs filters before validators, giving you the opportunity to
+"cleanup" or normalize data.
 
-The `Zend\Filter` component is used in conjuction with `Zend\InputFilter\InputFilter` to accomplish 
-the filtering phase of content validation.
+The [Zend\Filter](http://framework.zend.com/manual/2.3/en/modules/zend.filter.html) component is
+used  to accomplish the filtering phase of content validation.
 
-For a list of the currently available filters, see the Zend/Filter branch of the ZF2 repository:
+For a list of the currently available filters:
 
-- [Filter List in ZF2 master](https://github.com/zendframework/zf2/tree/master/library/Zend/Filter)
+- [Filter documentation](http://framework.zend.com/manual/2.3/en/modules/zend.filter.set.html)
 
-While in most cases fields will need validation, in some cases it might make sense to first send
-the fields data through a filter *before* validation.
+Filters are executed prior to validation, allowing you to perform normalization tasks.
 
 In this example, we'll add a `StringTrim` filter to the name field.
 
@@ -55,6 +53,5 @@ Location: http://localhost:8000/contact/5
 }
 ```
 
-As you will notice, _name_ was provided with leading and trailing whitespace.  Our configured
-Input Filter ensured that before the data reached the controller, whitespace was trimmed from that
-particular input field.
+As you will notice, `name` was provided with leading and trailing whitespace, but the response field
+does not contain the whitespace. 

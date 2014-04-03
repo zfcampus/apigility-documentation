@@ -1,15 +1,13 @@
 Validating
 ==========
 
-https://github.com/zendframework/zf2/tree/master/library/Zend/Validator
+Each field of a service can be assigned a set of validators.  When an input filter is present, all
+validation must pass in order for the service to be executed. If an input filter does not validate,
+a `422 Unprocessable Entity` status is returned, with a message that the resource failed validation.
+In this situation the service will not be executed.
 
-In addition to per-field configuration, each field can be assigned a set of validators and filters.
-When an Input Filter is present, all validation must pass in order for the service to be
-executed.  If an Input Filter does not validate, a *422 Unprocessable Entity* with a message that
-the resource *Failed Validation*.  In this situation the service will never be executed.
-
-For example, in the following AddressBook & Contact example, a contact must have a valid age passed 
-in, the setup looks like:
+For example, in the following AddressBook and Contact example, a contact must provide a valid age.
+The setup looks like:
 
 ![content-validation-validating-required-field](/asset/apigility-documentation/img/content-validation-validating-required-field.jpg)
 
@@ -45,18 +43,21 @@ Content-Type: application/problem+json
 }
 ```
 
-> Note: When a field is defined as being requried and not empty, if those conditions are not 
+> **Note**: When a field is defined as being required and not empty, if those conditions are not 
 > immediately met, no other validators will be executed and subsequently their messages will not be 
 > returned in the response.
+>
+> If you want validators to run even if the data is not present or is empty, toggle the "Continue if
+> Empty?" setting.
 
 Having one or more validators attached to a field would ensure more rigourous validation of the 
-data coming into the system.  In the following example, the "age" field will have more than 1 
-validator that will need to be checked:
+data coming into the system. In the following example, the `age` field has more than one validator
+defined:
 
 ![content-validation-validating-3-validators](/asset/apigility-documentation/img/content-validation-validating-3-validators.jpg)
 
-And a request that has "age" as both the wrong type and not inside the proper range, also "email" 
-is omitted:
+In the following request, an `age` value is provided that is both the wrong type and outside the
+specified range, and the `email` field is omitted entirely:
 
 ```HTTP
 POST /contact HTTP/1.1
@@ -69,7 +70,7 @@ Content-Type: application/json; charset=utf-8
 }
 ```
 
-Our response:
+The response:
 
 ```HTTP
 HTTP/1.1 422 Unprocessable Entity
@@ -92,15 +93,19 @@ Content-Type: application/problem+json
 }
 ```
 
-As you can see, each failed validator will return an appropriate error message that can be used to 
-identify each field that did not pass validation, and a message from each validator.
+The `validation_messages` object contains a property for each field that failed validation. Each
+invalid field then contains an entry for each validator, containing one or more validation error
+messages.
 
-Sometimes, you may want a more specific message for a validator, these can be added through options 
-for the validator:
+You may customize the message returned for each validator via the `message` option for the
+validator:
 
 ![content-validation-validating-special-validator-message](/asset/apigility-documentation/img/content-validation-validating-special-validator-message.jpg)
 
-Which would result in the response including that message in that validator:
+When you provide a message in this way, this will be the only error message returned by the
+validator on validation failure.
+
+The above would result in the response including that message for that validator:
 
 ```HTTP
 HTTP/1.1 422 Unprocessable Entity
@@ -123,8 +128,8 @@ Content-Type: application/problem+json
 }
 ```
 
-In some cases, it makes more sense to assign a single consolidated error message for the group of 
-validators.  To do this, add an error message to the field:
+In some cases, it makes more sense to assign a single consolidated error message for the field.
+To do this, provide a value for the "Validation Failure Message" of the field:
 
 ![content-validation-validating-consolidated-field-message](/asset/apigility-documentation/img/content-validation-validating-consolidated-field-message.jpg)
 
@@ -150,32 +155,5 @@ Content-Type: application/problem+json
 }
 ```
 
-When the deserialized request body passes through the Input Filter, and is fully validated, 
-Apigility will then execute the controller service.  If this controller service is a REST Resource, 
-then the called method will be presented with the unfiltered data as a parameter to the method.  In 
-order to retreive the validated and filtered data, you would have to retreive the Input Filter from 
-the MvcEvent, then call getValue().
-
-```php
-namespace AddressBook\V1\Rest\Contact;
-
-use ZF\ApiProblem\ApiProblem;
-use ZF\Rest\AbstractResourceListener;
-
-class ContactResource extends AbstractResourceListener
-{
-    public function create($data)
-    {
-        // get the event manager and from that the Input Filter
-        $event = $this->getEvent();
-        $inputFilter = $event->getInputFilter();
-        
-        // get the validated and filtered data
-        $data = $inputFilter->getValues();
-        $data['id'] = 5; // resource id required
-        return $data;
-    }
-
-    // ...
-}
-```
+When the deserialized request body passes through the input filter, and is fully validated, 
+Apigility will then execute the controller service.
