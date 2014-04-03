@@ -29,6 +29,13 @@ Authentication and Authorization
 - [Authorization](/auth/authorization.md)
 - [Advanced Auth Events and Services](/auth/advanced.md)
 
+Content Validation
+------------------
+
+- [Introduction](/content-validation/intro.md)
+- [Basic Usage](/content-validation/basic-usage.md)
+- [Filtering](/content-validation/filtering.md)
+- [Validating](/content-validation/validating.md)
 
 API Documentation
 -----------------
