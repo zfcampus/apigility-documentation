@@ -192,7 +192,7 @@ Content-Type: application/json
 
 Apigility reports:
 
-```
+```HTTP
 HTTP/1.1 405 Method Not Allowed
 Allow: GET
 ```
@@ -209,7 +209,7 @@ OPTIONS /ping HTTP/1.1
 
 will respond with:
 
-```
+```HTTP
 HTTP/1.1 200 OK
 Allow: GET
 ```
