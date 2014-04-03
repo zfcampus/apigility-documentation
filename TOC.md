@@ -5,6 +5,7 @@ Introduction
 ------------
 
 - [Installation](/intro/installation.md)
+- [Getting Started](/intro/getting-started.md)
 
 API Primer
 ----------
