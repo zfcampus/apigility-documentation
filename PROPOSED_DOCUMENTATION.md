@@ -17,10 +17,10 @@ Proposed Apigility Documentation
     - ~~What is HAL?~~
     - ~~How is error handling accomplished?~~
     - ~~What is the Problem API for HTTP Services? (ApiProblem)~~
-- Information on RPC
+- ~~Information on RPC~~
     - ~~What is RPC?~~
     - ~~How is RPC implemented in Apigility?~~
-    - How can you return HAL from an RPC service?
+    - ~~How can you return HAL from an RPC service?~~
 - Document each module
     - zf-development-mode
     - zf-api-problem
