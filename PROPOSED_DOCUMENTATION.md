@@ -26,7 +26,7 @@ Proposed Apigility Documentation
     - zf-api-problem
     - zf-hal
     - zf-content-negotiation
-    - zf-content-validation
+    - ~~zf-content-validation~~
     - zf-mvc-auth
     - zf-oauth2
     - zf-rest
@@ -36,10 +36,10 @@ Proposed Apigility Documentation
 - Advanced ACL usage
     - ~~How to add to the ACL~~
     - How to inject the ACL into an RPC controller or REST resource
-- Advanced InputFilter usage
-    - Accessing the request’s input filter in an RPC controller via the MvcEvent
-    - Accessing the request’s input filter in a REST resource via getInputFilter()
-    - Injecting a named input filter into an RPC controller or REST resource
+- ~~Advanced InputFilter usage~~
+    - ~~Accessing the request’s input filter in an RPC controller via the MvcEvent~~
+    - ~~Accessing the request’s input filter in a REST resource via getInputFilter()~~
+    - ~~Injecting a named input filter into an RPC controller or REST resource~~
 - Advanced Authentication/Authorization
     - ~~The Authentication and Authorization events~~
     - Identities
