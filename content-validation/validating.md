@@ -43,9 +43,11 @@ Content-Type: application/problem+json
 }
 ```
 
-> **Note**: When a field is defined as being required and not empty, if those conditions are not 
-> immediately met, no other validators will be executed and subsequently their messages will not be 
-> returned in the response.
+> ## Note: Allow Empty vs Continue on Empty
+>
+> When a field is defined as being required and not empty, if those conditions are not immediately
+> met, no other validators will be executed and subsequently their messages will not be returned in
+> the response.
 >
 > If you want validators to run even if the data is not present or is empty, toggle the "Continue if
 > Empty?" setting.

@@ -65,6 +65,15 @@ Notes MUST be written using Markdown "blockquote" syntax:
 > This is a note
 ```
 
+GitHub-Flavored Markdown allows using markup inside blockquotes, including headers. We recommend
+adding a header line at the appropriate header level when creating notes:
+
+```Markdown
+> ### Note about Notes
+>
+> This is a note about creating notes.
+```
+
 ### File Names
 
 File names MUST be enclosed in code tags ("\`\`"): `config/application.config.php`, `data/htpasswd`,

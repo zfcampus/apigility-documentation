@@ -11,8 +11,10 @@ passed to the service. To accomplish this, Apigility uses the
 [Zend Framework 2 input filters](http://framework.zend.com/manual/2.3/en/modules/zend.input-filter.intro.html),
 and executes the input filter associated with a service when data is submitted.
 
-> **Note**: Content Validation currently only works for `POST`, `PATCH`, and `PUT` requests. If you
-> need to validate query string parameters, you will need to write your own logic for those tasks.
+> ## Note: Content Validation Request Methods
+>
+> Content Validation currently only works for `POST`, `PATCH`, and `PUT` requests. If you need to
+> validate query string parameters, you will need to write your own logic for those tasks.
 
 _Input filters_ accomplish the job of both filtering (via the
 [Zend\Filter](http://framework.zend.com/manual/2.3/en/modules/zend.filter.html) component) and

@@ -97,7 +97,9 @@ parameters that are present in the request.  If it validates, then the MVC lifec
 if not, then the MVC dispatch process will not execute, and an [API Problem
 response](/api-primer/error-reporting.md) will be returned immediately.
 
-> **Note**: The _controller service name_ is the internal name for the service within Apigility, and
+> ## Note: Controller Service Name
+>
+> The _controller service name_ is the internal name for the service within Apigility, and
 > is representative of the code that the Zend Framework 2 MVC layer will execute when routing
 > matches the given service.
 
