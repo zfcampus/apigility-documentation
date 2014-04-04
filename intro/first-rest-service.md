@@ -159,8 +159,35 @@ Apigility provides a number of sane defaults:
 > Why? Because one tenet of REST is one URI, one resource. If we allowed a trailing slash, we'd be
 > allowing multiple URIs to resolve to the same resource.
 
-We'll go ahead and keep the defaults for the settings. However, let's define some fields, and
-document our API.
+Expand the "REST Parameters" section. You'll see a field named "Hydrator Service Name" with a value
+of `Zend\Stdlib\Hydrator\ArraySerializable`. We're going to change this to work with our `StatusLib`
+example library.
+
+Hover over the title bar for the service to expose the green "edit" button, and click it. Then
+expand the "REST Parameters" section. For the "Hydrator Service Name", select the value
+`Zend\Stdlib\Hydrator\ObjectProperty`.
+
+![Edit REST Parameter Settings](/asset/apigility-documentation/img/intro-first-rest-service-settings-edit.png)
+
+Now select the green "Save" button at the bottom of the screen.
+
+> ### Hydrators
+>
+> _Hydrators_ are objects that allow for casting an associative array to a specific object type and
+> vice versa. Each hydrator employs a different strategy for how this is done. The default hydrator
+> type that Apigility uses is the `ArraySerializable` type, which expects an object to implement two
+> methods:
+>
+> - `getArrayCopy()` for extracting an array representation
+> - `exchangeArray($array)` for casting an array to the object
+>
+> (These are the same methods used in PHP's `ArrayObject`!)
+>
+> The `ObjectProperty` hydrator will extract any public properties of an object when creating an
+> array representation, and populate public properties of the object from an arraywhen casting to an
+> object.
+
+Next, let's define some fields, and document our API.
 
 Define fields for our service
 -----------------------------
@@ -175,3 +202,79 @@ The fields we'll define are:
 
 We'll also have an `id` field, but this will only be for purposes of display.
 
+Navigate to the "Fields" tab, and then edit the service (the green "edit" button can be found by
+hovering over the title bar of the service).
+
+![Edit Fields](/asset/apigility-documentation/img/intro-first-rest-service-fields-edit.png)
+
+In the text input titled "Field name", type the word "message", and press the `Enter` key to create
+the new field.
+
+![Message Field](/asset/apigility-documentation/img/intro-first-rest-service-message-field.png)
+
+Now do the same for each of "user" and "timestamp".
+
+![All Fields](/asset/apigility-documentation/img/intro-first-rest-service-all-fields.png)
+
+Click anywhere on the green bar labeled "message" to expand it.
+
+![Message Field - Edit](/asset/apigility-documentation/img/intro-first-rest-service-message-edit.png)
+
+For a description, enter "A status message of no more than 140 characters." For the "Validation
+Failure Message", enter "A status message must contain between 1 and 140 characters."
+
+Hover over the "Filters" bar, and press the "Add Filter" button to expose the "Add Filter" form. In
+the select box, select `Zend\Filter\StringTrim` (hint: type "trim" to narrow the selection); press
+the "Add Filter" button when done. Press the "Cancel" button next to the "Add Filter" button to
+remove the form when done.
+
+![Message Field - StringTrim Filter](/asset/apigility-documentation/img/intro-first-rest-service-message-filter-trim.png)
+
+Now hover over the "Validators" bar, and press the "Add Validator" button to expose the "Add
+Validator" form. In the select box, select `Zend\Validator\StringLength` (hint: type "string" to
+narrow the selection); press the "Add Validator" button when done. Press the "Cancel" button next to
+the "Add Validator" button to remove the form when done.
+
+![Message Field - StringLength Validator](/asset/apigility-documentation/img/intro-first-rest-service-message-validator-length.png)
+
+Hover over the `Zend\Validator\StringLength` title to expose the "Add Option" button; click it. In
+the select box that appears, choose the `max` value. Once selected, a new form input will appear;
+type in the value "140", and then click the "Add Option" button. You can press the "Cancel" button
+next to the "Add Option" button when complete to remove the form.
+
+![Message Field - Validator Option](/asset/apigility-documentation/img/intro-first-rest-service-message-validator-max.png)
+
+At this point, you should see the following on your screen:
+
+![Message Field - Completed](/asset/apigility-documentation/img/intro-first-rest-service-message-complete.png)
+
+Collapse the "message" field by clicking on its title bar.
+
+At this point, you have an exercise:
+
+- Update the "user" field:
+  - Add a description of "The user submitting the status message."
+  - Add a validation failure message of "You must provide a valid user."
+  - Add a `Zend\Filter\StringTrim` filter.
+  - Add a `Zend\Validator\Regex` validator; give it a `pattern` option, with the value
+    `/^(mwop|andi|zeev)$/` (feel free to substitute or add other names or nicknames as desired).
+- Update the "timestamp" field:
+  - Add a description of "The timestamp when the status message was last modified."
+  - Add a validation failure message of "You must provide a timestamp."
+  - Toggle the "Required" flag to read "No."
+  - Add a `Zend\Validator\Digits` validator.
+
+When done, press the green "Save Changes" button at the bottom right of the screen. Below are
+screenshots detailing what the "user" and "timestamp" fields will look like on completion.
+
+![User Field - Completed](/asset/apigility-documentation/img/intro-first-rest-service-user-complete.png)
+
+![Timestamp Field - Completed](/asset/apigility-documentation/img/intro-first-rest-service-timestamp-complete.png)
+
+Let's move on to documentation.
+
+Documentation
+-------------
+
+REST services allow you to document not only by HTTP method, but by HTTP method for each of
+Collections and Entities.
