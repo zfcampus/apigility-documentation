@@ -6,6 +6,7 @@ Introduction
 
 - [Installation](/intro/installation.md)
 - [Getting Started](/intro/getting-started.md)
+- [REST Service Tutorial](/intro/first-rest-service.md)
 
 API Primer
 ----------
