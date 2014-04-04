@@ -62,28 +62,29 @@ terminology:
 <dl>
     <dt>Entity</dt>
     <dd>
-        An _addressable_ item being returned. Entities are distiguished by a unique identifier
-        present in the URI.
+        An <em>addressable</em> item being returned. Entities are distiguished by a unique
+        identifier present in the URI.
     </dd>
 
     <dt>Collection</dt>
     <dd>
-        A addressable _set_ of _entities_. Typically, all entities contained in the collection are
-        of the same type, and share the same base URI as the collection.
+        A addressable <em>set</em> of <em>entities</em>. Typically, all entities contained in the
+        collection are of the same type, and share the same base URI as the collection.
     </dd>
 
     <dt>Resource</dt>
     <dd>
-        An object that receives the incoming request data, determines whether a _collection_
-        or _entity_ was identified in the URI, and determines what _operation_ to perform.
+        An object that receives the incoming request data, determines whether a <em>collection</em>
+        or <em>entity</em> was identified in the URI, and determines what <em>operation</em> to
+        perform.
     </dd>
 
     <dt>Relational Links</dt>
     <dd>
-        A URI to a resource that has the described _relation_. Relational links allow you to
+        A URI to a resource that has the described <em>relation</em>. Relational links allow you to
         describe relations between different entities and collections, as well as directly link to
         them so that the web service client can perform operations on those relations. These are
-        also sometimes called _hypermedia links_.
+        also sometimes called <em>hypermedia links</em>.
     </dd>
 </dl>
 
