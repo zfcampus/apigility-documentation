@@ -90,7 +90,7 @@ Fill in a description along the lines of "Acknowledge the request with a timesta
 
 Now select the "Documentation" tab.
 
-![Documentation Tab](/asset/apigility-documentation/img/intro-getting-started-ping-service-documentation-view.png)
+![Documentation Tab](/asset/apigility-documentation/img/intro-getting-started-ping-service-documentation.png)
 
 As we did with the fields, hover over the colored bar for the service, and select the green "edit"
 button so we can edit the documentation.
