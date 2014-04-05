@@ -170,8 +170,6 @@ expand the "REST Parameters" section. For the "Hydrator Service Name", select th
 
 ![Edit REST Parameter Settings](/asset/apigility-documentation/img/intro-first-rest-service-settings-edit.png)
 
-Now select the green "Save" button at the bottom of the screen.
-
 > ### Hydrators
 >
 > _Hydrators_ are objects that allow for casting an associative array to a specific object type and
@@ -187,6 +185,28 @@ Now select the green "Save" button at the bottom of the screen.
 > The `ObjectProperty` hydrator will extract any public properties of an object when creating an
 > array representation, and populate public properties of the object from an arraywhen casting to an
 > object.
+
+For our example, the `StatusLib` library provides its own Entity and Collection classes. Expand the
+"Service Class Names" panel by clicking on its title bar, and edit the "Entity Class" field to read
+`StatusLib\Entity` and the "Collection Class" field to read `StatusLib\Collection`.
+
+![Edit Service Classes](/asset/apigility-documentation/img/intro-first-rest-service-settings-classes.png)
+
+> ### Service Classes
+>
+> When you create a Code-Connected service, Apigility generates three PHP class files for you:
+>
+> - An Entity class
+> - A Collection class which extends `Zend\Paginator\Paginator`, which will allow you to provide
+>   paginated result sets.
+> - A Resource class for performing operations.
+>
+> Your own code may already define entity and collection classes that you want to use, so you are
+> free to ignore the stub classes Apigility creates. One note, however: if you end up versioning
+> your API, you may find that having version-specific entity and collection classes can be useful,
+> as they can allow you to model only the properties you wish to expose for each specific version.
+
+Now select the green "Save" button at the bottom of the screen.
 
 Next, let's define some fields, and document our API.
 
