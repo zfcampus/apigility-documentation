@@ -19,6 +19,7 @@ this tutorial. Follow these steps:
   $ php composer.phar require "zfcampus/statuslib:~1.0-dev"
   ```
 
+
 - Edit the file `config/application.config.php` and add the `StatusLib` module:
 
   ```php
@@ -552,6 +553,7 @@ Content-Type: application/hal+json
     "timestamp": 1396709084,
     "user": "mwop"
 }
+```
 
 > **Note**: The identifiers will be unique per entity; what you see when you create a new status
 > message will differ in the identifier.
