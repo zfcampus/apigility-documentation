@@ -51,6 +51,12 @@ this tutorial. Follow these steps:
   );
   ```
 
+Finally, you will need a valid HTTP basic credentials file, usually titled `htpasswd`. You can
+generate one using the standard [htpasswd tool provided by
+Apache](http://httpd.apache.org/docs/2.2/programs/htpasswd.html), or use an [online htpasswd
+generator](http://www.htaccesstools.com/htpasswd-generator/). Store the `htpasswd` file as
+`data/htpasswd` in your application.
+
 Once those steps are complete, continue with the tutorial.
 
 Terminology
@@ -299,3 +305,65 @@ Documentation
 
 REST services allow you to document not only by HTTP method, but by HTTP method for each of
 Collections and Entities.
+
+The procedure for documenting a REST service is just like we learned in the [Getting
+Started](/intro/getting-started.md) chapter, with on two differences:
+
+- You will need to document HTTP methods for **both** collections _and_ entities.
+- Some methods also expect _request_ data, so you will need to document the request data as well.
+
+The "generate from configuration" button is present for both request and response body
+documentation, and, assuming you have documented your fields, generally create appropriate payloads.
+You will notice that the response payloads include `_links` and sometimes `_embedded` members; this
+is because REST services in Apigility use the [Hypermedia Application Language](http://stateless.co/hal_specification.html) format by default, which provides a way for your service to link to resources exposed by other services as well as embed them. (For more information on HAL, read our [HAL primer](/api-primer/halprimer.md).)
+
+Your exercise now is to document both collection and entity operations:
+
+- Give the service a description of "Create, manipulate, and retrieve status messages."
+- Give collections a description of "Manipulate lists of status messages."
+    - For the `GET` method, describe it as "Retrieve a paginated list of status messages."
+    - For the `POST` method, describe it as "Create a new status messages."
+- Give entities a description of "Manipulate and retrieve individual status messages."
+    - For the `GET` method, describe it as "Retrieve a status message."
+    - For the `PATCH` method, describe it as "Update a status message."
+    - For the `PUT` method, describe it as "Replace a status message."
+    - For the `DELETE` method, describe it as "Delete a status message."
+
+For each operation except `DELETE`, use the "generate from configuration" buttons to generate request and response
+body payloads. You can edit them if you wish, but doing so is not necessary for this tutorial.
+
+We'll examine the documentation later. For now, let's move on to authentication and authorization.
+
+Authentication and Authorization
+--------------------------------
+
+Click the "Authorization" menu item to bring up the authorization screen. You will see a grid of
+services and HTTP methods, as well as a warning indicating we have not yet setup authentication.
+
+![Authorization](/asset/apigility-documentation/img/intro-first-rest-service-authorization.png)
+
+We'll ignore the warning for now. Check the boxes in the header marked `POST`, `PATCH`, `PUT`, and
+`DELETE` in order to indicate that any service exposing these operations will require authorization.
+Then click the green "Save" button.
+
+![Authorization - Complete](/asset/apigility-documentation/img/intro-first-rest-service-authorization-complete.png)
+
+Marking methods and services as needing authorization means that they are inaccessible unless a user
+provices valid credentials to the API. If you were to try and perform the operations we just marked
+at this time, you'll find that you cannot perform them; you'll get a `403 Forbidden` response!
+
+So, next up is adding authentication. The warning box provides a link to the "authentication
+screen"; click that.
+
+![Authentication](/asset/apigility-documentation/img/intro-first-rest-service-authentication.png)
+
+We're going to use HTTP Basic authentication for this example, so click the "HTTP Basic" button.
+
+We're going to use the same values as the placeholders: fill in `api` for the "Realm" setting, and
+`data/htpasswd` for the "htpasswd Location". Click the blue "Save" button when done.
+
+At this point, we've completed our example REST API! Let's perform some tests to see how it works.
+
+Testing it out
+--------------
+
