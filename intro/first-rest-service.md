@@ -55,7 +55,8 @@ Finally, you will need a valid HTTP basic credentials file, usually titled `htpa
 generate one using the standard [htpasswd tool provided by
 Apache](http://httpd.apache.org/docs/2.2/programs/htpasswd.html), or use an [online htpasswd
 generator](http://www.htaccesstools.com/htpasswd-generator/). Store the `htpasswd` file as
-`data/htpasswd` in your application.
+`data/htpasswd` in your application. Make a note of the credentials you use so that you can use them
+later.
 
 Once those steps are complete, continue with the tutorial.
 
@@ -362,8 +363,371 @@ We're going to use HTTP Basic authentication for this example, so click the "HTT
 We're going to use the same values as the placeholders: fill in `api` for the "Realm" setting, and
 `data/htpasswd` for the "htpasswd Location". Click the blue "Save" button when done.
 
-At this point, we've completed our example REST API! Let's perform some tests to see how it works.
+We've completed describing our API... but we've not linked in our code yet! It's time to do that.
+
+Defining the resource
+---------------------
+
+You may recollect from earlier that Apigility creates three class stubs for us, one each for the
+entity, collection, and resource. It's time to put some code in our resource class so it can do
+something.
+
+Apigility provides versioning out-of-the-box. One aspect of versioning is that code is also
+versioned by namespace. This feature allows you to run multiple versions of your API in parallel.
+
+Our resource class will be found in
+`module/src/Status/src/Status/V1/Rest/Status/StatusResource.php`. Open that file in an editor.
+
+The first change we'll make is to import the `StatusLib\MapperInterface` class; add the line `use
+StatusLib\MapperInterface;` above the existing `use` statements.
+
+```php
+use StatusLib\MapperInterface;
+use ZF\ApiProblem\ApiProblem;
+use ZF\Rest\AbstractResourceListener.php;
+```
+
+Next, we'll create a class property `$mapper`, with `protected` visibility:
+
+```php
+class StatusResource extends AbstractResourceListener
+{
+    protected $mapper;
+```
+
+Create a constructor that accepts a `MapperInterface`, and assigns it to our `$mapper` property:
+
+```php
+    protected $mapper;
+
+    public function __construct(MapperInterface $mapper)
+    {
+        $this->mapper = $mapper;
+    }
+```
+
+Now that we have our mapper composed, let's fill in some methods.
+
+- Replace the body of the `create()` method with `return $this->mapper->create($data);`.
+- Replace the body of the `delete()` method with `return $this->mapper->delete($id);`.
+- Replace the body of the `fetch()` method with `return $this->mapper->fetch($id);`.
+- Replace the body of the `fetchAll()` method with `return $this->mapper->fetchAll();`.
+- Replace the body of the `patch()` method with `return $this->mapper->update($id, $data);`.
+- Replace the body of the `update()` method with `return $this->mapper->update($id, $data);`.
+
+You'll notice that we're not updating all methods in the class. Several methods are for operating on
+lists, and we are not defining those operations.
+
+How will we get the `$mapper` into the resource? For that, we'll need to define a factory. Create
+the file `module/Status/src/Status/V1/Rest/Status/StatusResourceFactory.php`, open it in an editor,
+and define it as follows:
+
+```php
+<?php
+namespace Status\V1\Rest\Status;
+
+class StatusResourceFactory
+{
+    public function __invoke($services)
+    {
+        return new StatusResource($services->get('StatusLib\Mapper'));
+    }
+}
+```
+
+The above is a factory for use with the [Zend Framework 2 Service
+Manager](http://framework.zend.com/manual/2.3/en/modules/zend.service-manager.intro.html). As such,
+we need to register it with the service manager.
+
+Open the file `module/Status/config/module.config.php`. In that file, find the section marked
+`service_manager`. It should have a subkey `invokables`, with another subkey for our resource class,
+`Status\V1\Rest\Status\StatusResource`. We're going to change the configuration to read as follows:
+
+```php
+'service_manager' => array(
+    'factories' => array(
+        'Status\V1\Rest\Status\StatusResource' => 'Status\V1\Rest\Status\StatusResourceFactory',
+    ),
+),
+```
+
+> Note the change from `invokables` to `factories`!
+
+What we are doing above is saying that when a request is made for our `StatusResource` class, the
+service manager should use our factory to get an instance of it.
+
+At this point, we finally have a working REST service!
+
+Let's perform some tests to see how it works.
 
 Testing it out
 --------------
 
+The first test will be a `GET` request to the collection.
+
+```HTTP
+GET /status HTTP/1.1
+Accept: application/json
+```
+
+We haven't added any status messages yet, so we get an empty collection in response.
+
+```HTTP
+HTTP/1.1 200 OK
+Content-Type: application/hal+json
+
+{
+    "_embedded": {
+        "status": []
+    },
+    "_links": {
+        "self": {
+            "href": "http://localhost:8080/status"
+        }
+    },
+    "page_count": 0,
+    "page_size": 25,
+    "total_items": 0
+}
+```
+
+Let's try to add an item:
+
+```HTTP
+POST /status HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+
+{
+    "message": "First post!",
+    "user": "mwop"
+}
+```
+
+Remember how we configured authentication and authorization? Well, we can now see that it works!
+
+```HTTP
+HTTP/1.1 403 Forbidden
+Content-Type: application/problem+json
+
+{
+    "detail": "Forbidden",
+    "status": 403,
+    "title": "Forbidden",
+    "type": "http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html"
+}
+```
+
+Let's provide our credentials so this will work. If you use an HTTP client such as cURL or HTTPie,
+or a REST client such as RESTClient or Postman, these will generally allow you to specify your
+credentials, and then turn them into an `Authorization` header. What you will see below is that
+header with a `Basic` token.
+
+```HTTP
+POST /status HTTP/1.1
+Accept: application/json
+Authorization: Basic bXdvcDptd29w
+Content-Type: application/json
+
+{
+    "message": "First post!",
+    "user": "mwop"
+}
+```
+
+This is finally successful!
+
+```HTTP
+HTTP/1.1 201 Created
+Content-Type: application/hal+json
+
+{
+    "_links": {
+        "self": {
+            "href": "http://localhost:8080/status/3c10c391-f56c-4d04-a889-bd1bd8f746f0"
+        }
+    },
+    "id": "3c10c391-f56c-4d04-a889-bd1bd8f746f0",
+    "message": "First post!",
+    "timestamp": 1396709084,
+    "user": "mwop"
+}
+
+> **Note**: The identifiers will be unique per entity; what you see when you create a new status
+> message will differ in the identifier.
+
+Let's retrieve that status message; we can use the URI in the `self` relational link to get it:
+
+```HTTP
+GET /status/3c10c391-f56c-4d04-a889-bd1bd8f746f0 HTTP/1.1
+Accept: application/json
+```
+
+```HTTP
+HTTP/1.1 200 OK
+Content-Type: application/hal+json
+
+{
+    "_links": {
+        "self": {
+            "href": "http://localhost:8080/status/3c10c391-f56c-4d04-a889-bd1bd8f746f0"
+        }
+    },
+    "id": "3c10c391-f56c-4d04-a889-bd1bd8f746f0",
+    "message": "First post!",
+    "timestamp": 1396709084,
+    "user": "mwop"
+}
+```
+
+If we go back to our collection URI, `/status`, we actually have something in it!
+
+```HTTP
+GET /status HTTP/1.1
+Accept: application/json
+```
+
+```HTTP
+HTTP/1.1 200 OK
+Content-Type: application/hal+json
+
+{
+    "_embedded": {
+        "status": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http://localhost:8080/status/3c10c391-f56c-4d04-a889-bd1bd8f746f0"
+                    }
+                },
+                "id": "3c10c391-f56c-4d04-a889-bd1bd8f746f0",
+                "message": "First post!",
+                "timestamp": 1396709084,
+                "user": "mwop"
+            }
+        ]
+    },
+    "_links": {
+        "first": {
+            "href": "http://localhost:8080/status"
+        },
+        "last": {
+            "href": "http://localhost:8080/status?page=1"
+        },
+        "self": {
+            "href": "http://localhost:8080/status?page=1"
+        }
+    },
+    "page_count": 1,
+    "page_size": 25,
+    "total_items": 1
+}
+```
+
+Let's update the status; send a `PATCH` request to change the message:
+
+```HTTP
+PATCH /status/3c10c391-f56c-4d04-a889-bd1bd8f746f0 HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+
+{"message": "[Updated] First Post!"}
+```
+
+Oops! This method requires authentication, too!
+
+```HTTP
+HTTP/1.1 403 Forbidden
+Content-Type: application/problem+json
+
+{
+    "detail": "Forbidden",
+    "status": 403,
+    "title": "Forbidden",
+    "type": "http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html"
+}
+```
+
+Send your credentials this time:
+
+```HTTP
+PATCH /status/3c10c391-f56c-4d04-a889-bd1bd8f746f0 HTTP/1.1
+Accept: application/json
+Authorization: Basic bXdvcDptd29w
+Content-Type: application/json
+
+{"message": "[Updated] First Post!"}
+```
+
+Success!
+
+```HTTP
+HTTP/1.1 200 OK
+Content-Type: application/hal+json
+
+{
+    "_links": {
+        "self": {
+            "href": "http://localhost:8080/status/3c10c391-f56c-4d04-a889-bd1bd8f746f0"
+        }
+    },
+    "id": "3c10c391-f56c-4d04-a889-bd1bd8f746f0",
+    "message": "[Updated] First post!",
+    "timestamp": 1396709724,
+    "user": "mwop"
+}
+```
+
+`PUT` operates similarly to `PATCH`, though it is typically used to provide a full _replacement_ for
+the entity. We won't demonstrate it right now.
+
+However, let's try a `DELETE` request. Recall that it needs authorization, so let's go ahead and
+send our credentials the first time.
+
+```HTTP
+Delete /status/3c10c391-f56c-4d04-a889-bd1bd8f746f0 HTTP/1.1
+Accept: application/json
+Authorization: Basic bXdvcDptd29w
+```
+
+This results in:
+
+```
+HTTP/1.1 204 No Content
+```
+
+Let's look at the documentation.
+
+Documentation
+-------------
+
+In the previous chapter and this one both, we created documentation. If you poked around in the
+Apigility Admin UI, you likely saw the documentation embedded in each service. However, you can also
+view documentation by itself.
+
+In the top navigation is an item entitled "API Docs." Click it.
+
+![API Docs](/asset/apigility-documentation/img/intro-first-rest-service-api-docs.png)
+
+Just like APIs, documentation is versioned, and you can view documentation for each version
+separately. Click the "v1" link.
+
+![API Docs](/asset/apigility-documentation/img/intro-first-rest-service-api-docs-api.png)
+
+You can expand each service and see the operations. Expanding an operation shows you request and
+response details for the operation, including allowed `Accept` and `Content-Type` request headers,
+expected `Content-Type` response headers, expected response status codes, and more.
+
+Summary
+-------
+
+In the course of this chapter, we've covered:
+
+- Creating a REST service.
+- Creating _filter_ and _validators_ for service fields, including providing configuration for them.
+- Documenting your service.
+- Providing authentication and authorization for your service.
+
+Apigility is a powerful and flexible tool for both defining your APIs, as well as exposing them, and
+provides a workflow from creation to providing documentation.
+You've scratched the surface -- now it's time to explore what you can build!
