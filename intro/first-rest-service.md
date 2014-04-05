@@ -685,7 +685,7 @@ However, let's try a `DELETE` request. Recall that it needs authorization, so le
 send our credentials the first time.
 
 ```HTTP
-Delete /status/3c10c391-f56c-4d04-a889-bd1bd8f746f0 HTTP/1.1
+DELETE /status/3c10c391-f56c-4d04-a889-bd1bd8f746f0 HTTP/1.1
 Accept: application/json
 Authorization: Basic bXdvcDptd29w
 ```
