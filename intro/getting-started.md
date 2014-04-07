@@ -7,7 +7,7 @@ Assumptions
 -----------
 
 This chapter assumes you are running per the [installation guide](/intro/installation.md), and the
-application root is available at the URL `http://localhost:8080/`. 
+application root is available at the URL `http://localhost:8888/`. 
 
 > ### Note: File System Permissions
 >
@@ -24,8 +24,8 @@ application root is available at the URL `http://localhost:8080/`.
 First Steps
 -----------
 
-Visit the url `http://locahost:8080/`. You will be redirected to
-`http://localhost:8080/apigility/welcome`, which will look like this:
+Visit the url `http://locahost:8888/`. You will be redirected to
+`http://localhost:8888/apigility/welcome`, which will look like this:
 
 ![Apigility Welcome Screen](/asset/apigility-documentation/img/intro-getting-started-welcome.png)
 
