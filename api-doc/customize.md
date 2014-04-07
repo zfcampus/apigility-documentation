@@ -7,8 +7,8 @@ module. This module provides an object model of all captured documentation infor
 - All APIs available.
 - All Services available in each API.
 - All Operations available in each API.
-- All required/expected Accept and Content-Type request headers and expected Content-Type
-  response headersj for each available API Service Operation.
+- All required/expected `Accept` and `Content-Type` request headers and expected `Content-Type`
+  response headers for each available API Service Operation.
 - All configured fields for each service.
 
 Moreover, it provides a configurable MVC endpoint for returning documentation:
