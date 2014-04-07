@@ -53,3 +53,24 @@ Recipes
 
 - [Customising Authorization for Specific Identities](/recipes/how-do-i-customize-authorization-for-a-particular-identity.md)
 - [Returning HAL from RPC Services](/recipes/hal-from-rpc.md)
+
+Module Reference
+----------------
+
+- [zf-apigility](/modules/zf-apigility.md)
+- [zf-apigility-admin](/modules/zf-apigility-admin.md)
+- [zf-apigility-documentation](/modules/zf-apigility-documentation.md)
+- [zf-apigility-documentation-swagger](/modules/zf-apigility-documentation-swagger.md)
+- [zf-apigility-provider](/modules/zf-apigility-provider.md)
+- [zf-apigility-welcome](/modules/zf-apigility-welcome.md)
+- [zf-api-problem](/modules/zf-api-problem.md)
+- [zf-configuration](/modules/zf-configuration.md)
+- [zf-content-negotiation](/modules/zf-content-negotiation.md)
+- [zf-content-validation](/modules/zf-content-validation.md)
+- [zf-development-mode](/modules/zf-development-mode.md)
+- [zf-hal](/modules/zf-hal.md)
+- [zf-mvc-auth](/modules/zf-mvc-auth.md)
+- [zf-oauth2](/modules/zf-oauth2.md)
+- [zf-rest](/modules/zf-rest.md)
+- [zf-rpc](/modules/zf-rpc.md)
+- [zf-versioning](/modules/zf-versioning.md)
