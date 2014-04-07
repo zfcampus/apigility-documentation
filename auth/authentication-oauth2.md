@@ -40,8 +40,8 @@ Client and the Resource Server. This token is used to authenticate all the API c
 Authorization: Bearer RsT5OjbzRn430zqMLgV3Ia
 ```
 
-Security considerations of OAuth2
----------------------------------
+Security considerations
+-----------------------
 
 The OAuth2 protocol does not guarantee confidentiality and integrity of the communications.
 That means you must protect the HTTP communications using an additional layer. One possible
@@ -56,7 +56,7 @@ one of the main concern about the security of OAuth2 and most developers complai
 you can read the [blog post of Eran Hammer](http://hueniverse.com/2012/07/oauth-2-0-and-the-road-to-hell)
 , the ex-lead of the OAuth specifications).
 
-In a nutshell, *use always HTTPS for OAuth2!*
+In a nutshell, **use always HTTPS for OAuth2!**
 
 Setup OAuth2
 ------------
