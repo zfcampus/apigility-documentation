@@ -72,10 +72,10 @@ In the latter case, do the following:
 
 ```console
 cd path/to/install
-php -S 0.0.0.0:8080 -t public public/index.php
+php -S 0.0.0.0:8888 -t public public/index.php
 ```
 
-You can then visit the site at http://localhost:8080/ - which will bring up a
+You can then visit the site at http://localhost:8888/ - which will bring up a
 welcome page and the ability to visit the dashboard in order to create and
 inspect your APIs.
 

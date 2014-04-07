@@ -483,7 +483,7 @@ Content-Type: application/hal+json
     },
     "_links": {
         "self": {
-            "href": "http://localhost:8080/status"
+            "href": "http://localhost:8888/status"
         }
     },
     "page_count": 0,
@@ -545,7 +545,7 @@ Content-Type: application/hal+json
 {
     "_links": {
         "self": {
-            "href": "http://localhost:8080/status/3c10c391-f56c-4d04-a889-bd1bd8f746f0"
+            "href": "http://localhost:8888/status/3c10c391-f56c-4d04-a889-bd1bd8f746f0"
         }
     },
     "id": "3c10c391-f56c-4d04-a889-bd1bd8f746f0",
@@ -572,7 +572,7 @@ Content-Type: application/hal+json
 {
     "_links": {
         "self": {
-            "href": "http://localhost:8080/status/3c10c391-f56c-4d04-a889-bd1bd8f746f0"
+            "href": "http://localhost:8888/status/3c10c391-f56c-4d04-a889-bd1bd8f746f0"
         }
     },
     "id": "3c10c391-f56c-4d04-a889-bd1bd8f746f0",
@@ -599,7 +599,7 @@ Content-Type: application/hal+json
             {
                 "_links": {
                     "self": {
-                        "href": "http://localhost:8080/status/3c10c391-f56c-4d04-a889-bd1bd8f746f0"
+                        "href": "http://localhost:8888/status/3c10c391-f56c-4d04-a889-bd1bd8f746f0"
                     }
                 },
                 "id": "3c10c391-f56c-4d04-a889-bd1bd8f746f0",
@@ -611,13 +611,13 @@ Content-Type: application/hal+json
     },
     "_links": {
         "first": {
-            "href": "http://localhost:8080/status"
+            "href": "http://localhost:8888/status"
         },
         "last": {
-            "href": "http://localhost:8080/status?page=1"
+            "href": "http://localhost:8888/status?page=1"
         },
         "self": {
-            "href": "http://localhost:8080/status?page=1"
+            "href": "http://localhost:8888/status?page=1"
         }
     },
     "page_count": 1,
@@ -670,7 +670,7 @@ Content-Type: application/hal+json
 {
     "_links": {
         "self": {
-            "href": "http://localhost:8080/status/3c10c391-f56c-4d04-a889-bd1bd8f746f0"
+            "href": "http://localhost:8888/status/3c10c391-f56c-4d04-a889-bd1bd8f746f0"
         }
     },
     "id": "3c10c391-f56c-4d04-a889-bd1bd8f746f0",
