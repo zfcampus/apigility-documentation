@@ -6,7 +6,7 @@ OAuth2
 use this protocol to authenticate their API. Before start the Apigility functionalities of OAuth2
 we want to introduce briefly the core concepts of this authentication system.
 
-In the OAuth2 specification ([RFC 6749](http://tools.ietf.org/html/rfc6749) we have the following
+In the OAuth2 specification ([RFC 6749](http://tools.ietf.org/html/rfc6749)) we have the following
 definitions:
 
 - *Resource Owner*: the User
@@ -36,7 +36,7 @@ Client and the Resource Server. This token is used to authenticate all the API c
 `Authorization` HTTP header. Below is reported an example of the `Bearer` token ([RFC 7650](http://tools.ietf.org/html/rfc6750)
 ), the most used token type of OAuth2:
 
-```HTTP
+```
 Authorization: Bearer RsT5OjbzRn430zqMLgV3Ia
 ```
 
@@ -107,7 +107,7 @@ php bcrypt.php test
 
 You will see an output like that:
 
-```console
+```
 $2y$10$8gHQy/sn0vB8H5wbAbhUi.tbUfpf6aE7PBllKHeKaCYTqEyd7vjo6
 ```
 
@@ -140,9 +140,9 @@ Using Apigility we can request an access code using the following 3 steps:
 Using a browser you can request the authorization approval from this page:
 
 ```
-http://<apigility URL>/oauth/authorize?response_type=code
-&client_id=testclient&redirect_uri=/oauth/receivecode&state=xyz
+http://<apigility URL>/oauth/authorize?response_type=code&client_id=testclient&redirect_uri=/oauth/receivecode&state=xyz
 ```
+
 Where `<apigility URL>` is the domain where you installed Apigility (if you are using the internal
 PHP web server this can be something like `localhost:8080`.
 
@@ -165,7 +165,7 @@ If you approve the authorization access clicking the *Yes* button, Apigility wil
 the URI specified in the `redirect_uri` passing the authorization code in the query string (code).
 In our example we will be redirected to the page `/oauth/receive` as reported below:
 
-![Authentication code](/asset/apigility-documentation/img/auth-oauth2-autentication-code.png)
+![Authentication code](/asset/apigility-documentation/img/auth-oauth2-authentication-code.png)
 
 This web page is stored in view file `/vendor/zfcampus/zf-oauth2/view/zf/auth/receive-code.phtml`
 that you can customize if you want.
@@ -203,8 +203,7 @@ module, at the `/oauth/resource` URL. You can use the following HTTPie command t
 request that resource:
 
 ```console
-http http://<Apigility URL>/oauth/resource
-"Authorization:Bearer 907c762e069589c2cd2a229cdae7b8778caa9f07"
+http http://<Apigility URL>/oauth/resource "Authorization:Bearer 907c762e069589c2cd2a229cdae7b8778caa9f07"
 ```
 
 Browser-based applications
@@ -251,8 +250,7 @@ After this change, we can request the access token using the browser-based appli
 We need to request the same URL used in step 1 of Web-server application scenario:
 
 ```
-http://<apigility URL>/oauth/authorize?response_type=token
-&client_id=testclient&redirect_uri=/oauth/receivecode&state=xyz
+http://<apigility URL>/oauth/authorize?response_type=token&client_id=testclient&redirect_uri=/oauth/receivecode&state=xyz
 ```
 
 We will see the same web page of the *Web-server application* scenario asking for the authorization
