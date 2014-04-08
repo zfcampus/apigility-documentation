@@ -144,7 +144,7 @@ Using Apigility, we can request an access code using the following 3 steps:
 
 Using a browser you can request the authorization approval from this page:
 
-```
+```HTTP
 http://<apigility URL>/oauth/authorize?response_type=code&client_id=testclient&redirect_uri=/oauth/receivecode&state=xyz
 ```
 
