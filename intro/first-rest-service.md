@@ -16,7 +16,7 @@ this tutorial. Follow these steps:
 - Within your application root, execute the following:
 
   ```console
-  $ php composer.phar require "zfcampus/statuslib:~1.0-dev"
+  $ php composer.phar require "zfcampus/statuslib-example:~1.0-dev"
   ```
 
 
