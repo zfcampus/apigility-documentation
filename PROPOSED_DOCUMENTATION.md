@@ -48,3 +48,4 @@ Proposed Apigility Documentation
     - OAuth2 strategies
     - Accessing the Identity via the MvcEvent
     - Accessing the Identity via the REST resource getIdentity() method
+- Adding Apigility to an existing ZF2 application
