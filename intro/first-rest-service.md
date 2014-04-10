@@ -351,7 +351,7 @@ Then click the green "Save" button.
 ![Authorization - Complete](/asset/apigility-documentation/img/intro-first-rest-service-authorization-complete.png)
 
 Marking methods and services as needing authorization means that they are inaccessible unless a user
-provices valid credentials to the API. If you were to try and perform the operations we just marked
+provides valid credentials to the API. If you were to try and perform the operations we just marked
 at this time, you'll find that you cannot perform them; you'll get a `403 Forbidden` response!
 
 So, next up is adding authentication. The warning box provides a link to the "authentication
