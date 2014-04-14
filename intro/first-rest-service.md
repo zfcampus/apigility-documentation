@@ -13,35 +13,42 @@ have not, please do before continuing.
 You will need to install and configure the `zfcampus/statuslib-example` module in order to perform
 this tutorial. Follow these steps:
 
-- Within your application root, execute the following:
+### Step 1
 
-  ```console
-  $ php composer.phar require "zfcampus/statuslib-example:~1.0-dev"
-  ```
+Within your application root, execute the following:
 
+```console
+$ php composer.phar require "zfcampus/statuslib-example:~1.0-dev"
+```
 
-- Edit the file `config/application.config.php` and add the `StatusLib` module:
+### Step 2
 
-  ```php
-  array(
-      'modules' => array(
-          /* ... */
-          'StatusLib',
-      ),
-      /* ... */
-  )
-  ```
+Edit the file `config/application.config.php` and add the `StatusLib` module:
 
-- Create a PHP file `data/statuslib.php` that returns an array:
+```php
+array(
+    'modules' => array(
+        /* ... */
+        'StatusLib',
+    ),
+    /* ... */
+)
+```
 
-  ```php
-  <?php
-  return array();
-  ```
+### Step 3
 
-  Make sure the file is writable by the web server user.
+Create a PHP file `data/statuslib.php` that returns an array:
 
-- Edit the file `config/autoload/local.php` to add the following configuration:
+```php
+<?php
+return array();
+```
+
+Make sure the file is writable by the web server user.
+
+### Step 4
+
+Edit the file `config/autoload/local.php` to add the following configuration:
 
   ```php
   return array(
@@ -51,6 +58,8 @@ this tutorial. Follow these steps:
       ),
   );
   ```
+
+### Step 5
 
 Finally, you will need a valid HTTP basic credentials file, usually titled `htpasswd`. You can
 generate one using the standard [htpasswd tool provided by
@@ -379,8 +388,8 @@ versioned by namespace. This feature allows you to run multiple versions of your
 Our resource class will be found in
 `module/src/Status/src/Status/V1/Rest/Status/StatusResource.php`. Open that file in an editor.
 
-The first change we'll make is to import the `StatusLib\MapperInterface` class; add the line `use
-StatusLib\MapperInterface;` above the existing `use` statements.
+The first change we'll make is to import the `StatusLib\MapperInterface` class. 
+Add the line `use StatusLib\MapperInterface;` above the existing `use` statements.
 
 ```php
 use StatusLib\MapperInterface;
