@@ -172,4 +172,3 @@ of event listeners, namely:
 - `ZF\Versioning\VersionListener`
 - `ZF\Versioning\AcceptListener`
 - `ZF\Versioning\ContentTypeListener`
-
