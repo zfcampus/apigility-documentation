@@ -47,6 +47,10 @@ API Documentation
 - [Swagger format](/api-doc/swagger.md)
 - [Customize API documentation](/api-doc/customize.md)
 
+Deployment
+----------
+
+- [Deploying Apigility](/deployment/intro.md)
 
 Recipes
 -------
