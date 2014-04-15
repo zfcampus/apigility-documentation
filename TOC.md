@@ -50,7 +50,7 @@ API Documentation
 Deployment
 ----------
 
-- [Deploy Apigility](/deployment/intro.md)
+- [Deploying Apigility](/deployment/intro.md)
 
 Recipes
 -------
