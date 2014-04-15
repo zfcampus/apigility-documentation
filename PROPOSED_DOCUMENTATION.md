@@ -49,3 +49,4 @@ Proposed Apigility Documentation
     - Accessing the Identity via the MvcEvent
     - Accessing the Identity via the REST resource getIdentity() method
 - Adding Apigility to an existing ZF2 application
+- Deploy Apigility applications
