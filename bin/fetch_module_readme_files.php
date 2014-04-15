@@ -15,6 +15,7 @@ $modules = array(
     'zf-configuration',
     'zf-content-negotiation',
     'zf-content-validation',
+    'zf-deploy',
     'zf-development-mode',
     'zf-hal',
     'zf-mvc-auth',
