@@ -103,7 +103,7 @@ platform provided by [Zend Technologies](http://www.zend.com).
 Once you have create your `package.zpk` file, you can deploy it using the *Deploy Application*
 feature of Zend Server, below is reported a video that show this feature.
 
-<iframe width="560" height="315" src="//www.youtube.com/embed/gA7VhHd_4Z8" frameborder="0" allowfullscreen></iframe> 
+[Video](http://www.youtube.com/embed/gA7VhHd_4Z8) 
 
 For more information about the ZFDeploy tool you can read the [README](https://github.com/zfcampus/zf-deploy/blob/master/README.md)
 of the project.
