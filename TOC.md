@@ -71,6 +71,7 @@ Module Reference
 - [zf-configuration](/modules/zf-configuration.md)
 - [zf-content-negotiation](/modules/zf-content-negotiation.md)
 - [zf-content-validation](/modules/zf-content-validation.md)
+- [zf-deploy](/modules/zf-deploy.md)
 - [zf-development-mode](/modules/zf-development-mode.md)
 - [zf-hal](/modules/zf-hal.md)
 - [zf-mvc-auth](/modules/zf-mvc-auth.md)
