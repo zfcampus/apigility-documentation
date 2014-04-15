@@ -124,7 +124,6 @@ $ vendor/bin/zfdeploy.php . -o /path/to/package.zpk
 Once you have created your `package.zpk` file, you can deploy it using the *Deploy Application*
 feature of Zend Server. Below is a video demonstrating this feature.
 
-<iframe width="400" height="225" src="//www.youtube.com/embed/gA7VhHd_4Z8" frameborder="0"
-allowfullscreen></iframe>
+<iframe width="400" height="225" src="http://www.youtube.com/embed/gA7VhHd_4Z8" frameborder="0" allowfullscreen></iframe>
 
 [Visit the ZFDeploy tool documentation page](/modules/zf-deploy.md) for more detail on the packaging options available.
