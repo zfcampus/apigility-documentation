@@ -27,19 +27,13 @@ $ bin/zfdeploy.php <path> -o <filename> [-m <modules>] [-vendor] [-composer <on|
 
 where:
 
-```console
--m <modules>        The list of modules to deploy, separated by
-                    comma (if empty deploy all)
--vendor             Include the vendor folder 
-                    (not included by default)
--composer <on|off>  Determine if execute composer install
-                    (on by default)
--gitignore <on|off> Determine if parse the .gitignore to exclude
-                    file/folder (on by default)
--d <deploy.xml>     Specify the deployment.xml file to use for 
-                    ZPK format (default in /data/deployment.xml)
--ver <version>      Specify the application version to use for 
-                    ZPK format (default is timestamp)
+```bash
+-m <modules>        The list of modules to deploy, separated by comma (if empty deploy all)
+-vendor             Include the vendor folder (not included by default)
+-composer <on|off>  Determine if execute composer install (on by default)
+-gitignore <on|off> Determine if parse the .gitignore to exclude file/folder (on by default)
+-d <deploy.xml>     Specify the deployment.xml file to use for ZPK format (default in /data/deployment.xml)
+-ver <version>      Specify the application version to use for ZPK format (default is timestamp)
 ```
 
 This deployment tool takes care of the local configuration files, related to the specific environment, using
