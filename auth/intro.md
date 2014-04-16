@@ -2,7 +2,7 @@ Authentication & Authorization
 ==============================
 
 Apigility takes a lightweight, layered, and extensible approach to solving both problems of 
-authentication and authorization.  The infrastructure is already in place and ready to be 
+authentication and authorization.  In Apigility this infrastructure is already in place and ready to be 
 configured to use, or for more advanced use cases, to be extended.  Many of these features can be 
 explored through the Apigility user interface.
 
