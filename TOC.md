@@ -24,7 +24,7 @@ Authentication and Authorization
 --------------------------------
 
 - [Introduction](/auth/intro.md)
-- [About Authentication](/auth/about-authentication.md)
+- [About Authentication](/auth/authentication-about.md)
 - [HTTP Basic Authentication](/auth/authentication-http-basic.md)
 - [HTTP Digest Authentication](/auth/authentication-http-digest.md)
 - [OAuth2 Authentication](/auth/authentication-oauth2.md)
