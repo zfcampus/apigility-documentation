@@ -7,7 +7,7 @@ file also comes with the [Apache](http://httpd.apache.org/) installation: `htdig
 is not present on your system, there are a number of web based tools that will also produce a valid
 `htpasswd` file; [google for "htdigest generator"](https://www.google.com/search?q=%22htdigest+generator%22) for examples.
 
-Like HTTP Basic authentication a digest file will need to exist before configuration of this 
+Like HTTP Basic authentication, a digest file will need to exist before configuration of this 
 authentication scheme takes place:
 
 ```console
@@ -26,7 +26,7 @@ of the HTTP Digest authentication configuration screen, shown here:
 Like HTTP Basic configuration, sensitive information will be stored in your application's
 `config/autoload/local.php` file, while the structure and non-sensitive parts are stored in
 `config/autoload/global.php`.  This mean that for this authentication strategy to become part of
-your application when it is deployed to production you will need to provide it a digest file in your
+your application when it is deployed to production, you will need to provide it a digest file in your
 production `config/autoload/local.php` configuration file.
 
 At this point, HTTP Digest authentication has been setup and is ready to use.

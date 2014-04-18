@@ -5,7 +5,7 @@ Advanced Authentication and Authorization
 
 Authentication is provided via the `Zend\Authentication` component, authorization via the
 `Zend\Permissions` components, and MVC bindings are provided via the
-[zf-mvc-auth](https://github.com/zfcampus/zf-mvc-auth) module. This module's primary purpose is
+[zf-mvc-auth](https://github.com/zfcampus/zf-mvc-auth) module. This module's purpose is
 to deliver a generalized solution that adds events, services, and models into the Zend Framework 2 MVC
 lifecycle that can be utilized to simplify both authentication and authorization.
 
@@ -52,7 +52,7 @@ As you can tell from their `EVENT_ROUTE` priorities, authorization happens *afte
 are effectively three listeners that deal with authorization related workflows:
 
 - `ZF\MvcAuth\Authorization\DefaultResourceResolverListener` is registered with the event
-  `ZF\MvcAuth\MvcAuthEvent::EVENT_AUTHORIZATION` and given a priority of 1000 (executes early).
+  `ZF\MvcAuth\MvcAuthEvent::EVENT_AUTHORIZATION` and given a priority of `1000` (executes early).
   This listener is responsible for determining the matched controller service name from the matched
   route, which will later be used for checking against the access control lists.
 

@@ -23,7 +23,7 @@ Adding password for user ralph
 $ 
 ```
 
-Once the file has been created its path can be used to configure the required `htpasswd` file input 
+Once the file has been created, its path can be used to configure the required `htpasswd` file input 
 of the HTTP Basic authentication configuration screen, shown here:
 
 ![Create an HTTP Basic authentication adapter](/asset/apigility-documentation/img/auth-authentication-http-basic-ui-settings.jpg)
@@ -32,8 +32,8 @@ Of the configuration entered into this screen, the generated configuration is sp
 files in your local application: `config/autoload/global.php` and `config/autoload/local.php`.  The
 sensitive information is stored in `config/autoload/local.php` which is **not** intended for check-in into your
 version control system and should be excluded via `.gitignore`.
-The configuration information that is not sensitive will be placed in the
-`config/autoload/global.php` which will be checked into your version control system. The intended purpose is to
+The configuration information that is not sensitive will be placed in
+`config/autoload/global.php`, which will be checked into your version control system. The intended purpose is to
 ensure that if an authentication scheme was on your local development system, when pushed into
 production the system will still be configured to look for authentication even if a user/password
 store is not available in your VCS.  At this point, your production system should get a non-VCS

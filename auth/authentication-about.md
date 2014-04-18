@@ -3,9 +3,9 @@ About Authentication
 
 Authentication is the process by which *when* an identity is presented to the application, the
 application can *validate the identity is in fact who they say they are*.  In terms of API's and
-Apigility identities are delivered to the application from the client through the use of the
+Apigility, identities are delivered to the application from the client through the use of the
 `Authorization` request header.  This header, if present, is parsed and utilized in one of the
-configured authentication schemes.  If no header is present Apigility assigns a default identity
+configured authentication schemes.  If no header is present, Apigility assigns a default identity
 known as a *Guest* identity.  The important thing to note here is that authentication is not
 something that needs to be turned on because *it is always on*. It just needs to be configured to handle when
 an identity is presented to Apigility.  If no authentication scheme is configured, and an identity
@@ -27,4 +27,4 @@ To get started with any of the configurable authentication schemes, click "Setti
 
 ![Authentication settings](/asset/apigility-documentation/img/auth-authentication-settings.jpg)
 
-Once here you will be presented with the aforementioned authentication schemes to be configured.
+Once here, you will be presented with the aforementioned authentication schemes to be configured.

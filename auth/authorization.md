@@ -22,7 +22,7 @@ What is unique to Apigility is that with REST resources you have the ability to 
 for each allowed HTTP method for either collections *or* entities.  With RPC services you have the
 ability to assign permissions for each allowed HTTP method to the RPC controller.
 
-Since the granularity of configuration is specific to APIs you will be able to find an 
+Since the granularity of configuration is specific to APIs, you will be able to find an 
 "Authorization" navigation item under each API you have created in the Apigility application.  Both 
 REST and RPC services will be listed in the matrix; a checkbox denotes that the particular method 
 in question requires authentication. HTTP Methods that are not allowed will not be activated to 

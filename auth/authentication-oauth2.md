@@ -126,7 +126,7 @@ Web-server applications
 -----------------------
 
 The Web-server applications scenario is used to authenticate a web application with a third-party
-service (i.e. imagine you built a web application that needs to consume the API of Facebook).
+service (e.g., imagine you built a web application that needs to consume the API of Facebook).
 You can authenticate your application using the third-party server with a 3-step flow as illustrated
 in this diagram:
 
@@ -154,7 +154,7 @@ http://<apigility URL>/oauth/authorize?response_type=code&client_id=testclient&r
 > server. If you specified a different URI when you configured OAuth2, use that instead.
 
 > `<apigility URL>` in the above example is the domain where you installed Apigility (if you are
-> using the internal PHP web server this can be something like `localhost:8888`). Remember, in
+> using the internal PHP web server, this can be something like `localhost:8888`). Remember, in
 > production, you should always use SSL/TLS to secure your API when using OAuth2.
 
 Going to this URL, you will see a web page like the following:
@@ -182,7 +182,7 @@ if desired, you can customize this view script.
 
 ### 2) Approve the authorization access
 
-If you approve the authorization access by clicking the "Yes" button Apigility will redirect you to
+If you approve the authorization access by clicking the "Yes" button, Apigility will redirect you to
 the URI specified in the `redirect_uri` query string parameter, passing the authorization code in
 the query string.  In our example we will be redirected to the page `/oauth/receive` as shown
 below:
@@ -277,7 +277,7 @@ This page contains the *Allow/Deny* buttons used to authorize API access to the 
 user clicks on the "Allow" button, the third-party server sends the access token using the [URI
 fragment identifier](http://en.wikipedia.org/wiki/Fragment_identifier) (`#access_token` in Step 2).
 The usage of the fragment identifier for the `access_token` is important from a security point of
-view because the token is not passed to the server; the token can be accessed only by the client
+view, because the token is not passed to the server; the token can be accessed only by the client
 (browser).
 
 The browser-based application scenario is supported by Apigility using the *implicit* grant type.
@@ -309,7 +309,7 @@ http://<apigility URL>/oauth/authorize?response_type=token&client_id=testclient&
 > server. If you specified a different URI when you configured OAuth2, use that instead.
 
 > `<apigility URL>` in the above example is the domain where you installed Apigility (if you are
-> using the internal PHP web server this can be something like `localhost:8888`). Remember, in
+> using the internal PHP web server, this can be something like `localhost:8888`). Remember, in
 > production, you should always use SSL/TLS to secure your API when using OAuth2.
 
 We will see the same web page as shown in the *Web-server application* scenario, asking for
