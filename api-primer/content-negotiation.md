@@ -40,7 +40,7 @@ If the server can _not_ return JSON, it needs to tell the client that fact. This
 HTTP/1.1 406 Not Acceptable
 ```
 
-Ideally, the server will also indicate what media types it _can_ return however it is not obligated
+Ideally, the server will also indicate what media types it _can_ return; however it is not obligated
 to do so.
 
 Because the server cannot return a representation for the requested media type, it can choose
@@ -96,7 +96,7 @@ Summary
 specify what kind of content is being sent to the server, and what content representation it expects
 back in return.
 
-Although the concept can be described in a sentence the mechanics are quite difficult. `Accept` header
+Although the concept can be described in a sentence, the mechanics are quite difficult. `Accept` header
 matching is complex and needs to follow many sets of rules in order to follow the HTTP
 specification. Similarly, the server needs to be programmed such that it returns appropriate
 response status codes when unable to provide particular representations, or unable to deserialize

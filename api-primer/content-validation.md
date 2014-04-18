@@ -7,7 +7,7 @@ ensure it's valid? And if you determine it's invalid, how do you report that inf
 
 Taking a layered security approach, the sooner you can deliver validation errors, the better. Denial
 of Service attacks will often send invalid data in order to mire the system in long-running and
-processor intensive requests thus denying service to valid requests.
+processor intensive requests, thus denying service to valid requests.
 
 Types of Validation
 -------------------
@@ -25,7 +25,7 @@ to the same logic you would use to validate a form. This requires that your form
 does not operate directly on `$_POST` or `$_GET`, but instead allows passing the data set to
 validate.
 
-Zend Framework 2 offers an approach similar to the latter; via the
+Zend Framework 2 offers an approach similar to the latter, via the
 [`Zend\InputFilter`](http://framework.zend.com/manual/2.3/en/modules/zend.input-filter.intro.html)
 component. This component allows you to describe and validate data sets of arbitrary complexity.
 Additionally, it allows for the ability to both set custom error messages as well as retrieve
@@ -80,7 +80,7 @@ Content-Type: application/problem+json
 }
 ```
 
-Validation errors from Apigility will always follow this format thereby providing predictability to
+Validation errors from Apigility will always follow this format, thereby providing predictability to
 consumers of your APIs.
 
 HTTP Method-Specific Validation
@@ -94,7 +94,7 @@ and every field representing the user.
 
 The `zf-content-validation` module provides granularity beyond just mapping input filters to
 services; it also allows you to map input filters to specific HTTP methods for a given service. In
-the case of [REST services](/api-primer/what-is-an-api.md#rest) it also differentiates between
+the case of [REST services](/api-primer/what-is-an-api.md#rest), it also differentiates between
 collection and entity URIs, allowing an input filter for each HTTP method for each.
 
 Summary

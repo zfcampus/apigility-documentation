@@ -52,5 +52,5 @@ two sets of HTTP methods:
 
 ![REST HTTP Methods](/asset/apigility-documentation/img/api-primer-http-negotiation-rest.png)
 
-In the above case, when accessing the collection, you can use either `GET` or `POST` but when
+In the above case, when accessing the collection, you can use either `GET` or `POST`, but when
 accessing an individual item in the collection (an entity) only `GET` is allowed.
