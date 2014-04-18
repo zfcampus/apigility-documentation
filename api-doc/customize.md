@@ -38,8 +38,8 @@ module. You will need to perform the following steps:
 
 You need at least one view script to act as an entry point; this will be the view script selected by
 the `zf-apigility-documentation` controller and rendered by the application. That view script will
-receive two variables: a `type`, which will indicate what documentation is being requested, and then
-additional variables based on the type provided.
+receive a `type` variable which will indicate what documentation is being requested, and then
+additional variables based on that type.
 
 We recommend that your view script use the type to select additional view scripts to render; this
 will allow you to reduce complexity in your view script. To see an example, look at the
@@ -62,7 +62,7 @@ array(
         'name' => 'API_Name',
         'versions' => array(
             1,
-            2, // etc.
+            2, # etc.
         ),
     ),
 )
@@ -186,7 +186,7 @@ easily in its custom `ViewModel` and allow the `JsonRenderer` to take care of th
 
 Creating a custom renderer means implementing
 [Zend\View\Renderer\RendererInterface](https://github.com/zendframework/zf2/blob/master/library/Zend/View/Renderer/RendererInterface.php);
-we leave such implementation as an exercise to the reader.
+and Apigility leaves such implementation as an exercise to the reader.
 
 ### Creating a view strategy
 
@@ -274,8 +274,8 @@ class SwaggerViewStrategy extends AbstractListenerAggregate
 The above strategy selects the standard `JsonRenderer` if the
 `ZF\Apigility\Documentation\Swagger\ViewModel` is detected for a view model. When the "response"
 event is triggered, it checks to see if the selected view model is recognized, and then injects a
-`Content-Type` header with the `application/vnd.swagger+json` media type. This ensures that while we
-return JSON to the user, the content type accurately reflects the JSON structure we return.
+`Content-Type` header with the `application/vnd.swagger+json` media type. This ensures that when we
+return JSON to the user the content type accurately reflects the JSON structure we return.
 
 You'll also notice that the above strategy uses dependency injection in order to receive the
 `JsonRenderer` instance; you will need to setup an appropriate factory for the Zend Framework 2
