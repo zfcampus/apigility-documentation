@@ -6,7 +6,7 @@ formats. XML-RPC and SOAP both use XML. REST APIs can choose whatever they want,
 being the most common, with many custom formats of each, many with their own [media
 types](http://en.wikipedia.org/wiki/Media_type).
 
-XML provides two very simple way to provide relational links:
+XML provides two very simple ways to provide relational links:
 
 - A `<link>` tag can be used: `<link rel="foo" href="/foo" />`
 - Alternatedly, use [XLink](http://en.wikipedia.org/wiki/XLink) to provide links on arbitrary
