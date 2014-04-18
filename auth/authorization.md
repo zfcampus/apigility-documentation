@@ -11,7 +11,7 @@ With Apigility, the information presented through the `Authorization` header is 
 either a `ZF\MvcAuth\Identity\AuthenticatedIdentity` or `ZF\MvcAuth\Identity\GuestIdentity`.  The
 implementation of authorization uses `Zend\Permissions\Acl` as a model of an access control list
 (ACL).  This list is built in the Apigility Admin UI.  By default, everything is accessible to all
-authenticated identities and guest identities.  Apigility does not, by default, give you the ability
+authenticated identities and "guest" identities.  Apigility does not, by default, give you the ability
 to create user groups, or assign specific permissions to specific authenticated users.
 
 Authorization happens post-route, but before dispatch of the requested service.  This is what allows

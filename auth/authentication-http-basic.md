@@ -116,4 +116,4 @@ Important notes:
 - Your client should be capable of properly encoding the HTTP Basic `Authorization` header.
 - In production, ensure a `htpasswd` file can be utilized in the same relative location as in 
   development, even if the `htpasswd` was not checked into your VCS.
-- Omitting the `Authorization` header implies that the "Guest" identity will be used.
+- Omitting the `Authorization` header implies that the "guest" identity will be used.

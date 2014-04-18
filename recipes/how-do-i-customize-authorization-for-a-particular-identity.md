@@ -14,7 +14,7 @@ identity other than "guest" will be part of the system.  It is also important th
 and learned the limitations of the existing authorization setup.
 
 One of the limitations of the current authorization system is that authorization is limited to
-granting access to users based on whether they are an unauthenticated user (which, in Apigility
+granting access to users based on whether they are an unauthenticated user (which, in Apigility,
 goes by the identity "guest") or an authenticated user, whose identity will be stored in the
 `ZF\MvcAuth\Identity\AuthenticatedIdentity` model.
 
@@ -53,7 +53,7 @@ class Module
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
         
-        // wire in our listener, at priority 1 to ensure it runs before the
+        // Wire in our listener at priority 1 to ensure it runs before the
         // DefaultAuthorizationListener
         $eventManager->attach(
             MvcAuthEvent::EVENT_AUTHORIZATION,
@@ -65,7 +65,7 @@ class Module
 }
 ```
 
-Lastly, we'll need to construct our listener; comments will describe the code inline:
+Lastly, we'll need to construct our listener.  Refer to the inline comments:
 
 ```php
 namespace Application\Authorization;
@@ -98,7 +98,7 @@ class AuthorizationListener
         $authorization->addRole('ralph');
         
         /**
-         * Now, assign the particular privilidge that this identity needs.
+         * Next, assign the particular privilidge that this identity needs.
          */
         $authorization->allow('ralph', 'FooBar\V1\Rest\Foo\Controller::collection', 'GET');
     }
@@ -106,9 +106,9 @@ class AuthorizationListener
 
 ```
 
-To demonstrate this particular rule in action, consider the following HTTP requests.
+To demonstrate this particular rule in action, consider the following HTTP requests:
 
-First, we'll request without passing any credentials.
+Make a request without passing any credentials.
 
 ```HTTP
 GET /foo HTTP/1.1
@@ -169,7 +169,7 @@ Authorization: Basic cmFscGg6cmFscGg=
 
 ```
 
-Finally, we have success:
+And at long last we have success:
 
 ```HTTP
 HTTP/1.1 200 OK
