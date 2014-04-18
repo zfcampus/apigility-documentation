@@ -1,8 +1,8 @@
 Validating
 ==========
 
-Each field of a service can be assigned a set of validators.  When an input filter is present all
-validation must pass in order for the service to be executed. If an input filter does not validate
+Each field of a service can be assigned a set of validators.  When an input filter is present, all
+validation must pass in order for the service to be executed. If an input filter does not validate,
 a `422 Unprocessable Entity` status is returned with a message that the resource failed validation.
 In this situation the service will not be executed.
 

@@ -6,9 +6,9 @@ valid. If it is not then an [API Problem response](/api-primer/error-reporting.m
 containing details on the validation failures.
 
 For each service, Apigility allows you to configure a fieldset that is to be used when data is
-passed to the service. To accomplish this Apigility uses the
+passed to the service. To accomplish this, Apigility uses the
 [zf-content-validation](https://github.com/zfcampus/zf-content-validation) module to create 
-[Zend Framework 2 input filters](http://framework.zend.com/manual/2.3/en/modules/zend.input-filter.intro.html)
+[Zend Framework 2 input filters](http://framework.zend.com/manual/2.3/en/modules/zend.input-filter.intro.html),
 then executes the input filter associated with a service when data is submitted.
 
 > ## Note: Content Validation Request Methods

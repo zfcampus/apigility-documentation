@@ -211,7 +211,7 @@ class ContactResourceFactory
 
 ### Retrieving normalized fields
 
-Once you have the input filter you can retrieve the normalized fields. Typically, you will retrieve
+Once you have the input filter, you can retrieve the normalized fields. Typically, you will retrieve
 all fields at once:
 
 ```php
