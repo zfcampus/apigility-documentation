@@ -2,13 +2,13 @@ API Documentation
 =================
 
 Apigility offers the ability to generate API documentation using the Admin UI.  The documentation is
-generated in HTML format, and optionally in [Swagger](https://helloreverb.com/developers/swagger)
+generated in HTML format and, optionally, in [Swagger](https://helloreverb.com/developers/swagger)
 format. The HTML API documentation is linked in the Apigility UI in the top bar, under the menu item
 "API Docs".
 
 ![API Docs menu](/asset/apigility-documentation/img/api-doc-menu.png)
 
-While documentation is always available, we recommend that you provide narrative desciptions for all
+Although documentation is always available, we recommend that you provide narrative desciptions for all
 services and operations.  These may be edited in the *Documentation tab* of each REST or RPC
 service.
 
@@ -22,7 +22,7 @@ based on the fields configured for the service, using the **generate from config
 
 ![Generate from configuration](/asset/apigility-documentation/img/api-doc-generate-from-config.png)
 
-This button read the configuration of the API and proposes a JSON response based on the fields
+This button reads the configuration of the API and proposes a JSON response based on the fields
 specified (the fields are documented under the *Fields* tab of each REST and RPC service). If
 desired, you can also manually edit the request and response body descriptions.
 
