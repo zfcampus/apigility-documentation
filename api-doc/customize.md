@@ -62,7 +62,7 @@ array(
         'name' => 'API_Name',
         'versions' => array(
             1,
-            2, # etc.
+            2, // etc.
         ),
     ),
 )
@@ -275,7 +275,7 @@ The above strategy selects the standard `JsonRenderer` if the
 `ZF\Apigility\Documentation\Swagger\ViewModel` is detected for a view model. When the "response"
 event is triggered, it checks to see if the selected view model is recognized, and then injects a
 `Content-Type` header with the `application/vnd.swagger+json` media type. This ensures that when we
-return JSON to the user the content type accurately reflects the JSON structure we return.
+return JSON to the user, the content type accurately reflects the JSON structure we return.
 
 You'll also notice that the above strategy uses dependency injection in order to receive the
 `JsonRenderer` instance; you will need to setup an appropriate factory for the Zend Framework 2
