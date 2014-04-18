@@ -76,4 +76,4 @@ Important notes:
   able to fulfill the digest handshake.
 - In production, ensure a `htdigest` file can be utilized in the same relative location as in 
   development, even if the `htdigest` was not checked into your VCS.
-- No `Authorization` header in the request implies that the "Guest" identity will be used.
+- No `Authorization` header in the request implies that the "guest" identity will be used.
