@@ -54,7 +54,7 @@ Edit the file `config/autoload/local.php` to add the following configuration:
   return array(
       /* ... */
       'statuslib' => array(
-          'array_map_path' => 'data/statuslib.php',
+          'array_mapper_path' => 'data/statuslib.php',
       ),
   );
   ```
