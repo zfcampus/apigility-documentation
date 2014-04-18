@@ -10,9 +10,8 @@ enforce it?
 HTTP provides functionality around this topic via another HTTP method, `OPTIONS`, and a related HTTP
 response header, `Allow`.
 
-Calls to `OPTIONS` are non-cacheable, and may provide a response body if desired. They _should_
-emit an `Allow` header, however, detailing which HTTP request methods are allowed on the current
-URI.
+Calls to `OPTIONS` are non-cacheable and may provide a response body if desired. They _should_
+emit an `Allow` header detailing which HTTP request methods are allowed on the current URI.
 
 Consider the following request:
 
@@ -47,11 +46,11 @@ As an example, the following RPC service indicates only the `GET` method is avai
 
 ![RPC HTTP Methods](/asset/apigility-documentation/img/api-primer-http-negotiation-rpc.png)
 
-The next example is of a REST service. REST services can respond for either collections (the URI
+The next example is a REST service. REST services can respond for either collections (the URI
 without an identifier) or entities (the URI _with_ an identifier). As such, you need to configure
 two sets of HTTP methods:
 
 ![REST HTTP Methods](/asset/apigility-documentation/img/api-primer-http-negotiation-rest.png)
 
-In the above case, when accessing the collection, you can use either `GET` or `POST`, but when
-accessing an individual item in the collection (an entity), only `GET` is allowed.
+In the above case, when accessing the collection, you can use either `GET` or `POST` but when
+accessing an individual item in the collection (an entity) only `GET` is allowed.

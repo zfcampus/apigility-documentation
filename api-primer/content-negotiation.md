@@ -34,13 +34,13 @@ The above indicates that the client wants JSON for a response. It is now the ser
 to determine if it can return that representation.
 
 If the server can _not_ return JSON, it needs to tell the client that fact. This is done via the
-`406 Not Acceptable` status code.
+`406 Not Acceptable` status code:
 
 ```HTTP
 HTTP/1.1 406 Not Acceptable
 ```
 
-Ideally, the server will also indicate what media types it _can_ return; however it is not obligated
+Ideally, the server will also indicate what media types it _can_ return however it is not obligated
 to do so.
 
 Because the server cannot return a representation for the requested media type, it can choose
@@ -52,7 +52,7 @@ can return a media type more _generic_ than the requested one! For instance, if 
 indicates `application/vnd.foo+json`, the server can respond with `application/hal+json` or even
 `application/json`.
 
-One last point of interest: the same URI can potentially respond with multiple media types. This
+One important point of interest: the same URI can potentially respond with multiple media types. This
 means that you could potentially make one request that specifies `text/html`, another with
 `application/json`, and get different representations of the same resource! This is an important
 aspect of content negotiation; one of the purposes is to allow many clients to the same resource,
@@ -77,8 +77,8 @@ Content-Type: application/json
 ```
 
 The server would introspect the `Content-Type` header and determine that JSON was submitted. Now it
-has to decide if it can deserialize that content. If it cannot, the server will respond with a `415
-Unsupported Media Type` status code:
+has to decide if it can deserialize that content. If it cannot, the server will respond with a 
+`415 Unsupported Media Type` status code:
 
 ```HTTP
 HTTP/1.1 415 Unsupported Media Type
@@ -96,8 +96,8 @@ Summary
 specify what kind of content is being sent to the server, and what content representation it expects
 back in return.
 
-While the concept can be described in a sentence, the mechanics are quite difficult. `Accept` header
-matching is complex, and needs to follow many sets of rules in order to follow the HTTP
+Although the concept can be described in a sentence the mechanics are quite difficult. `Accept` header
+matching is complex and needs to follow many sets of rules in order to follow the HTTP
 specification. Similarly, the server needs to be programmed such that it returns appropriate
 response status codes when unable to provide particular representations, or unable to deserialize
 incoming data. These are not trivial concerns.
@@ -107,7 +107,7 @@ so that if the application cannot handle the request, a response is returned as 
 this allows your server to save important processing cycles for the requests that really matter --
 those it can handle!
 
-Content negotiation is configuration driven, and handled by the
+Content negotiation is configuration driven and handled by the
 [zf-content-negotiation](https://github.com/zfcampus/zf-content-negotiation) module. Each controller
 service can indicate what `Accept` media types it can handle, what `Content-Type` media types it can
 deserialize, and specify a map of `Accept` media types to the view models, and hence view renderers,
