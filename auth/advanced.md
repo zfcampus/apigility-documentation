@@ -5,15 +5,15 @@ Advanced Authentication and Authorization
 
 Authentication is provided via the `Zend\Authentication` component, authorization via the
 `Zend\Permissions` components, and MVC bindings are provided via the
-[zf-mvc-auth](https://github.com/zfcampus/zf-mvc-auth) module. This module's primary purpose is
-deliver a generalized solution that adds events, services, and models into the Zend Framework 2 MVC
+[zf-mvc-auth](https://github.com/zfcampus/zf-mvc-auth) module. This module's purpose is
+to deliver a generalized solution that adds events, services, and models into the Zend Framework 2 MVC
 lifecycle that can be utilized to simplify both authentication and authorization.
 
 ## Events
 
 In order to acheive integration to the ZF2 MVC lifecycle for authentication, `zf-mvc-auth` wires in
 4 listeners that then propagate their own events.  Each of these listeners are registered within the
-event `MvcEvent::EVENT_ROUTE`, at different priorities.  The table below describes the new event
+event `MvcEvent::EVENT_ROUTE` at different priorities.  This table describes the new event
 names:
 
 | `zf-mvc-auth` event | MVC event in which triggered | MVC event priority |
@@ -52,20 +52,20 @@ As you can tell from their `EVENT_ROUTE` priorities, authorization happens *afte
 are effectively three listeners that deal with authorization related workflows:
 
 - `ZF\MvcAuth\Authorization\DefaultResourceResolverListener` is registered with the event
-  `ZF\MvcAuth\MvcAuthEvent::EVENT_AUTHORIZATION`, and given a priority of 1000 (executes early).
+  `ZF\MvcAuth\MvcAuthEvent::EVENT_AUTHORIZATION` and given a priority of `1000` (executes early).
   This listener is responsible for determining the matched controller service name from the matched
   route, which will later be used for checking against the access control lists.
 
 - `ZF\MvcAuth\Authorization\DefaultAuthorizationListener` is registered with the event
-  `ZF\MvcAuth\MvcAuthEvent::EVENT_AUTHORIZATION`, with the default priority.  This listener is
+  `ZF\MvcAuth\MvcAuthEvent::EVENT_AUTHORIZATION` with the default priority.  This listener is
   responsible for taking information from the `ZF\MvcAuth\MvcAuthEvent` and determining if the
   identity discovered during authentication is authorized to perform the current request against the
   discovered controller service.
 
 - `ZF\MvcAuth\Authorization\DefaultAuthorizationPostListener` is registered with the
   `ZF\MvcAuth\MvcAuthEvent::EVENT_AUTHORIZATION_POST` event, at default priority.  This listener is
-  responsible for checking if the current request is unauthorized, and if so, it will assign a `403
-  Unauthorized` status to the HTTP response object, and return it.
+  responsible for checking if the current request is unauthorized, and if so, it will assign a 
+  `403 Unauthorized` status to the HTTP response object, and return it.
 
 ## Services & Models
 

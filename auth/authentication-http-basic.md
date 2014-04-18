@@ -5,7 +5,7 @@ HTTP Basic authentication provides the fewest setup requirements, requiring only
 that you are likely already familiar with: the `htpasswd` utility.  This command line utility is
 generally delivered as part of an [Apache web server](http://httpd.apache.org/) installation. If
 this tool is not present on your system, there are a number of web based tools that will also
-produce a valid `htpasswd` file; google for "htpasswd generator" for a selection.
+produce a valid `htpasswd` file; [google for "htpasswd generator"](https://www.google.com/search?q=%22htpasswd+generator%22) for a selection.
 
 The first thing to do, before anything else, is to create an `htpasswd` file that contains at least 
 one username and password. 
@@ -24,17 +24,18 @@ $
 ```
 
 Once the file has been created, its path can be used to configure the required `htpasswd` file input 
-of the HTTP Basic authentication configuration screen:
+of the HTTP Basic authentication configuration screen, shown here:
 
 ![Create an HTTP Basic authentication adapter](/asset/apigility-documentation/img/auth-authentication-http-basic-ui-settings.jpg)
 
 Of the configuration entered into this screen, the generated configuration is split between two
 files in your local application: `config/autoload/global.php` and `config/autoload/local.php`.  The
-sensitive information is stored in `local.php`, which is **not** intended for check-in into your
-version control system.  The configuration information that is not sensitive will be placed in the
-`global.php` which will be checked into your version control syste. The intended purpose is to
-ensure that if an authentication scheme was using on your local development system, when pushed into
-production the system will still be configured to look for authentication, even if a user/password
+sensitive information is stored in `config/autoload/local.php` which is **not** intended for check-in into your
+version control system and should be excluded via `.gitignore`.
+The configuration information that is not sensitive will be placed in
+`config/autoload/global.php`, which will be checked into your version control system. The intended purpose is to
+ensure that if an authentication scheme was on your local development system, when pushed into
+production the system will still be configured to look for authentication even if a user/password
 store is not available in your VCS.  At this point, your production system should get a non-VCS
 user/password `htpasswd` file to ensure proper authentication of identities with HTTP Basic is
 possible.

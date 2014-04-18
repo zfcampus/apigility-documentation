@@ -17,7 +17,9 @@ definitions:
 - *Client*: the Third-Party Application
 
 In Apigility, the *Resource Server* and the *Authorization Server* are delivered from the same API
-server. The OAuth2 protocol is actually a framework for authorization. From the abstract of RFC 6749
+server. 
+
+The OAuth2 protocol is actually a framework for authorization. From the abstract of RFC 6749
 we can read:
 
 > The OAuth 2.0 authorization framework enables a third-party application to obtain limited access
@@ -25,7 +27,7 @@ we can read:
 > between the resource owner and the HTTP service, or by allowing the third-party application to 
 > obtain access on its own behalf.
 
-The uses cases covered by the OAuth2 framework are:
+The use cases covered by the OAuth2 framework are:
 
 - *Web-server applications*
 - *Browser-based applications*
@@ -65,7 +67,7 @@ Setup OAuth2
 ------------
 
 Before we jump into the different use cases for OAuth2 authentication, we need to configure
-Apigility to use OAuth2. Go to the dashboard page and click on the "OAuth2" button:
+Apigility to use OAuth2. Go to the dashboard page and click on the "OAuth2" button, shown here:
 
 ![OAuth2 dashboard](/asset/apigility-documentation/img/auth-oauth2-dashboard.png)
 
@@ -95,7 +97,7 @@ For testing purposes, you can use the SQLite database shipped in the
 [zf-oauth2](https://github.com/zfcampus/zf-oauth2) module, in the file
 `vendor/zfcampus/zf-oauth2/data/dbtest.sqlite`; we suggest copying it to `data/oauth2-test.sqlite`.
 To use this example, you need to specify the absolute path of the database file in the PDO DSN
-field, using the syntax `sqlite:/path/to/database/file`.  In this database, we created a client with
+field, using the syntax `sqlite:/path/to/database/file`.  In this database we created a client with
 `client_id` **testclient** and `client_secret` **testpass**, and a user with `username` **testuser**
 and a `password` **testpass**. We will use this data in the following use cases.
 
@@ -124,9 +126,9 @@ Web-server applications
 -----------------------
 
 The Web-server applications scenario is used to authenticate a web application with a third-party
-service (e.g. imagine you built a web application that needs to consume the API of Facebook).
+service (e.g., imagine you built a web application that needs to consume the API of Facebook).
 You can authenticate your application using the third-party server with a 3-step flow as illustrated
-in the diagram below:
+in this diagram:
 
 ![Web-server applications](/asset/apigility-documentation/img/auth-oauth2-web-server-app.png)
 
@@ -152,8 +154,8 @@ http://<apigility URL>/oauth/authorize?response_type=code&client_id=testclient&r
 > server. If you specified a different URI when you configured OAuth2, use that instead.
 
 > `<apigility URL>` in the above example is the domain where you installed Apigility (if you are
-> using the internal PHP web server this can be something like `localhost:8888`. Remember, in
-> production, you should use SSL/TLS to secure your API, particularly if providing authentication!
+> using the internal PHP web server, this can be something like `localhost:8888`). Remember, in
+> production, you should always use SSL/TLS to secure your API when using OAuth2.
 
 Going to this URL, you will see a web page like the following:
 
@@ -307,8 +309,8 @@ http://<apigility URL>/oauth/authorize?response_type=token&client_id=testclient&
 > server. If you specified a different URI when you configured OAuth2, use that instead.
 
 > `<apigility URL>` in the above example is the domain where you installed Apigility (if you are
-> using the internal PHP web server this can be something like `localhost:8888`. Remember, in
-> production, you should use SSL/TLS to secure your API, particularly if providing authentication!
+> using the internal PHP web server, this can be something like `localhost:8888`). Remember, in
+> production, you should always use SSL/TLS to secure your API when using OAuth2.
 
 We will see the same web page as shown in the *Web-server application* scenario, asking for
 authorization approval.
@@ -365,7 +367,7 @@ As you can see, the flow is a 2 step authentication mechanism similar to browser
 Username and password access
 ----------------------------
 
-This use case can be used to authenticate an API with a user based grants (also known as a
+This use case can be used to authenticate an API with user based grants (also known as a
 *password* grant).  The typical scenario includes a *Login* web page with username and password that
 is used to authenticate against a first-party API. Password grant is only appropriate for trusted
 clients.  If you build your own website as a client of your API, then this is a great way to handle
@@ -399,7 +401,7 @@ Content-Type: application/json
 
 If we are using a **public client** (by default, this is true when no secret is associated with the
 client) you can omit the `client_secret` value; additionally, you will now pass the `client_id` in
-therequest body. In our example database, the **testclient2** `client_id` has an empty
+the request body. In our example database the **testclient2** `client_id` has an empty
 `client_secret`. 
 
 ```HTTP
@@ -466,7 +468,7 @@ Revoke OAuth2 token
 -------------------
 
 Recently, the IETF published [RFC 7009](https://tools.ietf.org/html/rfc7009), detailing
-OAuth2 token revocation. Apigility doesn’t yet support token
+OAuth2 token revocation. Apigility doesn't yet support token
 revocation. However, it is still possible to revoke specific access tokens by removing the value from
 the database. For instance, if you are using the PDO adapter, all the tokens are stored in
 the `oauth_access_tokens` table; if you want to revoke a token you can delete it from the table,
