@@ -101,7 +101,7 @@ This tool accomplishes all of the steps described in the previous section in one
 instance, if you want to create a ZIP package, you can execute the following command:
 
 ```console
-$ vendor/bin/zfdeploy.php . -o /path/to/package.zip
+$ vendor/bin/zfdeploy.php /path/to/package.zip
 ```
 
 (Where `/path/to/package.zip` is the path of the ZIP file to create.)
@@ -110,7 +110,7 @@ You can also use this tool to produce `.tar` or `.tgz` (`.tar.gz`) packages by s
 extension that you want to use in the package output.
 
 ```console
-$ vendor/bin/zfdeploy.php . -o /path/to/package.tgz
+$ vendor/bin/zfdeploy.php /path/to/package.tgz
 ```
 
 Moreover, ZFDeploy can also produce a `.zpk` package ready to be deployed using [Zend Server
@@ -118,7 +118,7 @@ Moreover, ZFDeploy can also produce a `.zpk` package ready to be deployed using 
 Technologies](http://www.zend.com).
 
 ```console
-$ vendor/bin/zfdeploy.php . -o /path/to/package.zpk
+$ vendor/bin/zfdeploy.php /path/to/package.zpk
 ```
 
 Once you have created your `package.zpk` file, you can deploy it using the *Deploy Application*
