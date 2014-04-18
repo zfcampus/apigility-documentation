@@ -11,7 +11,7 @@ For JSON APIs, though, two formats are starting to achieve large adoption:
 `application/vnd.error+json` and `application/problem+json`. Apigility provides
 support for the latter, which goes by the cumbersome title of [Problem Details for HTTP
 APIs](http://tools.ietf.org/html/draft-nottingham-http-problem-06); Apigility refers to it as
-`API Problem`, and provides support for it via the
+`API Problem` and provides support for it via the
 [zf-api-problem](https://github.com/zfcampus/zf-api-problem) module.
 
 API Problem
@@ -24,14 +24,14 @@ The payload of an API Problem has the following structure:
 
 - **type**: a URL to a document describing the error condition (optional, and "about:blank" is
   assumed if none is provided; should resolve to a _human-readable_ document; Apigility always
-  provides this)
+  provides this).
 - **title**: a brief title for the error condition (required; and should be the same for every
-  problem of the same **type**; Apigility always provides this)
-- **status**: the HTTP status code for the current request (optional; Apigility always provides this)
+  problem of the same **type**; Apigility always provides this).
+- **status**: the HTTP status code for the current request (optional; Apigility always provides this).
 - **detail**: error details specific to this request (optional; Apigility requires it for each
-  problem)
+  problem).
 - **instance**: URI identifying the specific instance of this problem (optional; Apigility currently
-  does not provide this.
+  does not provide this).
 
 As an example payload:
 
@@ -57,7 +57,7 @@ occurred. Apigility uses this fact to provide more information in several ways:
 
 As an example, let's say a user hits an API service that requires authentication, but has not
 provided credentials (pretend for a moment that Apigility does not provide authentication and
-authorization!). You could provide the URI to the end-user via the API Problem:
+authorization). You could provide the URI to the end-user via the API Problem:
 
 ```JSON
 {
@@ -144,7 +144,7 @@ Summary
 We chose the Problem Details specification for its flexibility and simplicity. You can have your own
 custom error types, so long as you have a description of them to link to. You can provide as little
 or as much detail as you want, and even decide what information to expose based on environment
-(i.e., production vs development).
+(e.g., production vs development).
 
 Apigility will use the Problem Details format whenever a request matching a JSON mediatype is made
 and an error occurs.

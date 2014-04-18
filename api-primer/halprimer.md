@@ -42,7 +42,7 @@ relational link. As an example:
 
 If you are including other resources embedded in the resource you are representing, you will provide
 an `_embedded` property, containing the named resources. Each resource will be structured as a HAL
-resource, and contain at least a `_links` property with a `self` relational link.
+resource and contain at least a `_links` property with a `self` relational link.
 
 ```JSON
 {
@@ -192,14 +192,14 @@ Content-Type: application/vnd.example.user+json
     "name": "Matthew Weier O'Phinney",
     "contacts": [
         {
-            "id": "mac_nibblet",
+            "id": "mac_nibblet"
         },
         {
-            "id": "spiffyjr",
+            "id": "spiffyjr"
         }
     ],
     "website": {
-        "id": "mwop",
+        "id": "mwop"
     }
 }
 ```

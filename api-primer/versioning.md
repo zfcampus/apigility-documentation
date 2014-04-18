@@ -3,7 +3,7 @@ API Versioning
 
 What happens if you need to make changes to your API?
 
-If you're making additions to the API - adding services, adding fields to your services - you likely
+If you're making additions to the API - e.g., adding services or adding fields to your services - you likely
 don't need to do anything more to notify users than to tell them about the changes.
 
 But what happens if you need to make a change that will affect users?
@@ -37,8 +37,8 @@ Providing the version in the URI enables visual identification of the version be
 However, it breaks one of the fundamental ideas behind REST: one resource, one URI. If you version
 your URIs, you're providing multiple URIs to the same resource.
 
-Additionally, if you don't plan for versioning from the outset, it means that you the first version
-of your API does not contain versioning information - but every subsequent version does.
+Additionally, if you don't plan for versioning from the outset, it means that the first version
+of your API does not contain versioning information - but every subsequent version will.
 
 Is there a better way?
 
@@ -63,10 +63,10 @@ the fact that the version is not visible when looking at the URI.
 Other Versioning Methodologies
 ------------------------------
 
-The above two versioning types are the most common. However, other types exist:
+The above two versioning types are the most common; however, other types exist:
 
-- Custom header. As an example, `X-API-Version: 2`, `GData-Version: 2.0`, `X-MS-Version:
-  2011-08-18`, etc.
+- Custom header. As an example, 
+  `X-API-Version: 2`, `GData-Version: 2.0`, `X-MS-Version: 2011-08-18`, etc.
 - Hostname. Facebook, when migrating from the first API version, switched from the host
   `http://api.facebook.com` to `http://graph.facebook.com`.
 - Data parameter. This could be a query string parameter for `GET` requests, as noted above, but a
@@ -94,8 +94,9 @@ versioning](#media-type-versioning). URL versioning is on by default, but option
 prefix any API service URI with `/v<version>/` to access a given version.
 
 Each API created by Apigility is given a custom media type; you can see what that media type looks
-like in the "Content Negotiation" section for each service. The basic format is `applicatin/vnd.<api
-name>.v<version>+json`, where the API name is normalized to lowercase, dash-separated words.
+like in the "Content Negotiation" section for each service. The basic format is 
+`application/vnd.<apiname>.v<version>+json`, where the API name is normalized to
+lowercase, dash-separated words.
 
 Note that the media type is specific to the API, not the individual services within the API; if you
 want more granularity, you can define your own media types for each service. To simplify your job,

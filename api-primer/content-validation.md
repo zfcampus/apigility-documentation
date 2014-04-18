@@ -6,7 +6,7 @@ Once incoming data has been
 ensure it's valid? And if you determine it's invalid, how do you report that information?
 
 Taking a layered security approach, the sooner you can deliver validation errors, the better. Denial
-of Service attacks will often send invalid data in order to mire the system in long-running,
+of Service attacks will often send invalid data in order to mire the system in long-running and
 processor intensive requests, thus denying service to valid requests.
 
 Types of Validation
@@ -25,7 +25,7 @@ to the same logic you would use to validate a form. This requires that your form
 does not operate directly on `$_POST` or `$_GET`, but instead allows passing the data set to
 validate.
 
-Zend Framework 2 offers an approach similar to this latter, via the
+Zend Framework 2 offers an approach similar to the latter, via the
 [`Zend\InputFilter`](http://framework.zend.com/manual/2.3/en/modules/zend.input-filter.intro.html)
 component. This component allows you to describe and validate data sets of arbitrary complexity.
 Additionally, it allows for the ability to both set custom error messages as well as retrieve
@@ -38,7 +38,7 @@ the end-user of the API.
 
 If the data provided _does_ _not_ overlap with the set described by the input filter, Apigility will
 return a `400 Bad Request` status code. If any portion of the data set _does_ overlap, but is
-invalid, instead a `422 Unprocessable Entity` status will be returned, with an
+invalid, instead a `422 Unprocessable Entity` status will be returned with an
 `application/problem+json` payload that contains a `validation_messages` key.
 
 As an example, consider a "Status" service that accepts two fields, "message" and "user"; the first
@@ -80,7 +80,7 @@ Content-Type: application/problem+json
 }
 ```
 
-Validation errors from Apigility will always follow this format, providing predictability to
+Validation errors from Apigility will always follow this format, thereby providing predictability to
 consumers of your APIs.
 
 HTTP Method-Specific Validation
