@@ -3,7 +3,7 @@ Authorization
 
 Authorization is the process by which a system can take a *validated identity* (or lack of 
 identity) and *determine if that identity has access to a given resource*.  In terms of APIs and 
-Apigility, the identity that is pass in via the `Authorization` header, which is then validated 
+Apigility, the identity that is passed in via the `Authorization` header, which is then validated 
 during authentication, is then passed into the process that determines if the request/resource can 
 be accessed by that identity.
 
@@ -19,10 +19,10 @@ Authorization happens post-route, but before dispatch of the requested service. 
 without having to start the initialization dispatch of any particular controller in the application.
 
 What is unique to Apigility is that with REST resources you have the ability to assign permissions
-for each allowed HTTP method for either collections *or* entities.  With RPC services, you have the
-ability to assign permissions for each allowed HTTP allowed method to the RPC controller.
+for each allowed HTTP method for either collections *or* entities.  With RPC services you have the
+ability to assign permissions for each allowed HTTP method to the RPC controller.
 
-Since the granularity of configuration is specific to APIs, you will be able to find an 
+Since the granularity of configuration is specific to APIs you will be able to find an 
 "Authorization" navigation item under each API you have created in the Apigility application.  Both 
 REST and RPC services will be listed in the matrix; a checkbox denotes that the particular method 
 in question requires authentication. HTTP Methods that are not allowed will not be activated to 

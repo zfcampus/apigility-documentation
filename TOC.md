@@ -24,10 +24,10 @@ Authentication and Authorization
 --------------------------------
 
 - [Introduction](/auth/intro.md)
-- [Authentication](/auth/authentication.md)
-    - [HTTP Basic Auth](/auth/authentication-http-basic.md)
-    - [HTTP Digest Auth](/auth/authentication-http-digest.md)
-    - [OAuth2](/auth/authentication-oauth2.md)
+- [About Authentication](/auth/authentication-about.md)
+- [HTTP Basic Authentication](/auth/authentication-http-basic.md)
+- [HTTP Digest Authentication](/auth/authentication-http-digest.md)
+- [OAuth2 Authentication](/auth/authentication-oauth2.md)
 - [Authorization](/auth/authorization.md)
 - [Advanced Auth Events and Services](/auth/advanced.md)
 
