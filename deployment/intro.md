@@ -60,7 +60,7 @@ mechanism.
 ### Notes on deployment
 
 One of the most important parts in the previous steps is the usage of the `.gitignore` file to omit
-development configuration files. When you deploy an Apigility application in production, you must be
+development configuration files. When you deploy an Apigility application in production you must be
 sure that the files are aligned with the production environment.
 
 Here are some specific Apigility files that you must omit in production:
@@ -113,9 +113,9 @@ extension that you want to use in the package output.
 $ vendor/bin/zfdeploy.php /path/to/package.tgz
 ```
 
-Moreover, ZFDeploy can also produce a `.zpk` package ready to be deployed using [Zend Server
-6](http://www.zend.com/it/products/server/), the PHP Application Server platform provided by [Zend
-Technologies](http://www.zend.com).
+Moreover, ZFDeploy can also produce a `.zpk` package ready to be deployed using 
+[Zend Server 6](http://www.zend.com/it/products/server/), the PHP Application Server platform provided by 
+[Zend Technologies](http://www.zend.com).
 
 ```console
 $ vendor/bin/zfdeploy.php /path/to/package.zpk
