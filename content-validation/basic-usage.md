@@ -4,7 +4,7 @@ Basic Usage
 The [zf-content-validation](https://github.com/zfcampus/zf-content-validation) module utilizes 
 [Zend Framework's InputFilter component](http://framework.zend.com/manual/2.3/en/modules/zend.input-filter.intro.html).
 Apigility takes information from the UI and writes it to the target API's module configuration file.
-For more information on how the theory of input filters, [read the Content Validation
+For more information on the theory of input filters, [read the Content Validation
 introduction](/content-validation/intro.md).
 
 To configure an input filter in the Apigility UI, browse to the API, then the service.  From there,
@@ -33,7 +33,6 @@ information is then stored in the API's module configuration file, under two sep
 `zf-content-validation` key and the `input_filter_specs` key.  Here is a sample:
 
 ```php
-<?php 
 return array(
     'zf-content-validation' => array(
         'AddressBook\\V1\\Rest\\Contact\\Controller' => array(
@@ -163,12 +162,9 @@ if ($inputFilter) {
 
 Since input filters are named services, you can also pull them from the [service
 manager](http://framework.zend.com/manual/2.3/en/modules/zend.service-manager.intro.html) within
-factories in order to inject your objectSince input filters are named services, you can also pull
-them from the [service
-manager](http://framework.zend.com/manual/2.3/en/modules/zend.service-manager.intro.html) within
-factories in order to inject your objects.
+factories in order to inject your object.  
 
-As an example, the above examples define an input filter by the name
+For an example, the above examples define an input filter by the name
 `AddressBook\V1\Rest\Contact\Validator`. Let's define our `ContactResource` to receive the input
 filter via constructor injection (along with a mapper object we've defined):
 
@@ -215,7 +211,7 @@ class ContactResourceFactory
 
 ### Retrieving normalized fields
 
-Once you have the input filter, you can retrieve the normalized fields. Typically, you will retrieve
+Once you have the input filter you can retrieve the normalized fields. Typically, you will retrieve
 all fields at once:
 
 ```php

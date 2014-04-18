@@ -1,9 +1,9 @@
 Validating
 ==========
 
-Each field of a service can be assigned a set of validators.  When an input filter is present, all
-validation must pass in order for the service to be executed. If an input filter does not validate,
-a `422 Unprocessable Entity` status is returned, with a message that the resource failed validation.
+Each field of a service can be assigned a set of validators.  When an input filter is present all
+validation must pass in order for the service to be executed. If an input filter does not validate
+a `422 Unprocessable Entity` status is returned with a message that the resource failed validation.
 In this situation the service will not be executed.
 
 For example, in the following AddressBook and Contact example, a contact must provide a valid age.
@@ -11,7 +11,7 @@ The setup looks like:
 
 ![Content Validation Required Field](/asset/apigility-documentation/img/content-validation-validating-required-field.jpg)
 
-A request without an age:
+Now send a request without an age:
 
 ```HTTP
 POST /contact HTTP/1.1
@@ -130,7 +130,7 @@ Content-Type: application/problem+json
 }
 ```
 
-In some cases, it makes more sense to assign a single consolidated error message for the field.
+In some cases, it makes more sense to assign a single consolidated error message for each field.
 To do this, provide a value for the "Validation Failure Message" of the field:
 
 ![Content Validation Consolidated Field Message](/asset/apigility-documentation/img/content-validation-validating-consolidated-field-message.jpg)
