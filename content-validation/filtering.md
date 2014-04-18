@@ -3,18 +3,18 @@ Filtering
 
 In addition to per-field configuration, each field can be assigned a set of validators and filters.
 `Zend\InputFilter\InputFilter` runs filters before validators, giving you the opportunity to
-"cleanup" or normalize data.
+"cleanup" and normalize data.
 
 The [Zend\Filter](http://framework.zend.com/manual/2.3/en/modules/zend.filter.html) component is
 used  to accomplish the filtering phase of content validation.
 
-For a list of the currently available filters:
+Here is a list of the available filters:
 
 - [Filter documentation](http://framework.zend.com/manual/2.3/en/modules/zend.filter.set.html)
 
 Filters are executed prior to validation, allowing you to perform normalization tasks.
 
-In this example, we'll add a `StringTrim` filter to the name field.
+In this example we'll add a `StringTrim` filter to the name field.
 
 ![Content Validation Filtering Setup](/asset/apigility-documentation/img/content-validation-filtering-setup.jpg)
 

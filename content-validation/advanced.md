@@ -6,9 +6,9 @@ Custom input filters
 
 Content forthcoming. Topics:
 
-- Registering custom input filters with `zf-content-validation`
-- Registering custom filters and validators
-- Providing metadata for custom filters and validators so that they will display in the admin UI
+- Registering custom input filters with `zf-content-validation`.
+- Registering custom filters and validators.
+- Providing metadata for custom filters and validators so that they will display in the admin UI.
 
 Method-specific input filters
 -----------------------------
@@ -23,7 +23,7 @@ a service (`PATCH` and/or `PUT` request), however, may require dozens of fields.
   method that does not have a specific input filter defined.
 - The ability to define an input filter per HTTP request method.
 
-The latter capability is provided via manual configuration only at this time.
+The latter capability is only provided via manual configuration at this time.
 
 `zf-content-validation` configuration has the following structure:
 
