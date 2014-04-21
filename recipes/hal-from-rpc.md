@@ -43,7 +43,7 @@ class RegisterController extends AbstractActionController
 The [zf-hal](https://github.com/zfcampus/zf-hal) module in Apigility creates the actual HAL
 representations. `zf-hal` looks for a `payload` variable in the view model, and expects that value
 to be either a `ZF\Hal\Entity` (single item) or `ZF\Hal\Collection`. When creating an `Entity`
-object you need the object being represented, as well as the identifier.  So, let's update our
+object, you need the object being represented, as well as the identifier.  So, let's update our
 return value.
 
 ```php
