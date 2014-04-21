@@ -91,7 +91,7 @@ return array(
 ```
 
 Finally, we need to make sure that the service is configured to actually return HAL. We can do this
-in the admin if we want. Find the "Content Negotiation" section of the admin, and the "Content
+in the admin. Find the "Content Negotiation" section in the admin, then the "Content
 Negotiation Selector" item, and set that to "HalJson"; don't forget to save!
 
 ![Content Negotiation Selector](/asset/apigility-documentation/img/recipes-hal-from-rpc-select-selector.png)
@@ -114,4 +114,4 @@ return array(
 
 Once your changes are complete, when you make a successful request to the URI for your "register"
 RPC service, you'll receive a HAL response pointing to the canonical URI for the user resource
-created!
+created.
