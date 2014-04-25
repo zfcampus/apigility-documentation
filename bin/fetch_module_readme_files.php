@@ -13,6 +13,7 @@ $modules = array(
     'zf-apigility-welcome',
     'zf-api-problem',
     'zf-configuration',
+    'zf-console',
     'zf-content-negotiation',
     'zf-content-validation',
     'zf-deploy',
