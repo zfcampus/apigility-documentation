@@ -101,7 +101,7 @@ This tool accomplishes all of the steps described in the previous section in one
 instance, if you want to create a ZIP package, you can execute the following command:
 
 ```console
-$ vendor/bin/zfdeploy.php /path/to/package.zip
+$ vendor/bin/zfdeploy.php build /path/to/package.zip
 ```
 
 (Where `/path/to/package.zip` is the path of the ZIP file to create.)
@@ -110,7 +110,7 @@ You can also use this tool to produce `.tar` or `.tgz` (`.tar.gz`) packages by s
 extension that you want to use in the package output.
 
 ```console
-$ vendor/bin/zfdeploy.php /path/to/package.tgz
+$ vendor/bin/zfdeploy.php build /path/to/package.tgz
 ```
 
 Moreover, ZFDeploy can also produce a `.zpk` package ready to be deployed using 
@@ -118,7 +118,7 @@ Moreover, ZFDeploy can also produce a `.zpk` package ready to be deployed using
 [Zend Technologies](http://www.zend.com).
 
 ```console
-$ vendor/bin/zfdeploy.php /path/to/package.zpk
+$ vendor/bin/zfdeploy.php build /path/to/package.zpk
 ```
 
 Once you have created your `package.zpk` file, you can deploy it using the *Deploy Application*
@@ -127,3 +127,82 @@ feature of Zend Server. Below is a video demonstrating this feature.
 <iframe width="640" height="360" src="http://www.youtube.com/embed/gA7VhHd_4Z8" frameborder="0" allowfullscreen></iframe>
 
 [Visit the ZFDeploy tool documentation page](/modules/zf-deploy.md) for more detail on the packaging options available.
+
+You can also deploy a ZPK from the commandline. To do this, download the [Zend Server Web API
+SDK](https://github.com/zend-patterns/ZendServerSDK). Once you have it, you will
+need to:
+
+1. Create an API key in the Zend Server UI.
+2. Create an SDK target.
+3. Either deploy a new application, or update an existing one.
+
+### Create an API key
+
+To create an API key, first navigate to the "Administration" screen, and the "Web API" panel within
+that screen:
+
+![Zend Server Web API Screen](/asset/apigility-documentation/img/deployment-intro-zfdeploy-create-api-key.png)
+
+Click the "Add Key" button, and follow the instructions. You will likely need to assign the key
+administrator permissions in order to allow deployment.
+
+Make a note of the key name and hash, as you wll use them in the next step.
+
+### Create an SDK target
+
+Now use the key name and hash to create an SDK target, using the SDK's `addTarget` command:
+
+```console
+$ zs-client.phar addTarget --target=<target name> --zskey=<key name> --zssecret=<hash>
+```
+
+The `<target name>` is a unique name you will provide so that the SDK can later use the
+configuration you provide when accessing the Zend Server API. You may also need to provide the
+`--zsurl` option if you are deploying to a server other than `http://localhost:10081`, and the
+`--http` option in order to disable peer verification if your Zend Server deployment is over SSL.
+
+```console
+$ zs-client.phar addTarget --target=api --zskey=api --zssecret=<hash> --zsurl="https://foobar.tld:100082" --http="sslverify=0&sslverifypeer=0"
+```
+
+For more information on the `addTarget` command, run `zsclient.phar addTarget --help`.
+
+Make a note of the target name, as you will use it in the next step
+
+### Deploy or update an application
+
+If you are deploying an API for the first time, you will use the `applicationDeploy` method of the
+SDK:
+
+```console
+$ zs-client.phar applicationDeploy --appPackage=<package filename> --baseUrl=<url application will run under> --target <target>
+```
+
+where `<package filename>` is the ZPK you created with `ZFDeploy`, `--baseUrl` is the URI you want
+to run your application under, and `target` is the SDk target you created in the previous step.
+
+You will also need to provide either the `--createVhost` or `defaultServer`, depending on whether
+you want a new vhost created for the application, or if you want to use the default server. Finally,
+we recommend passing the `--userAppName <name>` flag, in order to provide a human readable name for
+the application.
+
+For more information on the `applicationDeploy` command, run `zf-client.phar applicationDeploy --help`.
+
+If you are updating an existing application that you have already deployed, first use the
+`applicationGetStatus` command in order to find the application identifier:
+
+```console
+$ zs-client.phar applicationGetStatus --target <target>
+```
+
+Look through the results to find the application and its identifier.
+
+Next, use the `applicationUpate` command:
+
+```console
+$ zs-client.phar applicationUpdate --appId <id> --appPackage <package filename> --target <target>
+```
+
+where `<id>` is the application identifier you discovered with `applicationGetStatus`,  `<package filename>` is the package you created with `ZFDeploy`, and `<target>` is the SDk target you created in the previous step.
+
+For more information on the `applicationUpdate` command, run `zf-client.phar applicationUpdate --help`.
