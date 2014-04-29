@@ -1,4 +1,5 @@
 Adding Apigility To An Existing Project
+=======================================
 
 Adding Apigility to an existing ZF2 project based on the ZF2 skeleton application is a straight forward process.  This is because the Apigility skeleton itself is based on the ZF2 skeleton, with minimal changes.
 
@@ -12,9 +13,9 @@ Now that you have an existing ZF2 application you wish to add Apigility to, it i
 Note: Until Apigility is 1.0 stable, add the following to your composer.json's `require`: `"minimum-stability": "dev"`
 
 ```console
-composer require "zfcampus/zf-apigility:~1.0@dev"
-composer require --dev "zfcampus/zf-apigility-admin:~1.0@dev"
-composer require --dev "zfcampus/zf-development-mode:~2.0"
+$ composer require "zfcampus/zf-apigility:~1.0@dev"
+$ composer require --dev "zfcampus/zf-apigility-admin:~1.0@dev"
+$ composer require --dev "zfcampus/zf-development-mode:~2.0"
 ```
 
 Now, to ensure that the development-time tools are accessible and cannot be accidentially deployed in the production website, we need to make some modifications to the `public/index.php` file.  Replace: 
@@ -100,7 +101,7 @@ data/cache/*
 At this point, all the various peices that you would expect to find in the `zf-apigility-skeleton` have been ported into your existing ZF2 application.  Finally, issue the following command, like in Apigilty:
 
 ```console
-php public/index.php development enable
+$ php public/index.php development enable
 ```
 
 At this point, this particular ZF2 enabled Apigility project can be accessed like any other Apigility project.
@@ -137,7 +138,7 @@ class Module implements ApigilityProviderInterface
 Or, use the HTTP endpoint to automatically enable this module, here we'll use HTTPie to call the service:
 
 ```console
-http -j PUT http://localhost:8000/apigility/api/module.enable module=StatusLib
+$ http -j PUT http://localhost:8000/apigility/api/module.enable module=StatusLib
 ```
 
 Finally, as an example, if we were to add the `StatusLib` mapper to a newly minted REST service resource with the name `Status`.  Edit the factory `module/StatusLib/src/StatusLib/V1/Rest/Status/StatusResourceFactory.php` to pass in the mapper:
