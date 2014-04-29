@@ -224,7 +224,8 @@ Content-Type: application/json
     "redirect_uri": "/oauth/receivecode",
     "client_id": "testclient",
     "client_secret": "testpass",
-    "code": "a4dd64ffb43e6bfe16d47acfab1e68d9c7a28381
+    "code": "a4dd64ffb43e6bfe16d47acfab1e68d9c7a28381",
+    "grant_type" : "authorization_code"
 }
 ```
 
@@ -235,7 +236,7 @@ HTTP/1.1 200 OK
 Content-Type: application/json
 
 {
-    "access_token": "907c762e069589c2cd2a229cdae7b8778caa9f07"", 
+    "access_token": "907c762e069589c2cd2a229cdae7b8778caa9f07",
     "expires_in": 3600, 
     "refresh_token": "43018382188f462f6b0e5784dd44c36f476ccce6", 
     "scope": null, 
