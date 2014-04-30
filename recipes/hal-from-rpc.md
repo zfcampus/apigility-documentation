@@ -59,12 +59,19 @@ class RegisterController extends AbstractActionController
          * ... get a $user
          * ... assume we have also now have an $id
          */
-        return new ViewModel(array('payload' => array(
-            'user' => new Entity($user, $id),
-        )));
+        return new ViewModel(array(
+            'payload' => new Entity($user, $id),
+        ));
     }
 }
 ```
+
+> ### The "Payload"
+>
+> When creating a view model to use with `zf-hal`, you must follow a specific convention: the
+> entity or collection you wish to return **must** be assigned to the `payload` variable of the view
+> model. `zf-hal`'s `HalJsonRenderer` looks for this specific variable, and renders only its
+> contents when creating a representation.
 
 `zf-hal` contains what's called a "metadata map". This is a map of classes to information on how
 `zf-hal` should render them: what route to use, what additional relational links to inject, how to
