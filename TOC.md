@@ -55,6 +55,7 @@ Deployment
 Recipes
 -------
 
+- [Adding Apigility to an Existing Project](/recipes/apigility-in-an-existing-zf2-application.md)
 - [Customising Authorization for Specific Identities](/recipes/how-do-i-customize-authorization-for-a-particular-identity.md)
 - [Returning HAL from RPC Services](/recipes/hal-from-rpc.md)
 

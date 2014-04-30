@@ -1,4 +1,4 @@
-Adding Apigility To An Existing Project
+Adding Apigility to an Existing Project
 =======================================
 
 Because Apigility's functionality is provided by a number of Zend Framework 2 modules, you can add
@@ -9,7 +9,7 @@ application based on [StatusLib](https://github.com/zfcampus/statuslib-example) 
 the [REST Service tutorial](/intro/first-rest-service.md).  To get a working ZF2 application like
 it, please follow the directions in the [StatusLib README](https://github.com/zfcampus/statuslib-example#statuslib-in-a-new-zf2-project).
 
-Preparing A ZF2 Based Application
+Preparing a ZF2-based application
 ---------------------------------
 
 Now that you have an existing ZF2 application you wish to add Apigility to, it is time to add the
@@ -133,7 +133,7 @@ $ php public/index.php development enable
 
 Once complete, this particular ZF2 project can be accessed like any other Apigility project.
 
-Building Apigility API Modules
+Building Apigility API modules
 ------------------------------
 
 At this point there are effectively two ways of building out Apigility modules:
