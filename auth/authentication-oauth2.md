@@ -224,7 +224,8 @@ Content-Type: application/json
     "redirect_uri": "/oauth/receivecode",
     "client_id": "testclient",
     "client_secret": "testpass",
-    "code": "a4dd64ffb43e6bfe16d47acfab1e68d9c7a28381
+    "code": "a4dd64ffb43e6bfe16d47acfab1e68d9c7a28381",
+    "grant_type" : "authorization_code"
 }
 ```
 
@@ -235,7 +236,7 @@ HTTP/1.1 200 OK
 Content-Type: application/json
 
 {
-    "access_token": "907c762e069589c2cd2a229cdae7b8778caa9f07"", 
+    "access_token": "907c762e069589c2cd2a229cdae7b8778caa9f07",
     "expires_in": 3600, 
     "refresh_token": "43018382188f462f6b0e5784dd44c36f476ccce6", 
     "scope": null, 
@@ -380,8 +381,14 @@ The authentication mechanism is just 1 step (see diagram below).
 The client application sends a `POST` to the OAuth2 server with the username and password values.
 The OAuth2 server responds with the token access as part of a JSON payload.
 
-You can use the password grant type in two ways. With [confidential](http://tools.ietf.org/html/draft-ietf-oauth-v2-31#section-2.1), trusted clients, you provide the
-`client_id` and `client_secret` as HTTP Basic authentication credentials, and the `username`, and `password` values in the request body, in order to obtain an access token.
+You can use the password grant in two ways: with *confidential* (trusted) clients, or *public*
+clients.
+
+### Confidential clients
+
+With [confidential](http://tools.ietf.org/html/draft-ietf-oauth-v2-31#section-2.1), trusted clients,
+you provide the `client_id` and `client_secret` as HTTP Basic authentication credentials, and the
+`username`, and `password` values in the request body, in order to obtain an access token.
 
 ```HTTP
 POST /oauth HTTP/1.1
@@ -390,7 +397,7 @@ Authorization: Basic dGVzdGNsaWVudDp0ZXN0cGFzcw==
 Content-Type: application/json
 
 {
-    "grant_type": "password,
+    "grant_type": "password",
     "username": "testuser",
     "password": "testpass"
 }
@@ -398,6 +405,9 @@ Content-Type: application/json
 
 > **Note**: The `Authorization` header above is the HTTP Basic authentication credentials for the
 > `client_id` "testclient" and the `client_secret` "testpass".
+
+
+### Public Clients
 
 If we are using a **public client** (by default, this is true when no secret is associated with the
 client) you can omit the `client_secret` value; additionally, you will now pass the `client_id` in
@@ -413,19 +423,18 @@ Content-Type: application/json
     "grant_type": "password",
     "username": "testuser",
     "password": "testpass",
-    "client_id": "testclient2
+    "client_id": "testclient2"
 }
 ```
 
 Application access
 ------------------
 
-This use case can be used to authenticate against applications, mosty likely in machine
-to machine scenarios. The OAuth2 grant type for this use case is called `client_credential`.
-The usage is similar to the username and password access reported above; the application sends
-a `POST` request to the OAuth2 server, passing the `client_id` and the `client_secret` in the
-request body. The server replies with the token if the client credentials are valid.
-
+This use case can be used to authenticate against applications, mosty likely in machine to machine
+scenarios. The OAuth2 grant type for this use case is called `client_credential`.  The usage is
+similar to the public client password access reported above; the application sends a `POST` request
+to the OAuth2 server, passing both the `client_id` and the `client_secret` in the body. The server
+replies with the token if the client credentials are valid.
 
 Refresh OAuth2 token
 --------------------

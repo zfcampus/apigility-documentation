@@ -11,7 +11,7 @@ lifecycle that can be utilized to simplify both authentication and authorization
 
 ## Events
 
-In order to acheive integration to the ZF2 MVC lifecycle for authentication, `zf-mvc-auth` wires in
+In order to achieve integration to the ZF2 MVC lifecycle for authentication, `zf-mvc-auth` wires in
 4 listeners that then propagate their own events.  Each of these listeners are registered within the
 event `MvcEvent::EVENT_ROUTE` at different priorities.  This table describes the new event
 names:
