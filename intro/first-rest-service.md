@@ -211,12 +211,13 @@ For our example, the `StatusLib` library provides its own Entity and Collection 
 
 > ### Service Classes
 >
-> When you create a Code-Connected service, Apigility generates three PHP class files for you:
+> When you create a Code-Connected service, Apigility generates four PHP class files for you:
 >
 > - An Entity class
 > - A Collection class which extends `Zend\Paginator\Paginator`, which will allow you to provide
 >   paginated result sets.
 > - A Resource class for performing operations.
+> - A Factory class for the Resource created.
 >
 > Your own code may already define entity and collection classes that you want to use, so you are
 > free to ignore the stub classes Apigility creates. One note, however: if you end up versioning
@@ -378,9 +379,9 @@ We've completed describing our API... but we've not linked in our code yet! It's
 Defining the resource
 ---------------------
 
-You may recollect from earlier that Apigility creates three class stubs for us, one each for the
-entity, collection, and resource. It's time to put some code in our resource class so it can do
-something.
+You may recollect from earlier that Apigility creates four class stubs for us, one each for the
+entity, collection, resource, and a factory for initializing the resource. It's time to put some
+code in our resource class so it can do something.
 
 Apigility provides versioning out-of-the-box. One aspect of versioning is that code is also
 versioned by namespace. This feature allows you to run multiple versions of your API in parallel.
@@ -428,9 +429,10 @@ Now that we have our mapper composed, let's fill in some methods.
 You'll notice that we're not updating all methods in the class. Several methods are for operating on
 lists, and we are not defining those operations.
 
-How will we get the `$mapper` into the resource? For that, we'll need to define a factory. Create
-the file `module/Status/src/Status/V1/Rest/Status/StatusResourceFactory.php`, open it in an editor,
-and define it as follows:
+How will we get the `$mapper` into the resource? For that, we'll edit our factory. Open
+the file `module/Status/src/Status/V1/Rest/Status/StatusResourceFactory.php` in an editor,
+and modify it so it reads as follows (you should only need to change the `return` line inside the
+`__invoke()` method):
 
 ```php
 <?php
@@ -446,25 +448,10 @@ class StatusResourceFactory
 ```
 
 The above is a factory for use with the [Zend Framework 2 Service
-Manager](http://framework.zend.com/manual/2.3/en/modules/zend.service-manager.intro.html). As such,
-we need to register it with the service manager.
-
-Open the file `module/Status/config/module.config.php`. In that file, find the section marked
-`service_manager`. It should have a subkey `invokables`, with another subkey for our resource class,
-`Status\V1\Rest\Status\StatusResource`. We're going to change the configuration to read as follows:
-
-```php
-'service_manager' => array(
-    'factories' => array(
-        'Status\V1\Rest\Status\StatusResource' => 'Status\V1\Rest\Status\StatusResourceFactory',
-    ),
-),
-```
-
-> Note the change from `invokables` to `factories`!
-
-What we are doing above is saying that when a request is made for our `StatusResource` class, the
-service manager should use our factory to get an instance of it.
+Manager](http://framework.zend.com/manual/2.3/en/modules/zend.service-manager.intro.html). When your
+service is selected in a request, this factory will be run in order to create an instance of your
+`StatusResource`. In this method, we're pulling another service already defined in the `StatusLib`
+module, and injecting it into our `StatusResource`.
 
 At this point, we finally have a working REST service!
 
