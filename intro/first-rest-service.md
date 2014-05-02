@@ -333,7 +333,7 @@ Your exercise now is to document both collection and entity operations:
 - Give the service a description of "Create, manipulate, and retrieve status messages."
 - Give collections a description of "Manipulate lists of status messages."
     - For the `GET` method, describe it as "Retrieve a paginated list of status messages."
-    - For the `POST` method, describe it as "Create a new status messages."
+    - For the `POST` method, describe it as "Create new status messages."
 - Give entities a description of "Manipulate and retrieve individual status messages."
     - For the `GET` method, describe it as "Retrieve a status message."
     - For the `PATCH` method, describe it as "Update a status message."
