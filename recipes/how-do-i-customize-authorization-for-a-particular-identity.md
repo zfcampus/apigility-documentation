@@ -42,7 +42,7 @@ namespace Application;
 
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\ModuleRouteListener;
-use ZF\MvcAuth\Authorization\AuthorizationListener;
+use Application\Authorization\AuthorizationListener;
 use ZF\MvcAuth\MvcAuthEvent;
 
 class Module
@@ -98,7 +98,7 @@ class AuthorizationListener
         $authorization->addRole('ralph');
         
         /**
-         * Next, assign the particular privilidge that this identity needs.
+         * Next, assign the particular privilege that this identity needs.
          */
         $authorization->allow('ralph', 'FooBar\V1\Rest\Foo\Controller::collection', 'GET');
     }
