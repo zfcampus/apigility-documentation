@@ -6,19 +6,19 @@ Installation
 The easiest way to install `Apigility` is from your terminal, executing the following command:
 
 ```console
-curl -sS http://apigility.org/install | php
+curl -sS https://apigility.org/install | php
 ```
 
 If you do not have [curl](http://curl.haxx.se/) installed you can use PHP itself:
 
 ```console
-php -r "readfile('http://apigility.org/install');" | php
+php -r "readfile('https://apigility.org/install');" | php
 ```
 Otherwise you can install `Apigility` using one of the alternative following procedures.
 
 ## Via release tarball
 
-Grab the latest release from the Apigility [download](http://apigility.org/download) page.
+Grab the latest release from the Apigility [download](https://apigility.org/download) page.
 
 Untar it:
 
