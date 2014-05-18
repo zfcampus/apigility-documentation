@@ -52,5 +52,21 @@ Create an abstract factory that creates your tableGateways. This factory extends
 
 The code between `// Features` and `// end Features` is new, the rest is taken from `\ZF\Apigility\TableGatewayAbstractFactory::createServiceWithName()`
 
+Then for each table, add this to the config
+
+```php
+    'zf-apigility' => array(
+        'db-connected' => array(
+            '<name of resource>' => array(
+                ...
+                'features' => array(
+                    'sequence' => array(
+                        'primaryKeyField' => '<name of primary key column>',
+                        'sequenceName' => '<name of sequence>',
+                    ),
+                ),
+            ),
+        ...
+```
 
 
