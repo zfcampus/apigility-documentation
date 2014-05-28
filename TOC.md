@@ -59,6 +59,7 @@ Recipes
 - [Customising Authorization for Specific Identities](/recipes/how-do-i-customize-authorization-for-a-particular-identity.md)
 - [Returning HAL from RPC Services](/recipes/hal-from-rpc.md)
 - [Customizing DB-Connected TableGateways with Features](/recipes/customizing-table-gateway-with-features.md)
+- [Upload Files Via Your API](/recipes/upload-files-to-api.md)
 
 Module Reference
 ----------------
