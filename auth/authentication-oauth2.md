@@ -431,7 +431,7 @@ Application access
 ------------------
 
 This use case can be used to authenticate against applications, mosty likely in machine to machine
-scenarios. The OAuth2 grant type for this use case is called `client_credential`.  The usage is
+scenarios. The OAuth2 grant type for this use case is called `client_credentials`.  The usage is
 similar to the public client password access reported above; the application sends a `POST` request
 to the OAuth2 server, passing both the `client_id` and the `client_secret` in the body. The server
 replies with the token if the client credentials are valid.
