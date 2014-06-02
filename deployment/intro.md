@@ -9,6 +9,50 @@ question of how to deploy Apigility becomes one of how to deploy a ZF2 applicati
 application can be addressed in different ways depending on the specific use case and the deployment
 methodology used in your environment.
 
+Preparing to deploy
+-------------------
+
+A couple items to consider when preparing to deploy are (a) production configuration, and (b) the
+landing page of your application.
+
+Apigility builds on the Zend Framework 2 skeleton. This skeleton includes configuration for where to
+find configuration files, as well as version control rules for excluding what is dubbed "local"
+configuration. Essentially, ZF looks for application configuration files in the `config/autoload/`
+tree, and has separate globs for those suffixed with `global.php` and those suffixed with
+`local.php`; additionally, the latter, "local" files are omitted from version control by default.
+_This makes them the recommended location for environment specific configuration, and particularly
+any configuration involving credentials or specific servers._
+
+We recommend keeping your production configuration separate from the application repository. This
+can mean storing them in a separate, private repository -- for example, scripts that are uploaded
+with tools such as [Chef](http://www.getchef.com/chef/), [Puppet](http://www.puppetlabs.com/), or
+[Ansible](http://www.ansible.com/). Alternately, if you keep this information in another repository,
+you can also use the ZFDeploy tool, outlined below, to slurp in the production configuration when
+creating a deployment package.
+
+Regarding the landing page of your application, if you use the Apigility skeleton application, the
+"home page" by default redirects to the Apigility welcome page -- which is disabled when in
+production mode! As such, we recommend altering your
+`Application\Controller\IndexController::indexAction()` method to do something other than redirect,
+or to redirect to another page. This will mean removing the following line:
+
+```php
+// in module/Application/src/Application/Controller/IndexController.php:
+return $this->redirect()->toRoute('zf-apigility/welcome');
+```
+
+and replacing it with something else; for example, to have it redirect to your end-user HTML API
+documentation:
+
+```php
+return $this->redirect()->toRoute('zf-apigility/documentation');
+```
+
+> ### Update the home page!
+>
+> The landing page for your application will **not** work, _and will in fact raise an error_ if you do
+> not make the changes to the landing page as recommended above!
+
 Manual deployment using Composer
 --------------------------------
 
