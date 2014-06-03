@@ -1,4 +1,4 @@
-Customising Authorization for Specific Identities
+Customizing Authorization for Specific Identities
 =================================================
 
 Question
@@ -24,9 +24,9 @@ a few things that need to be known and taken into account in order to achieve ou
 * The `AclAuthorizationFactory` will produce a `Zend\Permissions\Acl` type of object with the
   information that was written to a config file, provided by the Apigility UI.
 
-* The `AuthorizationService` is composed in the `ZF\MvcAuth\MvcAuthEvent`, which is accessible to 
+* The `AuthorizationService` is composed in the `ZF\MvcAuth\MvcAuthEvent`, which is accessible to
   all `MvcAuth` events.
-  
+
 * The `MvcAuth::AUTHENTICATION` event has a `ZF\MvcAuth\Authorization\DefaultAuthorizationListener`
   that is responsible for ultimately calling `isAuthorized()`, and returning this result to be
   used by `MvcAuth` or Apigility in order to determine how to respond to the client's request.
@@ -52,13 +52,13 @@ class Module
         $eventManager        = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
-        
-        // Wire in our listener at priority 1 to ensure it runs before the
+
+        // Wire in our listener at priority >1 to ensure it runs before the
         // DefaultAuthorizationListener
         $eventManager->attach(
             MvcAuthEvent::EVENT_AUTHORIZATION,
             new AuthorizationListener,
-            1
+            100
         );
     }
     // ...
@@ -96,7 +96,7 @@ class AuthorizationListener
          * Now, add the name of the identity in question as a role to the ACL
          */
         $authorization->addRole('ralph');
-        
+
         /**
          * Next, assign the particular privilege that this identity needs.
          */
