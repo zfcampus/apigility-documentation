@@ -476,9 +476,10 @@ Content-Type: application/json
 You can also refresh a token from a trusted client, specifying only the `client_id` and
 the `refresh_token` fields.
 
-If you want to generate a new `refresh_token` value you need to enable the set the
-`always_issue_new_refresh_token` options of oauth2 to true (default is false). This option can
-be changed in the `config/autoload/local.php` file of your Apigility project. 
+If you want to generate a new `refresh_token` value, you need to enable the
+`always_issue_new_refresh_token` zf-oauth2 configuration option, setting it to
+`true` (the default is `false`). This option can be changed in the
+`config/autoload/local.php` file of your Apigility project. 
 
 ```php
 return array(
@@ -486,8 +487,8 @@ return array(
     'zf-oauth2' => array(
         // ...
         'options' => array(
-            'always_issue_new_refresh_token' => true
-        )
+            'always_issue_new_refresh_token' => true,
+        ),
     ),
     // ...
 );
