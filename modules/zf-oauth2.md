@@ -1,5 +1,6 @@
 Zf-OAuth2
 =========
+
 ZF2 module for [OAuth2](http://oauth.net/2/) authentication.
 
 This module uses the [oauth2-server-php](https://github.com/bshaffer/oauth2-server-php)
@@ -116,6 +117,23 @@ return array(
         ),
     ),
 );
+```
+
+Mongo Configuration
+-------------------
+
+The Mongo OAuth2 adapter wraps the bshaffer adapter by adding the same password encryption
+as the rest of apigility.  The collections needed are the same as above in the PDO
+adapter.  To create an OAuth2 client, insert a document like the following into the
+oauth_clients collection:
+
+```javascript
+{
+    "client_id":     "testclient",
+    "client_secret": "$2y$14$f3qml4G2hG6sxM26VMq.geDYbsS089IBtVJ7DlD05BoViS9PFykE2",
+    "redirect_uri":  "/oauth/receivecode",
+    "grant_types":   null
+}
 ```
 
 How to test OAuth2
@@ -310,4 +328,4 @@ if (!$this->server->verifyResourceRequest(OAuth2Request::createFromGlobals())) {
 ```
 
 where `$this->server` is an instance of `OAuth2\Server` (see the
-[AuthController.php](https://github.com/zfcampus/zf-oauth2/blob/master/src/ZF/OAuth2/Controller/AuthController.php)).
+[AuthController.php](https://github.com/zfcampus/zf-oauth2/tree/master/src/Controller/AuthController.php)).

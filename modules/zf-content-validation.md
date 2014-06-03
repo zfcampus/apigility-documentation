@@ -12,6 +12,11 @@ Allows the following:
 - Mapping named input filters to named controller services.
 - Returning an `ApiProblemResponse` with validation error messages on invalid input.
 
+Requirements
+------------
+  
+Please see the [composer.json](https://github.com/zfcampus/zf-content-validation/tree/master/composer.json) file.
+
 Installation
 ------------
 
