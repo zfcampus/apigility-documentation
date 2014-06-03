@@ -473,6 +473,30 @@ Content-Type: application/json
 }
 ```
 
+You can also refresh a token from a trusted client, specifying only the `client_id` and
+the `refresh_token` fields.
+
+If you want to generate a new `refresh_token` value you need to enable the set the
+`always_issue_new_refresh_token` options of oauth2 to true (default is false). This option can
+be changed in the `config/autoload/local.php` file of your Apigility project. 
+
+```php
+return array(
+    // ...
+    'zf-oauth2' => array(
+        // ...
+        'options' => array(
+            'always_issue_new_refresh_token' => true
+        )
+    ),
+    // ...
+);
+```
+
+You can also change the lifetime of the new refresh token using the `refresh_token_lifetime`
+option. The value is expressed in seconds (default is 1209600, equal to 14 days).
+ 
+
 Revoke OAuth2 token
 -------------------
 

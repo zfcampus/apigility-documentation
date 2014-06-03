@@ -31,6 +31,7 @@ $pathTemplate = realpath(__DIR__) . '/../modules/%s.md';
 $regexReplace = array(
     array('pattern' => '#\n\[\!\[build status\].*?\n#is',    'replacement' => ''),
     array('pattern' => '#\n\[\!\[coverage status\].*?\n#is', 'replacement' => ''),
+    array('pattern' => '#\[(.*)\]\(((?![http|\#]).+)\)#is', 'replacement' => '[$1](https://github.com/zfcampus/%s/tree/master/$2)')
 );
 
 // Set up multicall
@@ -65,6 +66,7 @@ curl_multi_close($multiCall);
 // Pre-process markdown and write file to repository
 foreach ($results as $module => $markdown) {
     foreach ($regexReplace as $info) {
+        $info['replacement'] = sprintf($info['replacement'], $module);
         $markdown = preg_replace($info['pattern'], $info['replacement'], $markdown);
     }
 
