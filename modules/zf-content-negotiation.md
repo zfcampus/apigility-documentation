@@ -18,6 +18,11 @@ The following features are provided
   bodies with `Content-Type` media types that fall outside the whitelist will be
   immediately rejected with a `415 Unsupported Media Type` response.
 
+Requirements
+------------
+  
+Please see the [composer.json](https://github.com/zfcampus/zf-content-negotiation/tree/master/composer.json) file.
+ 
 Installation
 ------------
 
@@ -100,6 +105,24 @@ Example:
         'ZF\ContentNegotiation\JsonModel' => array(
             'application/json',
             'application/*+json',
+        ),
+    ),
+),
+```
+
+A selector can contain multiple view models, each associated with different media types, allowing
+you to provide multiple representations. As an example, the following selector would allow a given
+controller to return either JSON or HTML output:
+
+```php
+'selectors'   => array(
+    'HTML-Json' => array(
+        'ZF\ContentNegotiation\JsonModel' => array(
+            'application/json',
+            'application/*+json',
+        ),
+        'ZF\ContentNegotiation\ViewModel' => array(
+            'text/html',            
         ),
     ),
 ),
