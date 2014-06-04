@@ -17,6 +17,11 @@ in order to provide a cohesive solution for exposing web-based APIs.
 
 Also features database-connected REST resources.
 
+Requirements
+------------
+  
+Please see the [composer.json](https://github.com/zfcampus/zf-apigility/tree/master/composer.json) file.
+
 Installation
 ------------
 

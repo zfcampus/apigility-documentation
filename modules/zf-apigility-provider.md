@@ -23,6 +23,11 @@ class MyModule implements ApigilityProviderInterface
 
 At this point, this particular module should show up in the Apigility UI interface.
 
+Requirements
+------------
+  
+Please see the [composer.json](https://github.com/zfcampus/zf-apigility-provider/tree/master/composer.json) file.
+
 Installation
 ------------
 

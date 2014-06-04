@@ -9,6 +9,11 @@ This module provides data structures and rendering for the API-Problem format.
 - [Problem Details for HTTP APIs](http://tools.ietf.org/html/draft-nottingham-http-problem-06),
   used for reporting API problems.
 
+Requirements
+------------
+  
+Please see the [composer.json](https://github.com/zfcampus/zf-api-problem/tree/master/composer.json) file.
+
 Installation
 ------------
 

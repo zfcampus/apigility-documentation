@@ -8,6 +8,11 @@ Introduction
 creating standalone PHP console applications using `Zend\Console`'s `DefaultRouteMatcher`.
 It includes built-in "help" and "version" commands, and colorization (via `Zend\Console`).
 
+Requirements
+------------
+  
+Please see the [composer.json](https://github.com/zfcampus/zf-console/tree/master/composer.json) file.
+
 Installation
 ------------
 

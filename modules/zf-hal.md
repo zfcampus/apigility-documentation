@@ -7,6 +7,11 @@ Introduction
 This module provides the ability to generate [Hypermedia Application
 Language](http://tools.ietf.org/html/draft-kelly-json-hal-06) JSON representations.
 
+Requirements
+------------
+  
+Please see the [composer.json](https://github.com/zfcampus/zf-hal/tree/master/composer.json) file.
+
 Installation
 ------------
 
