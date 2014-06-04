@@ -5,6 +5,11 @@ This ZF2 "development mode" module allows you to specify configuration and
 modules that should only be enabled when in development, and not when in
 production.
 
+Requirements
+------------
+  
+Please see the [composer.json](https://github.com/zfcampus/zf-development-mode/tree/master/composer.json) file.
+
 Installation with Composer
 --------------------------
 
