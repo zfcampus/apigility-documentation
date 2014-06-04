@@ -11,6 +11,11 @@ manage APIs in Apigility.
 >
 > **DO NOT** enable this module in production systems.
 
+Requirements
+------------
+  
+Please see the [composer.json](https://github.com/zfcampus/zf-apigility-admin/tree/master/composer.json) file.
+
 Installation
 ------------
 
