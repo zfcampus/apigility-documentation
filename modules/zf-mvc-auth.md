@@ -111,6 +111,28 @@ Example:
 'deny_by_default' => false,
 ```
 
+A note when using `deny_by_default => true` , you will need to make sure you allow POST on the
+Controller used to receive the initial Authentication (ie. OAuth token)
+
+Example using OAuth2's default Controller:
+```php
+`authorization` => array(
+    'deny_by_default' => true,
+    'ZF\\OAuth2\\Controller\\Auth' => array(
+        'actions' => array(
+            'token' => array(
+                'GET' => false,
+                'POST' => true,
+                'PATCH' => false,
+                'PUT' => false,
+                'DELETE' => true,
+                // etc.
+            ),
+        ),
+    ),
+),
+```
+
 #### Sub-Key: Controller Service Name
 
 Under the `authorization` key is an array of _controller service name_ keyed authorization
