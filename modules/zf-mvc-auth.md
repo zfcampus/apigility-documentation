@@ -14,6 +14,11 @@ Server](https://github.com/bshaffer/oauth2-server-php)).
 For authorization, this particular module delivers a pre-dispatch time listener that will
 identify if the given route match, along with the HTTP method, is authorized to be dispatched.
 
+Requirements
+------------
+  
+Please see the [composer.json](https://github.com/zfcampus/zf-mvc-auth/tree/master/composer.json) file.
+
 Installation
 ------------
 
@@ -110,6 +115,31 @@ Example:
 ```php
 'deny_by_default' => false,
 ```
+
+> ##### deny_by_default with zf-oauth2
+>
+> When using `deny_by_default => true` with > [zf-oauth2](https://github.com/zfcampus/zf-oauth2),
+> you will need to explicitly allow POST on the OAuth2 controller in order for Authentication
+> requests to be made.
+> 
+> As an example:
+>
+> ```php
+> `authorization` => array(
+>     'deny_by_default' => true,
+>     'ZF\\OAuth2\\Controller\\Auth' => array(
+>         'actions' => array(
+>             'token' => array(
+>                 'GET'    => false,
+>                 'POST'   => true,   // <-----
+>                 'PATCH'  => false,
+>                 'PUT'    => false,
+>                 'DELETE' => false,
+>             ),
+>         ),
+>     ),
+> ),
+> ```
 
 #### Sub-Key: Controller Service Name
 
