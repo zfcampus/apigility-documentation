@@ -60,6 +60,7 @@ Recipes
 - [Returning HAL from RPC Services](/recipes/hal-from-rpc.md)
 - [Customizing DB-Connected TableGateways with Features](/recipes/customizing-table-gateway-with-features.md)
 - [Upload Files Via Your API](/recipes/upload-files-to-api.md)
+- [Allowing requests from other domains](/recipes/allowing-request-from-other-domains.md)
 
 Module Reference
 ----------------
