@@ -18,7 +18,7 @@ granting access to users based on whether they are an unauthenticated user (whic
 goes by the identity "guest") or an authenticated user, whose identity will be stored in the
 `ZF\MvcAuth\Identity\AuthenticatedIdentity` model.
 
-As mentioned in the [advanced authentication and authoriation](/auth/advanced.md) section, there are
+As mentioned in the [advanced authentication and authorization](/auth/advanced.md) section, there are
 a few things that need to be known and taken into account in order to achieve our goal:
 
 * The `AclAuthorizationFactory` will produce a `Zend\Permissions\Acl` type of object with the
