@@ -387,7 +387,7 @@ Apigility provides versioning out-of-the-box. One aspect of versioning is that c
 versioned by namespace. This feature allows you to run multiple versions of your API in parallel.
 
 Our resource class will be found in
-`module/src/Status/src/Status/V1/Rest/Status/StatusResource.php`. Open that file in an editor.
+`module/Status/src/Status/V1/Rest/Status/StatusResource.php`. Open that file in an editor.
 
 The first change we'll make is to import the `StatusLib\MapperInterface` class. 
 Add the line `use StatusLib\MapperInterface;` above the existing `use` statements.
