@@ -15,12 +15,9 @@ Preparing a ZF2-based application
 Now that you have an existing ZF2 application you wish to add Apigility to, it is time to add the
 dependencies.
 
-Note: Until Apigility is 1.0 stable, add the following to your `composer.json`:
-`"minimum-stability": "dev"`.
-
 ```console
-$ composer require "zfcampus/zf-apigility:~1.0@dev"
-$ composer require --dev "zfcampus/zf-apigility-admin:~1.0@dev"
+$ composer require "zfcampus/zf-apigility:~1.0"
+$ composer require --dev "zfcampus/zf-apigility-admin:~1.0"
 $ composer require --dev "zfcampus/zf-development-mode:~2.0"
 ```
 
