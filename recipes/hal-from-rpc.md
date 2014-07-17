@@ -66,6 +66,26 @@ class RegisterController extends AbstractActionController
 }
 ```
 
+or for a collection:
+
+```php
+use Zend\Mvc\Controller\AbstractActionController;
+use ZF\ContentNegotiation\ViewModel;
+
+class RegisterController extends AbstractActionController
+{
+    public function registerAction()
+    {
+        /* ... do some work
+         * ... get a $users collection
+         */
+        return new ViewModel(array(
+            'payload' => $this->getPluginManager()->get('hal')->createCollection($users)
+        ));
+    }
+}
+```
+
 > ### The "Payload"
 >
 > When creating a view model to use with `zf-hal`, you must follow a specific convention: the
