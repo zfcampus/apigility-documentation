@@ -55,18 +55,3 @@ Location: http://localhost:8000/contact/5
 
 As you will notice, `name` was provided with leading and trailing whitespace, but the response field
 does not contain the whitespace. 
-
-> ## Note: Filters and query params
-> If you plan on using filters with query string parameters such as
-> `http://localhost:8000/contact?email=ralph@rs.com` you will need
-> to ensure that `collection_query_whitelist` is properly set in the
-> collection.
-> 
-> ```
-> Sub-key: collection_query_whitelist (optional)
-> 
-> An array of query string arguments to whitelist for collection requests and when generating links to collections. These parameters will be passed to the resource class' fetchAll() method. Any of these parameters present in the request will also be used when generating links to the collection.
-> 
-> Examples of query string arguments you may want to whitelist include "sort", "filter", etc.
-> ```
-> More at https://apigility.org/documentation/modules/zf-rest
