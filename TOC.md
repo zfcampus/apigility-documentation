@@ -61,6 +61,7 @@ Recipes
 - [Customizing DB-Connected TableGateways with Features](/recipes/customizing-table-gateway-with-features.md)
 - [Upload Files Via Your API](/recipes/upload-files-to-api.md)
 - [Allowing requests from other domains](/recipes/allowing-request-from-other-domains.md)
+- [Use URL Parameters to Filter or Sort Data](/recipes/use-url-parameters-to-filter-or-sort-data.md)
 
 Module Reference
 ----------------
