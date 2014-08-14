@@ -99,7 +99,7 @@ ZF2 Events
 
 ### Listeners
 
-#### `ZF\ApiProblem\Listener\ApiProblemListener`
+#### ZF\ApiProblem\Listener\ApiProblemListener
 
 The `ApiProblemListener` attaches to three events in the MVC lifecycle:
 
@@ -124,7 +124,7 @@ When this listener does take action, the purposes are threefold:
 - If a dispatch error occurred, and the `Accept` type is in the set defined for API-Problems, it
   attempts to cast the dispatch exception into an API-Problem response.
 
-#### `ZF\ApiProblem\Listener\RenderErrorListener`
+#### ZF\ApiProblem\Listener\RenderErrorListener
 
 This listener is attached to `MvcEvent::EVENT_RENDER_ERROR` at priority `100`.  This listener is
 conditionally attached by `ZF\ApiProblem\Listener\ApiProblemListener` for controllers that require
@@ -132,7 +132,7 @@ API Problem responses.  With a priority of `100`, this ensures that this listene
 default ZF2 listener on this event. In cases when it does run, it will cast an exception into an
 API-problem response.
 
-#### `ZF\ApiProblem\Listener\SendApiProblemResponseListener`
+#### ZF\ApiProblem\Listener\SendApiProblemResponseListener
 
 This listener is attached to `SendResponseEvent::EVENT_SEND_RESPONSE` at priority `-500`.  The
 primary purpose of this listener is, on detection of an API-Problem response, to send appropriate
@@ -151,12 +151,12 @@ ZF2 Services
 
 ### View Services
 
-#### `ZF\ApiProblem\View\ApiProblemRenderer`
+#### ZF\ApiProblem\View\ApiProblemRenderer
 
 This service extends the `JsonRenderer` service from the ZF2 MVC layer.  Its primary responsibility
 is to decorate JSON rendering with the ability to optionally output stack traces.
 
-#### `ZF\ApiProblem\View\ApiProblemStrategy`
+#### ZF\ApiProblem\View\ApiProblemStrategy
 
 This service is a view strategy that detects a `ZF\ApiProblem\View\ApiProblemModel`; when detected,
 it selects the [ApiProblemRender](#zfapiproblemviewapiproblemrenderer), and injects the response
@@ -165,7 +165,7 @@ similar in nature to Zend Framework 2's `JsonStrategy`.
 
 ### Models
 
-#### `ZF\ApiProblem\ApiProblem`
+#### ZF\ApiProblem\ApiProblem
 
 An instance of `ZF\ApiProblem\ApiProblem` serves the purpose of modeling the kind of problem that is
 encountered.  An instance of `ApiProblem` is typically wrapped in an
@@ -196,7 +196,7 @@ new ApiProblem(404, 'Entity not found');
 new ApiProblem(424, $exceptionInstance);
 ```
 
-#### `ZF\ApiProblem\ApiProblemResponse`
+#### ZF\ApiProblem\ApiProblemResponse
 
 An instance of `ZF\ApiProblem\ApiProblemResponse` can be returned from any controller service or ZF2
 MVC event in order to short-circuit the MVC lifecycle and immediately return a response. When it

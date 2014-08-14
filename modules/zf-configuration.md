@@ -59,7 +59,7 @@ The top-level configuration key for user configuration of this module is `zf-con
 ),
 ```
 
-#### Key: `enable_short_array`
+#### Key: enable_short_array
 
 Set this value to a boolean `true` if you want to use PHP 5.4's square bracket (aka "short") array
 syntax.
@@ -72,25 +72,25 @@ There are no events or listeners.
 ZF2 Services
 ------------
 
-#### `ZF\Configuration\ConfigWriter`
+#### ZF\Configuration\ConfigWriter
 
 `ZF\Configuration\ConfigWriter` is by default an instance of `Zend\Config\Writer\PhpArray`.  This
 service serves the purpose of providing the necessary dependencies for `ConfigResource` and
 `ConfigResourceFactory`.
 
-#### `ZF\Configuration\ConfigResource`
+#### ZF\Configuration\ConfigResource
 
 `ZF\Configuration\ConfigResource` service is used for modifying an existing configuration files with
 methods such as `patch()` and `replace()`.  The service returned by the service manager is bound to
 the file specified in the `config_file` key.
 
-#### `ZF\Configuration\ConfigResourceFactory`
+#### ZF\Configuration\ConfigResourceFactory
 
 `ZF\Configuration\ConfigResourceFactory` is a factory service that provides consumers with the
 ability to create `ZF\Configuration\ConfigResource` objects, with dependencies injected for specific
 config files (not the one listed in the `module.config.php`.
 
-#### `ZF\Configuration\ModuleUtils`
+#### ZF\Configuration\ModuleUtils
 
 `ZF\Configuration\ModuleUtils` is a service that consumes the `ModuleManager` and provides the
 ability to traverse modules to find their path on disk as well as the path to their configuration

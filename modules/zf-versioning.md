@@ -57,7 +57,7 @@ Configuration
 
 The top-level configuration key for user configuration of this module is `zf-versioning`.
 
-#### Key: `content-type`
+#### Key: content-type
 
 The `content-type` key is used for specifying an array of regular expressions that will be
 used in parsing both `Content-Type` and `Accept` headers for media type based versioning
@@ -85,7 +85,7 @@ would look like:
 ),
 ```
 
-#### Key: `default_version`
+#### Key: default_version
 
 The `default_version` key provides the default version number to use in case a version is not
 provided by the client.  `1` is the default for `default_version`.
@@ -98,7 +98,7 @@ Full Example:
 ),
 ```
 
-#### Key: `uri`
+#### Key: uri
 
 The `uri` key is responsible for identifying which routes need to be prepended with route matching
 information for URL based versioning.  This key is an array of route names that is used in the ZF2
@@ -139,14 +139,14 @@ ZF2 Events
 
 `zf-versioning` provides no new events, but does provide 4 distinct listeners:
 
-#### `ZF\Versioning\PrototypeRouteListener`
+#### ZF\Versioning\PrototypeRouteListener
 
 This listener is attached to `ModuleEvent::EVENT_MERGE_CONFIG`.  It is responsible for iterating the
 routes provided in the `zf-versioning.uri` configuration to look for corresponding routes in the
 `router.routes` configuration.  When a match is detected, this listener will apply the versioning
 route match configuration to the route configuration.
 
-#### `ZF\Versioning\VersionListener`
+#### ZF\Versioning\VersionListener
 
 This listener is attached to the `MvcEvent::EVENT_ROUTE` at a priority of `-41`.  This listener is
 responsible for updating controller service names that utilize a versioned namespace naming scheme.
@@ -154,14 +154,14 @@ For example, if the currently matched route provides a controller name such as `
 currently selected version through URL or media type is `4`, then the controller service name will
 be updated in the route matches to `Foo\V4\Bar`;
 
-#### `ZF\Versioning\AcceptListener`
+#### ZF\Versioning\AcceptListener
 
 This listener is attached to the `MvcEvent::EVENT_ROUTE` at a priority of `-40`. This listener is
 responsible for parsing out information from the provided regular expressions (see the
 `content-type` configuration key for details) from any `Accept` header that is present in the
 request, and assigning that information to the route match, with the regex parameter names as keys.
 
-#### `ZF\Versioning\ContentTypeListener`
+#### ZF\Versioning\ContentTypeListener
 
 This listener is attached to the `MvcEvent::EVENT_ROUTE` at a priority of `-40`. This listener is
 responsible for parsing out information from the provided regular expressions (see the

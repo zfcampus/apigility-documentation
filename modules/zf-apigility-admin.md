@@ -76,7 +76,7 @@ API Endpoints
 
 All routes are prefixed with `/apigility` by default.
 
-### `api/config`
+### api/config
 
 This endpoint is for examining the application configuration, and providing
 overrides of individual values in it. All overrides are written to a single
@@ -102,13 +102,13 @@ configuration via the `zf-configuration.config-file` key.
 
 - Errors: `application/problem+json`
 
-### `api/config/module?module={module name}`
+### api/config/module?module={module name}
 
 This operates exactly like the `api/config` endpoint, but expects a known
 module name. When provided, it allows you to introspect and manipulate the
 configuration file for that module.
 
-### `api/authentication`
+### api/authentication
 
 This REST endpoint is for creating, updating, and deleting the authentication
 configuration for your application. It uses the [authentication
@@ -131,7 +131,7 @@ resource](#authentication).
 
 - Errors: `application/problem+json`
 
-### `api/module/:name/authorization?version=:version`
+### api/module/:name/authorization?version=:version
 
 This REST endpoint is for fetching and updating the authorization
 configuration for your application. It uses the [authorization
@@ -157,7 +157,7 @@ resource](#authorization).
 
 - Errors: `application/problem+json`
 
-### `api/db-adapter[/:adapter_name]`
+### api/db-adapter[/:adapter_name]
 
 This REST endpoint is for creating, updating, and deleting named `Zend\Db`
 adapters; it uses the [db-adapter resource](#db-adapter).
@@ -177,7 +177,7 @@ adapters; it uses the [db-adapter resource](#db-adapter).
 
 - Errors: `application/problem+json`
 
-### `api/module.enable`
+### api/module.enable
 
 This endpoint will Apigility-enable (Apigilify?) an existing module.
 
@@ -201,7 +201,7 @@ The request payload should hav ethe following structure:
 }
 ```
 
-### `api/validators`
+### api/validators
 
 This endpoint provides a sorted list of all registered validator plugins; the
 use case is for building a drop-down of available plugins when creating an
@@ -228,7 +228,7 @@ The response payload for a successful request has the following format:
 }
 ```
 
-### `api/versioning`
+### api/versioning
 
 This endpoint is for adding a new version to an existing API. If no version is
 passed in the payload, the version number is simply incremented.
@@ -266,7 +266,7 @@ On success, the service returns the followings structure:
 }
 ```
 
-### `api/module[/:name]`
+### api/module[/:name]
 
 This is the canonical endpoint for [Module resources](#module).
 
@@ -293,7 +293,7 @@ When creating a new API module, use the following request payload:
 }
 ```
 
-### `api/module/:name/rpc[/:controller_service_name]`
+### api/module/:name/rpc[/:controller_service_name]
 
 This is the canonical endpoint for [RPC resources](#rpc).
 
@@ -327,7 +327,7 @@ The minimal request payload necessary will have the following structure:
 }
 ```
 
-### `api/module/:name/rpc/:controller_service_name/inputfilter[/:input_filter_name]`
+### api/module/:name/rpc/:controller_service_name/inputfilter[/:input_filter_name]
 
 This service is for creating, updating, and deleting named [input filters](#inputfilter)
 associated with a given RPC service.
@@ -352,7 +352,7 @@ associated with a given RPC service.
 
 - Errors: `application/problem+json`
 
-### `api/module/:name/rest[/:controller_service_name]`
+### api/module/:name/rest[/:controller_service_name]
 
 This is the canonical endpoint for [REST resources](#rest).
 
@@ -403,7 +403,7 @@ API Models
 The following is a list of various models either returned via the API endpoints listed above, or
 expected for the request bodies.
 
-### `authentication`
+### authentication
 
 #### HTTP Basic authentication:
 
@@ -438,7 +438,7 @@ expected for the request bodies.
 }
 ```
 
-### `authorization`
+### authorization
 
 ```JSON
 {
@@ -476,7 +476,7 @@ authorization is required.
 > meaning of the flags is reversed; `true` then means the method is public,
 > `false` means it requires authentication.
 
-### `db-adapter`
+### db-adapter
 
 ```JSON
 {
@@ -489,7 +489,7 @@ authorization is required.
 Additionally, any other properties used to create the `Zend\Db\Adapter\Adapter`
 instance may be composed: e.g., "username", "password", etc.
 
-### `inputfilter`
+### inputfilter
 
 ```JSON
 {
@@ -513,7 +513,7 @@ used by `Zend\InputFilter\Factory` as described in the [Zend Framework 2 input f
 
 Currently, we do not allow nesting input filters.
 
-### `module`
+### module
 
 ```JSON
 {
@@ -532,7 +532,7 @@ Additionally, the `module` resource composes relational links for [RPC](#rpc)
 and [REST](#rest) resources; these use the relations "rpc" and "rest",
 respectively.
 
-### `rpc`
+### rpc
 
 ```JSON
 {
@@ -567,7 +567,7 @@ respectively.
 }
 ```
 
-### `rest`
+### rest
 
 ```JSON
 {

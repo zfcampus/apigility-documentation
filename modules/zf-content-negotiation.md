@@ -201,27 +201,27 @@ ZF2 Events
 
 ### Listeners
 
-#### `ZF\ContentNegotiation\AcceptListener`
+#### ZF\ContentNegotiation\AcceptListener
 
 This listener is attached to the `MvcEvent::EVENT_DISPATCH` event with priority `-10`.  It is
 responsible for performing the actual selection and casting of a controller's view model based on
 the content negotiation configuration.
 
-#### `ZF\ContentNegotiation\ContentTypeListener`
+#### ZF\ContentNegotiation\ContentTypeListener
 
 This listener is attached to the `MvcEvent::EVENT_ROUTE` event with a priority of `-625`. It is
 responsible for examining the `Content-Type` header in order to determine how the content body
 should be deserialized. Values are then persisted inside of a `ParameterDataContainer` which is
 stored in the `ZFContentNegotiationParameterData` key of the `MvcEvent` object.
 
-#### `ZF\ContentNegotiation\AcceptFilterListener`
+#### ZF\ContentNegotiation\AcceptFilterListener
 
 This listener is attached to the `MvcEvent::EVENT_ROUTE` event with a priority of `-625`. It is
 responsible for ensuring the controller selected by routing is configured to respond to the specific
 media type in the current request's `Accept` header.  If it cannot, it will short-circuit the MVC
 dispatch process by returning a `406 Cannot honor Accept type specified` response.
 
-#### `ZF\ContentNegotiation\ContentTypeFilterListener`
+#### ZF\ContentNegotiation\ContentTypeFilterListener
 
 This listener is attached to the `MvcEvent::EVENT_ROUTE` event with a priority of `-625`. It is
 responsible for ensuring the route matched controller can accept content in the request body
@@ -234,7 +234,7 @@ ZF2 Services
 
 ### Controller Plugins
 
-#### `ZF\ContentNegotiation\ControllerPlugin\RouteParam` (a.k.a `routeParam`)
+#### ZF\ContentNegotiation\ControllerPlugin\RouteParam (a.k.a `routeParam`)
 
 A controller plugin (`Zend\Mvc\Controller\AbstractActionController` callable) that will return a
 single parameter with a particular name from the route match.
@@ -251,7 +251,7 @@ class IndexController extends AbstractActionController
 }
 ```
 
-#### `ZF\ContentNegotiation\ControllerPlugin\QueryParam` (a.k.a `queryParam`)
+#### ZF\ContentNegotiation\ControllerPlugin\QueryParam (a.k.a `queryParam`)
 
 A controller plugin (`Zend\Mvc\Controller\AbstractActionController` callable) that will return a
 single parameter from the current request query string.
@@ -268,7 +268,7 @@ class IndexController extends AbstractActionController
 }
 ```
 
-#### `ZF\ContentNegotiation\ControllerPlugin\BodyParam` (a.k.a `bodyParam`)
+#### ZF\ContentNegotiation\ControllerPlugin\BodyParam (a.k.a `bodyParam`)
 
 A controller plugin (`Zend\Mvc\Controller\AbstractActionController` callable) that will return a
 single parameter from the content-negotiated content body.
@@ -286,7 +286,7 @@ class IndexController extends AbstractActionController
 }
 ```
 
-#### `ZF\ContentNegotiation\ControllerPlugin\RouteParams` (a.k.a `routeParams`)
+#### ZF\ContentNegotiation\ControllerPlugin\RouteParams (a.k.a `routeParams`)
 
 A controller plugin (`Zend\Mvc\Controller\AbstractActionController` callable) that will return a
 all the route parameters.
@@ -303,7 +303,7 @@ class IndexController extends AbstractActionController
 }
 ```
 
-#### `ZF\ContentNegotiation\ControllerPlugin\QueryParams` (a.k.a `queryParams`)
+#### ZF\ContentNegotiation\ControllerPlugin\QueryParams (a.k.a `queryParams`)
 
 A controller plugin (`Zend\Mvc\Controller\AbstractActionController` callable) that will return a
 all the query parameters.
@@ -320,7 +320,7 @@ class IndexController extends AbstractActionController
 }
 ```
 
-#### `ZF\ContentNegotiation\ControllerPlugin\BodyParams` (a.k.a `bodyParams`)
+#### ZF\ContentNegotiation\ControllerPlugin\BodyParams (a.k.a `bodyParams`)
 
 A controller plugin (`Zend\Mvc\Controller\AbstractActionController` callable) that will return a
 all the content-negotiated body parameters.
