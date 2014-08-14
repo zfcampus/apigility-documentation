@@ -81,7 +81,7 @@ Example where there is a default as well as a GET filter:
 In the above example, the `Application\Controller\HelloWorld\Validator` service will be selected for
 `PATCH`, `PUT`, or `DELETE` requests, while the `Application\Controller\HelloWorld\CreationValidator`will be selected for `POST` requests.
 
-#### `input_filter_spec`
+#### input_filter_spec
 
 `input_filter_spec` is for configuration-driven creation of input filters.  The keys for this array
 will be a unique name, but more often based off the service name it is mapped to under the
@@ -139,7 +139,7 @@ ZF2 Events
 
 ### Listeners
 
-#### `ZF\ContentValidation\ContentValidationListener`
+#### ZF\ContentValidation\ContentValidationListener
 
 This listener is attached to the `MvcEvent::EVENT_ROUTE` event at priority `-650`.  Its purpose is
 to utilize the `zf-content-validation` configuration in order to determine if the current request's
@@ -154,7 +154,7 @@ ZF2 Services
 
 ### Service
 
-#### `ZF\ContentValidation\InputFilter\InputFilterAbstractServiceFactory`
+#### ZF\ContentValidation\InputFilter\InputFilterAbstractServiceFactory
 
 This abstract factory is responsible for creating and returning an appropriate input filter given
 a name and the configuration from the top-level key `input_filter_specs`. It is registered with
