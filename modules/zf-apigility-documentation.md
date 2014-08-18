@@ -159,7 +159,7 @@ scripts.
 
 ### Factories
 
-#### `ZF\Apigility\Documentation\ApiFactory`
+#### ZF\Apigility\Documentation\ApiFactory
 
 The `ApiFactory` service is capable of producing an object-graph representation of the desired
 API documentation that is requested.  This object-graph will be composed of the following types:
