@@ -104,7 +104,7 @@ ZF2 Events
 
 ### Listeners
 
-#### `ZF\Rpc\OptionsListener`
+#### ZF\Rpc\OptionsListener
 
 This listeners is registered to the `MvcEvent::EVENT_ROUTE` event with a priority of `-100`.  It is
 responsible for ensuring the HTTP response to an `OPTIONS` request for the given RPC service
@@ -119,14 +119,14 @@ ZF2 Services
 
 ### Models
 
-#### `ZF\Rpc\ParameterMatcher`
+#### ZF\Rpc\ParameterMatcher
 
 This particular model is used and is useful for taking a callable and a set of named parameters,
 and determining which ones can be used as arguments to the callable.
 
 ### Controller
 
-#### `ZF\Rpc\RpcController`
+#### ZF\Rpc\RpcController
 
 This controller is used to wrap a callable registered as an RPC service in order to make it a ZF2
 dispatchable.
