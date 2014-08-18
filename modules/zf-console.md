@@ -6,7 +6,8 @@ Introduction
 
 `zf-console` provides functionality on top of `Zend\Console`, specifically a methodology for
 creating standalone PHP console applications using `Zend\Console`'s `DefaultRouteMatcher`.
-It includes built-in "help" and "version" commands, and colorization (via `Zend\Console`).
+It includes built-in "help" and "version" commands, and colorization (via `Zend\Console`), as
+well as support for shell autocompletion.
 
 Requirements
 ------------
@@ -47,7 +48,9 @@ Routes in `zf-console` are typically configuration driven. Each route is an asso
 consisting of the following members:
 
 - **name** (required): The name of the route. Names MUST be unique across the application.
-- **route** (required): The "route", or console arguments, to match (more below).
+- **route** (optional): The "route", or console arguments, to match (more below); if not specified,
+  **name** is utilized. Additionally, if the route does not start with **name**, **name** will be
+  prepended to the route (unless you opt out of this feature).
 - **description** (optional): A detailed help description for the given route.
 - **short_description** (optional): A short help description for the given route, used in command
   summaries.
@@ -65,6 +68,12 @@ consisting of the following members:
 - **validators** (optional): An array of name/`Zend\Validator\ValidatorInterface` pairs. The
   validator provided will be used to validate the named argument when matched; failure to validate
   will cause the route not to match.
+- **handler** (optional): A PHP callable, or a class name of a class with no constructor arguments
+  which is also invokable; if specified, and no command has been mapped in the `Dispatcher`, this
+  handler will be used to handle the command when invoked.
+- **prepend_command_to_route** (optional): A flag that, if specified, indicates whether or not the
+  command name will be prepended to the route. Since this is the default behavior, only a value of
+  boolean false makes sense here.
 
 Alternately, you can create a `ZF\Console\Route` instance. The signature is similar:
 
@@ -94,14 +103,13 @@ We suggest putting your routes in a configuration file:
 return array(
     array(
         'name'  => 'self-update',
-        'route' => 'self-update',
         'description' => 'When executed via the Phar file, performs a self-update by querying
 the package repository. If successful, it will report the new version.',
         'short_description' => 'Perform a self-update of the script',
     ),
     array(
         'name' => 'build',
-        'route' => 'build <package> [--target=]',
+        'route' => '<package> [--target=]',
         'description' => 'Build a package, using <package> as the package filename, and --target
 as the application directory to be packaged.',
         'short_description' => 'Build a package',
@@ -112,6 +120,7 @@ as the application directory to be packaged.',
         'defaults' => array(
             'target' => getcwd(), // default to current working directory
         ),
+        'handler' => 'My\Builder',
     ),
 );
 ```
@@ -132,6 +141,16 @@ as the application directory to be packaged.',
 > For a full overview of how to create route specification strings, please review the [ZF2 console
 > routes
 > documentation](http://framework.zend.com/manual/2.3/en/modules/zend.console.routes.html).
+
+> #### Route definitions
+>
+> Note that, by default, the route name will be prefixed to the `route` you pass. In the example
+> above, the `build` route becomes `build <package> [--target=]`. If you wish to be explicit, you
+> can include the command name in your route definition yourself, or pass the
+> `prepend_command_to_route` flag with a boolean false value to disable prepending the command name.
+>
+> Prepending is done to make explicit the idea the mapping of the command name to the route -- which
+> is particularly prudent when considering usage of the help system (which is command centric).
 
 ### Mapping routes to callables
 
@@ -156,6 +175,15 @@ function (\ZF\Console\Route $route, \Zend\Console\Adapter\AdapterInterface $cons
 
 Additionally, callables should return an integer status to use as the application's exit status; a
 `0` indicates success, while anything else indicates a failure.
+
+> #### Callables may be defined in route configuration
+>
+> As noted in the previous section, you can also provide the callable for handling the route via the
+> `handler` key of your route configuration. The same rules apply to that argument as for the
+> `map()` method.
+>
+> Any callables mapped directly to the `Dispatcher` instance will be preferred over those passed via
+> configuration. 
 
 ### Creating and running the application
 
@@ -202,6 +230,8 @@ Features
 - Usage reporting
 - Help message reporting
 - Version reporting
+- Shell autocompletion
+- Exception handling
 
 Usage reporting may be observed by executing an application with no arguments, or with only the
 `help` argument:
@@ -212,6 +242,7 @@ Builder, version 1.1.3
 
 Available commands:
 
+ autocomplete   Command autocompletion setup
  build          Build a package
  help           Get help for individual commands
  self-update    Perform a self-update of the script
@@ -231,6 +262,17 @@ Help:
 When executed via the Phar file, performs a self-update by querying
 the package repository. If successful, it will report the new version.
 ```
+
+> ### Name routes after the command
+>
+> We recommend naming routes after the command name. In part, this simplifies
+> finding the matching route definition, but more importantly: if a user
+> specifies the command, but does not specify valid arguments for it, the
+> command will be used to provide a help usage message for that route.
+>
+> As an example, in the above, if I typed `script.php build` without any
+> additional arguments, the usage message for the `build` command will be
+> displayed, since the command and route name match.
 
 Version reporting can be observed by executing `script --version` or `script -v`:
 
@@ -271,6 +313,28 @@ $application->setBanner(function ($console) {           // callable
 $application->setFooter('Copyright 2014 Zend Technologies');
 ```
 
+### Autocompletion
+
+Autocompletion is a useful feature of many login shells. `zf-console` provides autocompletion
+support for bash, zsh, and any shell that understands autocompletion rules in a similar fashion.
+Rules are generated per-script, using the `autocomplete` command:
+
+```console
+$ ./script autocomplete
+```
+
+Running this will output a shell script that you can save and add to your toolchain; the script
+itself contains information on how to save it and add it to your shell. In most cases, this will
+look something like:
+
+```console
+$ {script} autocomplete > > $HOME/bin/{script}_autocomplete.sh
+$ echo "source \$HOME/bin/{script}_autocomplete.sh" > > $HOME/{your_shell_rc}
+```
+
+where `{script}` is the name of the command, and `{your_shell_rc}` is the location of your shell's
+runtime configutation file (e.g., `.bashrc`, `.zshrc`).
+
 Dispatcher Callables
 --------------------
 
@@ -291,6 +355,59 @@ The `Route` instance contains several methods of interest:
   and, if not matched, the `$default` value you provide.
 - `getName()` will return the name of the route (which may be useful if you use the same callable
   for multiple routes).
+
+Exception Handling
+------------------
+
+`zf-console` provides exception handling by default, via `ZF\Console\ExceptionHandler`. When your
+console application raises an exception, this handler will provide a "pretty" view of the error,
+instead of the full stack trace (unless you want to include the stack trace in your view!).
+
+The default message looks like the following:
+
+```console
+======================================================================
+   The application has thrown an exception!
+======================================================================
+
+ :className:
+ :message
+```
+
+where `:className` will be filled with the exception's class name, and `message` will contain the
+exception message, if any.
+
+You may provide your own template if desired:
+
+```php
+$application->getExceptionHandler()->setMessageTemplate($template);
+```
+
+The following template variables are defined:
+
+- `:className`
+- `:message`
+- `:code`
+- `:file`
+- `:line`
+- `:stack`
+- `:previous` (this is used to report previous exceptions in a trace)
+
+If you want to provide your own exception handler, you may do so by providing any PHP callable to
+the `setExceptionHandler()` method:
+
+```php
+$application->setExceptionHandler($handler);
+```
+
+### Debug mode
+
+If you want normal PHP stack traces and error reporting, you can put the application into debug
+mode:
+
+```php
+$application->setDebug(true);
+```
 
 Using zf-console in Zend Framework 2 Applications
 -------------------------------------------------
@@ -432,6 +549,86 @@ return array(
 Using filters and validators well, you can ensure that when your dispatch callbacks receive data, it
 is already sanitized and ready to use.
 
+#### Filters provided by zf-console
+
+`zf-console` provides several filters for your convenience:
+
+- `ZF\Console\Filter\Explode` allows you to specify a delimiter to use to "explode" a string value
+  to an array of values. As an example:
+
+  ```php
+  // config/routes.php
+  
+  use ZF\Console\Filter\Explode as ExplodeFilter;
+  
+  return array(
+      array(
+          'name' => 'filter',
+          'route' => 'filter [--exclude=]',
+          'default' => array(
+              'exclude' => array(),
+          ),
+          'filters' => array(
+              'exclude' => new ExplodeFilter(','),
+          ),
+      )
+  );
+  ```
+
+  The above would explode values provided to `--exclude` using a `,`; `--exclude=foo,bar,baz` would
+  set `exclude` to `array('foo', 'bar', 'baz')`. By default, if no delimiter is provided, `,` is
+  assumed.
+
+- `ZF\Console\Filter\Json` allows you to specify a JSON-formatted string; it will then deserialize
+  it to native PHP values.
+
+  ```php
+  // config/routes.php
+  
+  use ZF\Console\Filter\Json as JsonFilter;
+  
+  return array(
+      array(
+          'name' => 'filter',
+          'route' => 'filter [--exclude=]',
+          'default' => array(
+              'exclude' => array(),
+          ),
+          'filters' => array(
+              'exclude' => new JsonFilter(),
+          ),
+      )
+  );
+  ```
+
+  The above would deserialize a JSON value provided to `--exclude`; `--exclude='["foo","bar","baz"]'` would
+  set `exclude` to `array('foo', 'bar', 'baz')`.
+
+- `ZF\Console\Filter\QueryString` allows you to specify a form-encoded string; it will then
+  deserialize it to native PHP values.
+
+  ```php
+  // config/routes.php
+  
+  use ZF\Console\Filter\QueryString;
+  
+  return array(
+      array(
+          'name' => 'filter',
+          'route' => 'filter [--exclude=]',
+          'default' => array(
+              'exclude' => array(),
+          ),
+          'filters' => array(
+              'exclude' => new QueryString(),
+          ),
+      )
+  );
+  ```
+
+  The above would deserialize a form-encoded value provided to `--exclude`;
+  `--exclude='foo=bar&baz=bat'` would set `exclude` to `array('foo' => 'bar', 'baz' => 'bat')`.
+
 Classes
 -------
 
@@ -445,3 +642,9 @@ This library defines the following classes:
   aggregation of route metadata, including the name and description.
 - `ZF\Console\RouteCollection`, which implements `Zend\Console\RouteMatcher\RouteMatcherInterface`,
   aggregates `ZF\Console\Route` instances, and performs route matching.
+- `ZF\Console\Filter\Explode`, which implements `Zend\Filter\FilterInterface`, and which [is
+  described above](#filters-provided-by-zf-console).
+- `ZF\Console\Filter\Json`, which implements `Zend\Filter\FilterInterface`, and which [is
+  described above](#filters-provided-by-zf-console).
+- `ZF\Console\Filter\QueryString`, which implements `Zend\Filter\FilterInterface`, and which [is
+  described above](#filters-provided-by-zf-console).

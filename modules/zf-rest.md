@@ -179,7 +179,7 @@ ZF2 Events
 
 ### Listeners
 
-#### `ZF\Rest\Listener\OptionsListener
+#### ZF\Rest\Listener\OptionsListener
 
 This listener is registered to the `MvcEvent::EVENT_ROUTE` event with a priority of `-100`. 
 It serves two purposes:
@@ -190,7 +190,7 @@ It serves two purposes:
 - For `OPTIONS` requests, it will respond with a `200 OK` response and a populated `Allow` header
   indicating which request methods may be used.
 
-#### `ZF\Rest\Listener\RestParametersListener`
+#### ZF\Rest\Listener\RestParametersListener
 
 This listener is attached to the shared `dispatch` event at priority `100`.  The listener maps query
 string arguments from the request to the `Resource` object composed in the `RestController`, as well
@@ -201,7 +201,7 @@ ZF2 Services
 
 ### Models
 
-#### `ZF\Rest\AbstractResourceListener`
+#### ZF\Rest\AbstractResourceListener
 
 This abstract class is the base implementation of a [Resource](https://github.com/zfcampus/zf-rest/tree/master/zfrestresource) listener.  Since
 dispatching of `zf-rest` based REST services is event driven, a listener must be constructed to
@@ -218,7 +218,7 @@ The following methods are called during `dispatch()`, depending on the HTTP meth
 - `update($id, $data)` - Triggered by a `PUT` request to a resource *entity*.
 - `replaceList($data)` - Triggered by a `PUT` request to a resource *collection*.
 
-#### `ZF\Rest\Resource`
+#### ZF\Rest\Resource
 
 The `Resource` object handles dispatching business logic for REST requests. It composes an
 `EventManager` instance in order to delegate operations to attached listeners. Additionally, it
@@ -227,7 +227,7 @@ to seed the `ResourceEvent` it creates and passes to listeners when triggering e
 
 ### Controller
 
-#### `ZF\Rest\RestController`
+#### ZF\Rest\RestController
 
 This is the base controller implementation used when a controller service name matches a configured
 REST service. All REST services managed by `zf-rest` will use this controller (though separate

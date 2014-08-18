@@ -13,9 +13,9 @@ Please see the [composer.json](https://github.com/zfcampus/zf-development-mode/t
 Installation with Composer
 --------------------------
 
-1. Add `"zfcampus/zf-development-mode": "1.*"` to the `"require"` section your
+1. Add `"zfcampus/zf-development-mode": "2.*"` to the `"require"` section your
    `composer.json` file and run `php composer.phar update`.
-1. Copy `development.config.dist` to your application's `config/` directory,
+1. Copy `development.config.php.dist` to your application's `config/` directory,
    without renaming the file, and edit as required. Commit this file to your
    version control system.
 1. Add any development modules to the `"require-dev"` section of your
@@ -45,10 +45,10 @@ Installation with Composer
    ```php
         // Run the application!
         // Config
-        $appConfig = include APPLICATION_PATH . '/config/application.config.php';
+        $appConfig = include 'config/application.config.php';
 
-        if (file_exists(APPLICATION_PATH . '/config/development.config.php')) {
-            $appConfig = Zend\Stdlib\ArrayUtils::merge($appConfig, include APPLICATION_PATH . '/config/development.config.php');
+        if (file_exists('config/development.config.php')) {
+            $appConfig = Zend\Stdlib\ArrayUtils::merge($appConfig, include 'config/development.config.php');
         }
 
         // Run the application!
