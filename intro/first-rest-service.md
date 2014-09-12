@@ -79,7 +79,7 @@ terminology:
 <dl>
     <dt>Entity</dt>
     <dd>
-        An <em>addressable</em> item being returned. Entities are distiguished by a unique
+        An <em>addressable</em> item being returned. Entities are distinguished by a unique
         identifier present in the URI.
     </dd>
 
