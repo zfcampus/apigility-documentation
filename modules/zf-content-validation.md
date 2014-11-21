@@ -67,7 +67,7 @@ accepts a request body (i.e., `POST`, `PUT`, `PATCH`, or `DELETE`), or it can be
 `input_filter`. The value assigned for the `input_filter` key will be used in the case that no input
 filter is configured for the current HTTP request method.
 
-Example where there is a default as well as a GET filter:
+Example where there is a default as well as a POST filter:
 
 ```php
 'zf-content-validation' => array(
