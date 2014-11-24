@@ -34,7 +34,7 @@ relational link. As an example:
         "self": {
             "href": "http://example.org/api/user/matthew"
         }
-    }
+    },
     "id": "matthew",
     "name": "Matthew Weier O'Phinney"
 }
@@ -50,7 +50,7 @@ resource and contain at least a `_links` property with a `self` relational link.
         "self": {
             "href": "http://example.org/api/user/matthew"
         }
-    }
+    },
     "id": "matthew",
     "name": "Matthew Weier O'Phinney",
     "_embedded": {
@@ -116,7 +116,7 @@ delivered in the current payload, and potentially other metadata about the colle
         "last": {
             "href": "http://example.org/api/user?page=133"
         }
-    }
+    },
     "count": 3,
     "total": 498,
     "_embedded": {
@@ -216,7 +216,7 @@ Location: http://example.org/api/user/matthew
         "self": {
             "href": "http://example.org/api/user/matthew"
         }
-    }
+    },
     "id": "matthew",
     "name": "Matthew Weier O'Phinney",
     "_embedded": {
