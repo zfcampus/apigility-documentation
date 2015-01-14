@@ -119,11 +119,11 @@ The name of a query string argument that will set a per-request page size. Not s
 recommend having additional logic to ensure a ceiling for the page size as well, to prevent denial
 of service attacks on your API.
 
-##### Sub-key: `max_page_size`
+##### Sub-key: `max_page_size` (optional)
 
 The maximum page size. If this parameter is set and the requested page size exceeds the maximum the controller will return an error response. This prevents clients requesting too many entities per page and thus overloading the server.
 
-##### Sub-key: `min_page_size`
+##### Sub-key: `min_page_size` (optional)
 
 The minimum page size. If this parameter is set and the requested page size is below the minimum the controller will return an error response. This prevents clients requesting too little entities per page and thus overloading the server.
 
