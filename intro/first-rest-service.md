@@ -319,7 +319,7 @@ REST services allow you to document not only by HTTP method, but by HTTP method 
 Collections and Entities.
 
 The procedure for documenting a REST service is just like we learned in the [Getting
-Started](/intro/getting-started.md) chapter, with on two differences:
+Started](/intro/getting-started.md) chapter, with only two differences:
 
 - You will need to document HTTP methods for **both** collections _and_ entities.
 - Some methods also expect _request_ data, so you will need to document the request data as well.
