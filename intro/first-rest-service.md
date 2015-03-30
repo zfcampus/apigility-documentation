@@ -395,7 +395,7 @@ Add the line `use StatusLib\MapperInterface;` above the existing `use` statement
 ```php
 use StatusLib\MapperInterface;
 use ZF\ApiProblem\ApiProblem;
-use ZF\Rest\AbstractResourceListener.php;
+use ZF\Rest\AbstractResourceListener;
 ```
 
 Next, we'll create a class property `$mapper`, with `protected` visibility:
