@@ -25,7 +25,7 @@ Now, to ensure that the development-time tools are accessible and cannot be acci
 in the production website, we need to make some modifications to the `public/index.php` file.
 Replace: 
 
-```
+```php
 // Run the application!
 Zend\Mvc\Application::init(require 'config/application.config.php')->run();
 ```
