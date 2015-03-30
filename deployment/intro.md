@@ -230,7 +230,7 @@ you want a new vhost created for the application, or if you want to use the defa
 we recommend passing the `--userAppName <name>` flag, in order to provide a human readable name for
 the application.
 
-For more information on the `applicationDeploy` command, run `zf-client.phar applicationDeploy --help`.
+For more information on the `applicationDeploy` command, run `zs-client.phar applicationDeploy --help`.
 
 If you are updating an existing application that you have already deployed, first use the
 `applicationGetStatus` command in order to find the application identifier:
