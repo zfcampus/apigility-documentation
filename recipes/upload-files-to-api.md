@@ -145,3 +145,78 @@ have the following elements:
 
 You can now use this information for any later purposes -- including storing the path in a database,
 copying the file to a cloud service, etc.
+
+## Implementation example: Using jQuery AJAX to access a REST service
+
+In order to upload a file to your API using jQuery's `.ajax` capability, you will need to ensure
+your application coordinates the markup, jQuery calls, and the API.
+
+The following example assumes that your API is accepting an optional "title" field, and a required
+"file_attachment" field; the latter will need to be configured as a file upload in your REST
+service.
+
+First, create a form that includes a `file` input, as well as fields for any other data you want to
+include. In the f
+
+```html
+  <form id="your_form_id" class="form-horizontal">
+    <fieldset>
+
+      <!-- Form Name -->
+      <legend>Form Name</legend>
+
+      <!-- Text input-->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="title">Title</label>
+        <div class="col-md-4">
+          <input id="title" name="title" type="text" placeholder="Some title for your sample file"
+            class="form-control input-md" required=""> <span
+            class="help-block">Sample field (title)</span>
+        </div>
+      </div>
+
+      <!-- File Button -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="file_attachment">     (PDF)</label>
+        <div class="col-md-4">
+          <input id="file_attachment" name="pdf" class="input-file" type="file">
+        </div>
+      </div>
+
+      <!-- Button -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="submit">Submit</label>
+        <div class="col-md-4">
+          <button id="submit" name="submit" class="btn btn-primary">Submit AJAX upload with file</button>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+```
+
+Next, create the JavaScript that will submit the form using `jQuery.ajax`:
+
+```javascript
+jQuery(document).ready(function() {
+  jQuery('#your_form_id').submit(function(e) {
+    e.preventDefault();
+
+    // Note: if you observe 422 responses, check what's assembled into fd amd
+    // that it looks correct.
+    var fd = new FormData(jQuery(this)[0]);
+    
+    jQuery.ajax({
+      url : '/APICollectionPath', // Specify the path to your API service
+      type : 'POST',              // Assuming creation of an entity
+      contentType : false,        // To force multipart/form-data
+      data : fd,
+      processData : false,
+      success : function(data) {
+        // Handle the response on success
+        // alert(JSON.stringify(data));
+      }
+    });
+  });
+});
+```
