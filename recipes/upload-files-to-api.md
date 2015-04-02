@@ -145,3 +145,71 @@ have the following elements:
 
 You can now use this information for any later purposes -- including storing the path in a database,
 copying the file to a cloud service, etc.
+
+
+## implementation example (jQuery AJAX) for REST endpoint
+In order to upload a file to your API using jQuery's .ajax capability the following information should be kept in mind:
+
+```html
+  <form id="your_form_id" class="form-horizontal">
+    <fieldset>
+
+      <!-- Form Name -->
+      <legend>Form Name</legend>
+
+      <!-- Text input-->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="title">Title</label>
+        <div class="col-md-4">
+          <input id="title" name="title" type="text" placeholder="Some title for your sample file"
+            class="form-control input-md" required=""> <span
+            class="help-block">Sample field (title)</span>
+        </div>
+      </div>
+
+      <!-- File Button -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="file_attachment">     (PDF)</label>
+        <div class="col-md-4">
+          <input id="file_attachment" name="pdf" class="input-file" type="file">
+        </div>
+      </div>
+
+      <!-- Button -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="submit">Submit</label>
+        <div class="col-md-4">
+          <button id="submit" name="submit" class="btn btn-primary">Submit AJAX upload with file</button>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+```
+
+In this case, your REST API should have the fields (title, pdf) defined.
+
+```javascript
+
+jQuery(document).ready(function() {
+      jQuery('#your_form_id').submit(function(e) {
+        e.preventDefault();
+        // If you get a 422, check what's assembled into fd amd that it looks correct.
+        var fd = new FormData(jQuery(this)[0]);
+        
+        jQuery.ajax({
+          url : '/APICollectionPath',
+          type : 'POST',
+          contentType : false,
+          data : fd,
+          processData : false,
+          success : function(data) {
+            // handle the response on success
+            //alert(JSON.stringify(data));
+          }
+        });        
+      });
+    });
+
+
+```
