@@ -7,7 +7,7 @@ Assumptions
 -----------
 
 This chapter assumes you are running per the [installation guide](/intro/installation.md), and the
-application root is available at the URL `http://localhost:8888/`. 
+application root is available at the URL `http://localhost:8888/`.
 
 > ### Note: File System Permissions
 >
@@ -24,37 +24,28 @@ application root is available at the URL `http://localhost:8888/`.
 First Steps
 -----------
 
-Visit the url `http://locahost:8888/`. You will be redirected to
-`http://localhost:8888/apigility/welcome`, which will look like this:
+Visit the url `http://locahost:8888/`, which will look like this:
 
 ![Apigility Welcome Screen](/asset/apigility-documentation/img/intro-getting-started-welcome.png)
 
-Click either the navigation item "Admin" or the "Get Started" button to reach the Apigility Admin
-UI:
-
-![Apigility Settings Screen](/asset/apigility-documentation/img/intro-getting-started-settings.png)
 
 Create an API
 -------------
 
-Now it's time to create your first API. Click the "APIs" navigation item to get to the "APIs"
-screen:
+Now it's time to create your first API. Click the "New API" button on the sidebar of the screen:
 
 ![Apigility APIs Screen](/asset/apigility-documentation/img/intro-getting-started-apis.png)
 
-Next click the "+ Create New API" button to bring up the "Create New API" modal dialog:
-
-![New API](/asset/apigility-documentation/img/intro-getting-started-new-api-modal.png)
-
 For this exercise, we'll create an API called "Status"; type that for the "API Name", and press the
-"Create API" button. When it completes, you'll be taken to an API overview screen:
+"Create" button. When it completes, you'll be taken to an API overview screen:
 
 ![Apigility API Overview Screen](/asset/apigility-documentation/img/intro-getting-started-status-api-v1.png)
 
 Create an RPC Service
 ---------------------
 
-Now we'll create our first service. Click the menu item "RPC Services".
+Now we'll create our first service. Click on the button "New Service" and select the "RPC tab in the modal
+window":
 
 ![Apigility RPC Services Screen](/asset/apigility-documentation/img/intro-getting-started-rpc-services.png)
 
@@ -62,55 +53,49 @@ Now click the "Create New RPC Service" button:
 
 ![Apigility New RPC Service Screen](/asset/apigility-documentation/img/intro-getting-started-new-rpc-service.png)
 
-Provide the value "Ping" for the "RPC Service name", and the value "/ping" for the "Route to match";
-then click the "Create RPC Service" button to create the service.
+Provide the value "Ping" for the "Service name", and the value "/ping" for the "Route to match";
+then click the "Create service" button to create the service.
 
-Once created, click the bar with the service name to expand it.
+Once created, you will see a page like that:
 
 ![Apigility RPC Service](/asset/apigility-documentation/img/intro-getting-started-ping-service-view.png)
 
 The defaults for this RPC service will work fine for us. However, let's document it a bit.
 
-Click the "Fields" tab.
+Click the "Fields" tab and then click to "New field" button as reported here:
 
 ![Fields Tab](/asset/apigility-documentation/img/intro-getting-started-ping-service-fields-view.png)
 
-If you hover over the colored bar for the service, you will see two buttons appear, a green "edit"
-button, and a red "delete" button. Click the "edit" button so that we can edit the fields.
-
-![Fields Tab - Edit](/asset/apigility-documentation/img/intro-getting-started-ping-service-fields-edit.png)
-
-Enter the value "ack" for the "Field name" and select the "Create New Field" button. Expand the new
-panel labeled "ack".
+Enter the value "ack" for the "Name" and the value "Acknowledge the request with a timestamp" in the
+"Description" field. Finally click click the "Save" button. You will see the "ack" field in the
+list of fields now.
 
 ![Edit Field](/asset/apigility-documentation/img/intro-getting-started-ping-service-fields-ack.png)
-
-Fill in a description along the lines of "Acknowledge the request with a timestamp", and then select
-"Save Changes".
-
-Now select the "Documentation" tab.
-
-![Documentation Tab](/asset/apigility-documentation/img/intro-getting-started-ping-service-documentation.png)
-
-As we did with the fields, hover over the colored bar for the service, and select the green "edit"
-button so we can edit the documentation.
-
-![Documentation Tab - Edit](/asset/apigility-documentation/img/intro-getting-started-ping-service-documentation-edit.png)
-
-Add a service description, and a description for the `GET` method. When done, hit the "generate from
-configuration" button to auto-fill the "Response Body", and hit the "Save" button.
-
-![Documentation Tab - Verify](/asset/apigility-documentation/img/intro-getting-started-ping-service-documentation-verify.png)
 
 Right now, our service does nothing. Let's change that.
 
 Open the file `module/Status/src/Status/V1/Rpc/Ping/PingController.php`, and edit it so that it
-looks like the file in the screenshot below:
+looks like the code reported below:
 
-![Ping Controller](/asset/apigility-documentation/img/intro-getting-started-ping-service-controller.png)
+```php
+namespace Status\V1\Rpc\Ping;
 
-The important pieces are line `05`, which imports `ZF\ContentNegotiation\ViewModel`, and lines
-`11`-`13`, which return a view model from the controller. 
+use Zend\Mvc\Controller\AbstractActionController;
+use ZF\ContentNegotiation\ViewModel;
+
+class PingController extends AbstractActionController
+{
+    public function pingAction()
+    {
+        return new ViewModel(array(
+            'ack' => time()
+        ));
+    }
+}
+```
+
+The important pieces are the import of the `ZF\ContentNegotiation\ViewModel` class, and the
+usage of `ViweModel` object in the `pingAction` method.
 
 > ### Controllers and View Models
 >
