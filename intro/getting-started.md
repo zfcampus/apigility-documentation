@@ -28,7 +28,6 @@ Visit the url `http://locahost:8888/`, which will look like this:
 
 ![Apigility Welcome Screen](/asset/apigility-documentation/img/intro-getting-started-welcome.png)
 
-
 Create an API
 -------------
 
@@ -44,14 +43,10 @@ For this exercise, we'll create an API called "Status"; type that for the "API N
 Create an RPC Service
 ---------------------
 
-Now we'll create our first service. Click on the button "New Service" and select the "RPC tab in the modal
-window":
+Now we'll create our first service. Click on the button "New Service" and select the "RPC" tab in the modal
+window:
 
 ![Apigility RPC Services Screen](/asset/apigility-documentation/img/intro-getting-started-rpc-services.png)
-
-Now click the "Create New RPC Service" button:
-
-![Apigility New RPC Service Screen](/asset/apigility-documentation/img/intro-getting-started-new-rpc-service.png)
 
 Provide the value "Ping" for the "Service name", and the value "/ping" for the "Route to match";
 then click the "Create service" button to create the service.

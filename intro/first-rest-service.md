@@ -113,34 +113,27 @@ Create a REST Service
 
 In this chapter, we're going to build a sample REST service.
 
-Navigate to the "APIs" screen, and then the "Status" API that we created in the previous chapter.
-Next, select the "REST Services" menu item.
+In the sidebar, click the "New Service" button. The REST tab is selected by default; provide the
+value "Status" for the "Service name" field and press the "Create service" button.
 
 ![REST Services Screen](/asset/apigility-documentation/img/intro-first-rest-service-rest-services.png)
 
-Click the "Create New REST Service" button.
-
-![REST Services Screen](/asset/apigility-documentation/img/intro-first-rest-service-new-rest-service.png)
-
-This dialog has two tabs, one for creating "Code-Connected" services, and another for creating
-"DB-Connected" services.
-
-> ### Code-Connected vs DB-Connected services
+> ### REST vs DB-Connected services
 >
-> When you create a Code-Connected service, Apigility creates a stub "Resource" class that defines
-> all the various operations available in a REST service. These operations return `405 Method Not
-> Allowed` responses until you fill them in with your own code. The "Code-Connected" aspect means
-> that _you_ will be supplying the code that performs the actual work of your API; Apigility
-> provides the wiring for exposing that code as an API.
+> When you create a REST service, Apigility creates a stub "Resource" class that defines
+> all the various operations available in the service. These operations return `405 Method Not
+> Allowed` responses until you fill them in with your own code. That means _you_ need to supply
+> the code that performs the actual work of your API; Apigility provides the wiring for exposing
+> that code as an API.
 >
-> DB-Connected services allow you to specify a database adapter and a table; Apigility then creates
-> a "virtual" Resource which delegates operations to an underlying
+> DB-Connected services are also REST services. They allow you to specify a database adapter, and
+> then to choose one or more tables to expose as services. Apigility then creates "virtual"
+> Resources which delegate operations to underlying
 > [Zend\Db\TableGateway\TableGateway](http://framework.zend.com/manual/2.3/en/modules/zend.db.table-gateway.html)
-> instance. In other words, it is more of a rapid application development (RAD) or prototyping tool.
+> instances. In other words, DB-Connected is more of a rapid application development (RAD) or
+> prototyping tool.
 
-For this exercise, we will create a Code-Connected service. For the "REST Service Name", provide the
-value "Status", and press the "Create Code-Connected REST Service" button. Once the service has been
-successfully created, click the colored bar that says "Status" to expand it and view the service.
+Once the service has been successfully created, the "Status" page will show up.
 
 ![REST Services Screen](/asset/apigility-documentation/img/intro-first-rest-service-status-settings.png)
 
@@ -169,7 +162,7 @@ Apigility provides a number of sane defaults:
 > itself, resolves to a _collection_; in the example above, this would be the path `/status`. It
 > also has an optional segment with a named parameter, what we call the "entity identifer":
 > `[/:status_id]`. This will match URIs such as `/status/foo`, `/status/2`,
-> `/status/96fa5ac9-3ae2-45b2-84d5-c346936be292`. 
+> `/status/96fa5ac9-3ae2-45b2-84d5-c346936be292`.
 >
 > One note: the `/` between the collection URI and the entity URI can **only** be specified when
 > specifying an entity; you cannot request the collection with a trailing slash.
@@ -177,12 +170,9 @@ Apigility provides a number of sane defaults:
 > Why? Because one tenet of REST is one URI, one resource. If we allowed a trailing slash, we'd be
 > allowing multiple URIs to resolve to the same resource.
 
-Expand the "REST Parameters" section. You'll see a field named "Hydrator Service Name" with a value
+In the REST service page, you'll see a field named "Hydrator Service Name" with a value
 of `Zend\Stdlib\Hydrator\ArraySerializable`. We're going to change this to work with our `StatusLib`
-example library.
-
-Hover over the title bar for the service to expose the green "edit" button, and click it. Then
-expand the "REST Parameters" section. For the "Hydrator Service Name", select the value
+example library. For the "Hydrator Service Name", select the value
 `Zend\Stdlib\Hydrator\ObjectProperty`.
 
 ![Edit REST Parameter Settings](/asset/apigility-documentation/img/intro-first-rest-service-settings-edit.png)
@@ -203,9 +193,9 @@ expand the "REST Parameters" section. For the "Hydrator Service Name", select th
 > array representation, and populate public properties of the object from an arraywhen casting to an
 > object.
 
-For our example, the `StatusLib` library provides its own Entity and Collection classes. Expand the
-"Service Class Names" panel by clicking on its title bar, and edit the "Entity Class" field to read
-`StatusLib\Entity` and the "Collection Class" field to read `StatusLib\Collection`.
+For our example, the `StatusLib` library provides its own Entity and Collection classes. Edit the
+"Entity Class" field to read `StatusLib\Entity` and the "Collection Class" field to read
+`StatusLib\Collection`. Finally click the "Save" button at the bottom of the screen.
 
 ![Edit Service Classes](/asset/apigility-documentation/img/intro-first-rest-service-settings-classes.png)
 
@@ -224,8 +214,6 @@ For our example, the `StatusLib` library provides its own Entity and Collection 
 > your API, you may find that having version-specific entity and collection classes can be useful,
 > as they can allow you to model only the properties you wish to expose for each specific version.
 
-Now select the green "Save" button at the bottom of the screen.
-
 Next, let's define some fields, and document our API.
 
 Define fields for our service
@@ -241,57 +229,38 @@ The fields we'll define are:
 
 We'll also have an `id` field, but this will only be for purposes of display.
 
-Navigate to the "Fields" tab, and then edit the service (the green "edit" button can be found by
-hovering over the title bar of the service).
-
-![Edit Fields](/asset/apigility-documentation/img/intro-first-rest-service-fields-edit.png)
-
-In the text input titled "Field name", type the word "message", and press the `Enter` key to create
-the new field.
+Navigate to the "Fields" tab, and click the "New field" button. In the text input titled
+"Name", type the word "message"; for the "Description", enter "A status message of no more than
+140 characters", and for the "Validation Failure Message," enter "A status message must contain
+between 1 and 140 characters". Finally press the "Save" button to create the new field.
 
 ![Message Field](/asset/apigility-documentation/img/intro-first-rest-service-message-field.png)
 
-Now do the same for each of "user" and "timestamp".
+Repeat the procedure to create the fields "user" and "timestamp", without descriptions or
+failure messages.
 
-![All Fields](/asset/apigility-documentation/img/intro-first-rest-service-all-fields.png)
+Following the best practices of *"Filter Input, Escape Output"*, we want to create a filter for
+the "message" field. Click the + (plus) icon in the Filter column for the "message" field.
 
-Click anywhere on the green bar labeled "message" to expand it.
+![Message Field - Filter](/asset/apigility-documentation/img/intro-first-rest-service-message-filter.png)
 
-![Message Field - Edit](/asset/apigility-documentation/img/intro-first-rest-service-message-edit.png)
+Select `Zend\Filter\StringTrim` in the "Filter" drop-down list, and click the "Save" button.
 
-For a description, enter "A status message of no more than 140 characters." For the "Validation
-Failure Message", enter "A status message must contain between 1 and 140 characters."
-
-Hover over the "Filters" bar, and press the "Add Filter" button to expose the "Add Filter" form. In
-the select box, select `Zend\Filter\StringTrim` (hint: type "trim" to narrow the selection); press
-the "Add Filter" button when done. Press the "Cancel" button next to the "Add Filter" button to
-remove the form when done.
-
-![Message Field - StringTrim Filter](/asset/apigility-documentation/img/intro-first-rest-service-message-filter-trim.png)
-
-Now hover over the "Validators" bar, and press the "Add Validator" button to expose the "Add
-Validator" form. In the select box, select `Zend\Validator\StringLength` (hint: type "string" to
-narrow the selection); press the "Add Validator" button when done. Press the "Cancel" button next to
-the "Add Validator" button to remove the form when done.
+We want also to add a validator for the "message" field. Click the "+" (plus) icon in the "Validator"
+colum. In the modal window, select `Zend\Validator\StringLength` as "Validator", and select the
+`max` option for the "Option". Insert the value 140 for the `max` option and click on the "Add option"
+button; you will see the option appear in the table below.
 
 ![Message Field - StringLength Validator](/asset/apigility-documentation/img/intro-first-rest-service-message-validator-length.png)
 
-Hover over the `Zend\Validator\StringLength` title to expose the "Add Option" button; click it. In
-the select box that appears, choose the `max` value. Once selected, a new form input will appear;
-type in the value "140", and then click the "Add Option" button. You can press the "Cancel" button
-next to the "Add Option" button when complete to remove the form.
-
-![Message Field - Validator Option](/asset/apigility-documentation/img/intro-first-rest-service-message-validator-max.png)
-
-At this point, you should see the following on your screen:
+Now you can click on the "Save" button to save the configuration; you should see the following
+on your screen:
 
 ![Message Field - Completed](/asset/apigility-documentation/img/intro-first-rest-service-message-complete.png)
 
-Collapse the "message" field by clicking on its title bar.
+At this point, perform the following:
 
-At this point, you have an exercise:
-
-- Update the "user" field:
+- Edit the "user" field:
   - Add a description of "The user submitting the status message."
   - Add a validation failure message of "You must provide a valid user."
   - Add a `Zend\Filter\StringTrim` filter.
@@ -303,12 +272,9 @@ At this point, you have an exercise:
   - Toggle the "Required" flag to read "No."
   - Add a `Zend\Validator\Digits` validator.
 
-When done, press the green "Save Changes" button at the bottom right of the screen. Below are
-screenshots detailing what the "user" and "timestamp" fields will look like on completion.
+Below is a screenshot detailing what the "Fields" tab will look like on completion.
 
-![User Field - Completed](/asset/apigility-documentation/img/intro-first-rest-service-user-complete.png)
-
-![Timestamp Field - Completed](/asset/apigility-documentation/img/intro-first-rest-service-timestamp-complete.png)
+![Fields - Completed](/asset/apigility-documentation/img/intro-first-rest-service-fields-complete.png)
 
 Let's move on to documentation.
 
@@ -319,15 +285,9 @@ REST services allow you to document not only by HTTP method, but by HTTP method 
 Collections and Entities.
 
 The procedure for documenting a REST service is just like we learned in the [Getting
-Started](/intro/getting-started.md) chapter, with only two differences:
+Started](/intro/getting-started.md) chapter, with only one difference:
 
 - You will need to document HTTP methods for **both** collections _and_ entities.
-- Some methods also expect _request_ data, so you will need to document the request data as well.
-
-The "generate from configuration" button is present for both request and response body
-documentation, and, assuming you have documented your fields, generally create appropriate payloads.
-You will notice that the response payloads include `_links` and sometimes `_embedded` members; this
-is because REST services in Apigility use the [Hypermedia Application Language](http://stateless.co/hal_specification.html) format by default, which provides a way for your service to link to resources exposed by other services as well as embed them. (For more information on HAL, read our [HAL primer](/api-primer/halprimer.md).)
 
 Your exercise now is to document both collection and entity operations:
 
@@ -341,40 +301,61 @@ Your exercise now is to document both collection and entity operations:
     - For the `PUT` method, describe it as "Replace a status message."
     - For the `DELETE` method, describe it as "Delete a status message."
 
-For each operation except `DELETE`, use the "generate from configuration" buttons to generate request and response
-body payloads. You can edit them if you wish, but doing so is not necessary for this tutorial.
-
 We'll examine the documentation later. For now, let's move on to authentication and authorization.
 
 Authentication and Authorization
 --------------------------------
 
-Click the "Authorization" menu item to bring up the authorization screen. You will see a grid of
-services and HTTP methods, as well as a warning indicating we have not yet setup authentication.
+Apigility can manage both authentication and authorization. Starting with version 1.1,
+you can specify an authentication adapter for each API. For each service, you can indicate
+which HTTP methods to put under authentication. Marking methods and services as needing
+authorization means that they are inaccessible unless a user provides valid credentials to the API.
+If you were to try and perform the operations we just marked at this time, you'll find that you
+cannot perform them; you'll get a `403 Forbidden` response!
 
-![Authorization](/asset/apigility-documentation/img/intro-first-rest-service-authorization.png)
+To configure authentication, we need to create a new authentication adapter. Select the
+"Authentication" menu item to bring up the authentication page. You can choose from HTTP Basic, HTTP
+Digest, or OAuth2.
 
-We'll ignore the warning for now. Check the boxes in the header marked `POST`, `PATCH`, `PUT`, and
-`DELETE` in order to indicate that any service exposing these operations will require authorization.
-Then click the green "Save" button.
+For this example, we are going to use HTTP Basic.
 
-![Authorization - Complete](/asset/apigility-documentation/img/intro-first-rest-service-authorization-complete.png)
-
-Marking methods and services as needing authorization means that they are inaccessible unless a user
-provides valid credentials to the API. If you were to try and perform the operations we just marked
-at this time, you'll find that you cannot perform them; you'll get a `403 Forbidden` response!
-
-So, next up is adding authentication. The warning box provides a link to the "authentication
-screen"; click that.
+- Click the "New Adapter" button
+- Insert the value "status" for the "Adapter Name"
+- "HTTP Basic" should be already chosen as "Type"
+- Fill in "api" for the "Realm" setting
+- Fill in "data/htpasswd" for the "htpasswd Location". 
+- Click the "Save" button when done.
 
 ![Authentication](/asset/apigility-documentation/img/intro-first-rest-service-authentication.png)
 
-We're going to use HTTP Basic authentication for this example, so click the "HTTP Basic" button.
+After that, we need to tell our "Status" API to use this new adapter. Click on the "Status" name in
+the tree view of the sidebar.
 
-We're going to use the same values as the placeholders: fill in `api` for the "Realm" setting, and
-`data/htpasswd` for the "htpasswd Location". Click the blue "Save" button when done.
+![Authentication - Status](/asset/apigility-documentation/img/intro-first-rest-service-authentication-status.png)
 
-We've completed describing our API... but we've not linked in our code yet! It's time to do that.
+
+This action will open the dashboard page for the "Status" API. In this page you will see a list
+of the REST and RPC services, the versioning information (our default is version 1), and the
+authentication section — where we can select the authentication adapter to use for the API.
+
+We can select the value "status (basic)" for the "Set authentication type"; click the "Save"
+button when done.
+
+![Authentication - API](/asset/apigility-documentation/img/intro-first-rest-service-authentication-api.png)
+
+The last part of the authentication configuration is to choose which service and HTTP methods to
+put under authentication. We need to open the "Status" REST page by click the "Status" service name
+in the sidebar. You will see a page like that.
+
+![Authentication - Service Status](/asset/apigility-documentation/img/intro-first-rest-service-status.png)
+
+In the "Authorization" tab of the "Status" REST page we can choose which HTTP methods will require 
+authentication. Check the boxes marked `POST`, `PATCH`, `PUT`, and `DELETE` in order to indicate
+that any service exposing these operations will require authorization. You will notice that some of
+the HTTP methods are disabled, because they are not available as HTTP methods for the service (if you
+want, you can enable these in the "General Settings" tab). Then click the green "Save" button.
+
+![Authorization - Complete](/asset/apigility-documentation/img/intro-first-rest-service-authorization-complete.png)
 
 Defining the resource
 ---------------------
@@ -389,7 +370,7 @@ versioned by namespace. This feature allows you to run multiple versions of your
 Our resource class will be found in
 `module/Status/src/Status/V1/Rest/Status/StatusResource.php`. Open that file in an editor.
 
-The first change we'll make is to import the `StatusLib\MapperInterface` class. 
+The first change we'll make is to import the `StatusLib\MapperInterface` class.
 Add the line `use StatusLib\MapperInterface;` above the existing `use` statements.
 
 ```php
@@ -703,7 +684,7 @@ In the previous chapter and this one both, we created documentation. If you poke
 Apigility Admin UI, you likely saw the documentation embedded in each service. However, you can also
 view documentation by itself.
 
-In the top navigation is an item entitled "API Docs." Click it.
+In the top navigation is an item entitled "Documentation", click it.
 
 ![API Docs](/asset/apigility-documentation/img/intro-first-rest-service-api-docs.png)
 
