@@ -90,7 +90,7 @@ class PingController extends AbstractActionController
 ```
 
 The important pieces are the import of the `ZF\ContentNegotiation\ViewModel` class, and the
-usage of `ViweModel` object in the `pingAction` method.
+usage of `ViewModel` object in the `pingAction` method.
 
 > ### Controllers and View Models
 >
