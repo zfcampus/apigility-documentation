@@ -4,10 +4,14 @@ Deploying Apigility
 You've developed an API using Apigility, you've finished testing and documenting, and now you are
 ready to push to production. How do you deploy the API?
 
-Because Apigility applications are [Zend Framework 2](http://framework.zend.com/) applications, the
-question of how to deploy Apigility becomes one of how to deploy a ZF2 application. Deploying a ZF2
-application can be addressed in different ways depending on the specific use case and the deployment
-methodology used in your environment.
+Since Apigility 1.1 we added in the Admin UI the "Package page" that can be used to create the
+package file containing the APIs ready for deployment.
+
+![API Package](/asset/apigility-documentation/img/api-package-menu.png)
+
+The package feature of Apigility is based on the usage of [ZFDeploy](https://github.com/zfcampus/zf-deploy),
+a command line tool to package [Zend Framework 2](http://framework.zend.com/) application in a
+single file ready to be deployed.
 
 Preparing to deploy
 -------------------
@@ -53,6 +57,31 @@ return $this->redirect()->toRoute('zf-apigility/documentation');
 > The landing page for your application will **not** work, _and will in fact raise an error_ if you do
 > not make the changes to the landing page as recommended above!
 
+Deploy using Apigility Admin UI
+-------------------------------
+
+If you are using the Apigility Admin UI you can deploy your APIs in one click! Just go to the "Package"
+page, select the APIs to be included in the package, and click the "Generate package" button.
+
+![API Package](/asset/apigility-documentation/img/api-package-generate.png)
+
+Apigility will generate a .ZIP file (default format) to be downloaded, that's it!
+You can deploy this file in any PHP environments, including cloud infrastructures.
+
+Apigility supports different file format for the package: ZIP, TAR, TGZ (TAR.GZ), and ZPK, the file
+format used by [Zend Server](http://www.zend.com/en/products/server).  
+
+You can check the "Execute composer" option to include the composer install in the package.
+This option can be relevant if you want to create a package ready to be deployed as is. If you have
+a deploy process that already includes the composer execution, you can omit it (default value).
+Moreover, you can set off the execution of composer if you need to deploy an update package that does
+not require a composer update.
+
+Finally, in the "Package" page you can specify the path of the configuration file to be included
+in the package. Usually, the configuration files of a production environment are different from a
+testing one, so you can use this option to manage this difference.
+
+
 Manual deployment using Composer
 --------------------------------
 
@@ -62,7 +91,7 @@ production package. This method requires the following 3 steps:
 ### Composer: Step 1
 
 Copy all the application files into a new directory, omitting the `vendor/` and `.git/` directories,
-the `composer.lock` file, and all local configuration files: 
+the `composer.lock` file, and all local configuration files:
 
 ```console
 $ rsync -a --exclude-from=".gitignore" --exclude=".git" /source /destination
@@ -111,7 +140,7 @@ Here are some specific Apigility files that you must omit in production:
 
 - `config/development.config.php`: If this file is present, Apigility will be executed in
   "development mode," enabling the Admin UI publicly via the `/apigility` URL.  You can switch off
-  development mode in Apigility using the following command from the root of your project: 
+  development mode in Apigility using the following command from the root of your project:
   `php public/index.php development disable`.
 
 - `config/autoload/*.local.php` files are releated to your local environment.  Usually these files
@@ -124,53 +153,14 @@ Here are some specific Apigility files that you must omit in production:
   directories can significantly increase the size of the package.
 
 
-ZFDeploy
---------
-
-In order to simplify the deployment of APIs produced by Apigility, you can also use
-[ZFDeploy](https://github.com/zfcampus/zf-deploy), a command line tool for packaging ZF2
-applications.
-
-You should already have ZFDeploy installed in your Apigility application, under the `vendor/bin/`
-folder. You can check if this tool is available executing the following command in the root
-folder of your application:
-
-```console
-$ vendor/bin/zfdeploy.php
-```
-
-You should see the usage message of ZFDeploy as output.
-
-This tool accomplishes all of the steps described in the previous section in one command. For
-instance, if you want to create a ZIP package, you can execute the following command:
-
-```console
-$ vendor/bin/zfdeploy.php build /path/to/package.zip
-```
-
-(Where `/path/to/package.zip` is the path of the ZIP file to create.)
-
-You can also use this tool to produce `.tar` or `.tgz` (`.tar.gz`) packages by specifying the format
-extension that you want to use in the package output.
-
-```console
-$ vendor/bin/zfdeploy.php build /path/to/package.tgz
-```
-
-Moreover, ZFDeploy can also produce a `.zpk` package ready to be deployed using 
-[Zend Server 6](http://www.zend.com/it/products/server/), the PHP Application Server platform provided by 
-[Zend Technologies](http://www.zend.com).
-
-```console
-$ vendor/bin/zfdeploy.php build /path/to/package.zpk
-```
+Deploy on Zend Server
+---------------------
 
 Once you have created your `package.zpk` file, you can deploy it using the *Deploy Application*
-feature of Zend Server. Below is a video demonstrating this feature.
+feature of Zend Server. Below is a video that introduce Zend Server features, including the
+Deploy mechanism.
 
-<iframe width="640" height="360" src="http://www.youtube.com/embed/gA7VhHd_4Z8" frameborder="0" allowfullscreen></iframe>
-
-[Visit the ZFDeploy tool documentation page](/modules/zf-deploy.md) for more detail on the packaging options available.
+<iframe width="560" height="315" src="https://www.youtube.com/embed/cED4TDfPz78" frameborder="0" allowfullscreen></iframe>
 
 You can also deploy a ZPK from the commandline. To do this, download the [Zend Server Web API
 SDK](https://github.com/zend-patterns/ZendServerSDK). Once you have it, you will

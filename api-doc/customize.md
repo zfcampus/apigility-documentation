@@ -17,7 +17,7 @@ Moreover, it provides a configurable MVC endpoint for returning documentation:
 - Documentation is delivered in HTML when the `Accept` header specifies HTML.
 - End-users may configure alternate/additional formats via content-negotiation.
 
-There are two ways to provide custom formats for your documentation: 
+There are two ways to provide custom formats for your documentation:
 
 - For HTML, XML, or other "markup" styles of documentaton, you can provide alternate view scripts
   for the `ZF\Apigility\Documentation\Controller`.
@@ -92,7 +92,7 @@ The following methods are exposed by that instance:
 - `getDescription()`, which returns the service description
 - `getRoute()` returns the route match string
 - `getRouteIdentifierName()` returns the route segment name indicating the identifier
-- `getFields()`, which returns an iterable set of 
+- `getFields()`, which returns an iterable set of
   [ZF\Apigility\Documentation\Field](https://github.com/zfcampus/zf-apigility-documentation/blob/master/src/Field.php) instances.
 - `getOperations()`, which returns an iterable set of
   [ZF\Apigility\Documentation\Operation](https://github.com/zfcampus/zf-apigility-documentation/blob/master/src/Operation.php)
@@ -122,7 +122,7 @@ The following methods are exposed by that instance:
 `zf-apigility-documentation` provides several view helpers related to documentation tasks. These
 include:
 
-- `agAcceptHeaders(ZF\Apigility\Documentation\Service $service)`: given a service, creates 
+- `agAcceptHeaders(ZF\Apigility\Documentation\Service $service)`: given a service, creates
   Bootstrap `list-group-item`'s of the allowed `Accept` media types, properly escaped for HTML.
 - `agContentTypeHeaders(ZF\Apigility\Documentation\Service $service)`: just like the previous, but
   for allowed `Content-Type` media types.
@@ -148,7 +148,7 @@ array(
 ```
 
 This can be placed in a ZF2 module's configuration, or in your global application configuration
-(e.g., `config/autoload/global.php`). 
+(e.g., `config/autoload/global.php`).
 
 Custom documentation formats via content negotiation
 ----------------------------------------------------
@@ -351,21 +351,19 @@ There are two ways to configure content negotiation:
 
 #### Content Negotiation in the Apigility Admin UI
 
-The Content Negotiation screen is found at the URI `/apigility/ui#/settings/content-negotiation`.
-Once there, you will **edit** the `Documentation` selector:
+You can select the "Content Negotiation" page from the top menu of the Apigility UI.
 
 ![Edit Documentation Selector](/asset/apigility-documentation/img/api-doc-content-negotiation-edit.png)
 
-Next, add your new view model. 
+You can easly add new selector and then new view models, just click on "New selector", insert a name,
+click on Save and the add the view model clicking on the plus (+) button.
 
 ![Add View Model](/asset/apigility-documentation/img/api-doc-content-negotiation-view-model.png)
 
-Finally, add one or more `Accept` header media types that should select the given view model; these
-should be valid IETF media type specifications:
+When you add a view model, you can specify media types  following the IETF media type specifications:
 
 ![Media Types](/asset/apigility-documentation/img/api-doc-content-negotiation-media-type.png)
 
-Click the `Update Selector` button to save the configuration, and you're done.
 
 #### Content Negotiation manual configuration
 
@@ -398,7 +396,7 @@ return documentation in your custom format.
 
 ### Requesting alternate documentation formats
 
-All the API documentation formats are driven by _content negotiation_ (using the 
+All the API documentation formats are driven by _content negotiation_ (using the
 [zf-content-negotiation](https://github.com/zfcampus/zf-content-negotiation) module).
 This means you can specify the format you wish to receive via the `Accept` header.
 
@@ -427,4 +425,3 @@ GET /apigility/documentation[/api[/service]] HTTP/1.1
 Accept: text/html
 
 ```
-

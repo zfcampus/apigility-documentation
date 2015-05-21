@@ -1,18 +1,15 @@
 Basic Usage
 ===========
 
-The [zf-content-validation](https://github.com/zfcampus/zf-content-validation) module utilizes 
+The [zf-content-validation](https://github.com/zfcampus/zf-content-validation) module utilizes
 [Zend Framework's InputFilter component](http://framework.zend.com/manual/2.3/en/modules/zend.input-filter.intro.html).
 Apigility takes information from the UI and writes it to the target API's module configuration file.
 For more information on the theory of input filters, [read the Content Validation
 introduction](/content-validation/intro.md).
 
 To configure an input filter in the Apigility UI, browse to the API, then the service.  From there,
-you can see if an existing input filter exist in the "Fields" tab of the service's content.  To edit
-or create a new input filter for the given service, click on the edit button for the service, then
-switch to the "Fields" tab.  At this point, you should enter the field names as they would be
-present in the deserialized payload of the request (typically, the top level keys in a JSON
-request).
+you can see if an existing input filter exist in the "Fields" tab of the service's content.
+You can add a new field using the "New field" button.
 
 ![Content Validation Fields](/asset/apigility-documentation/img/content-validation-basic-usage-fields.jpg)
 
@@ -28,8 +25,8 @@ Each field will accept configuration for the field:
 - A variety of optional _filters_.
 - A variety of optional _validators_.
 
-When the save button is clicked, this information is sent back to the Apigility API and the 
-information is then stored in the API's module configuration file, under two separate keys: the 
+When the save button is clicked, this information is sent back to the Apigility API and the
+information is then stored in the API's module configuration file, under two separate keys: the
 `zf-content-validation` key and the `input_filter_specs` key.  Here is a sample:
 
 ```php

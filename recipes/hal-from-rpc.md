@@ -118,8 +118,8 @@ return array(
 ```
 
 Finally, we need to make sure that the service is configured to actually return HAL. We can do this
-in the admin. Find the "Content Negotiation" section in the admin, then the "Content
-Negotiation Selector" item, and set that to "HalJson"; don't forget to save!
+in the Admin UI. Go to the RPC service page, in the "General Settings" tab you will find the
+"Content Negotiation Selector" field, select the value "HalJson" and click on Save!
 
 ![Content Negotiation Selector](/asset/apigility-documentation/img/recipes-hal-from-rpc-select-selector.png)
 

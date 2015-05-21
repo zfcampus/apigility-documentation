@@ -6,7 +6,7 @@ validation must pass in order for the service to be executed. If an input filter
 a `422 Unprocessable Entity` status is returned with a message that the resource failed validation.
 In this situation the service will not be executed.
 
-For example, in the following AddressBook and Contact example, a contact must provide a valid age.
+For example, in the following REST Contact service, a contact must provide a valid age.
 The setup looks like:
 
 ![Content Validation Required Field](/asset/apigility-documentation/img/content-validation-validating-required-field.jpg)
@@ -52,7 +52,7 @@ Content-Type: application/problem+json
 > If you want validators to run even if the data is not present or is empty, toggle the "Continue if
 > Empty?" setting.
 
-Having one or more validators attached to a field would ensure more rigourous validation of the 
+Having one or more validators attached to a field would ensure more rigourous validation of the
 data coming into the system. In the following example, the `age` field has more than one validator
 defined:
 
@@ -157,5 +157,5 @@ Content-Type: application/problem+json
 }
 ```
 
-When the deserialized request body passes through the input filter, and is fully validated, 
+When the deserialized request body passes through the input filter, and is fully validated,
 Apigility will then execute the controller service.
