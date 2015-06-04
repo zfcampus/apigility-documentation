@@ -7,7 +7,7 @@ file also comes with the [Apache](http://httpd.apache.org/) installation: `htdig
 is not present on your system, there are a number of web based tools that will also produce a valid
 `htpasswd` file; [google for "htdigest generator"](https://www.google.com/search?q=%22htdigest+generator%22) for examples.
 
-Like HTTP Basic authentication, a digest file will need to exist before configuration of this 
+Like HTTP Basic authentication, a digest file will need to exist before configuration of this
 authentication scheme takes place:
 
 ```console
@@ -15,19 +15,53 @@ $ htdigest -c data/users.htdigest "Secure API" ralph
 Adding password for ralph in realm Secure API
 New password:
 Re-type new password:
-$ 
+$
 ```
 
-Once the file has been created, its path can be used to configure the required `htdigest` file input 
+Once the file has been created, its path can be used to configure the required `htdigest` file input
 of the HTTP Digest authentication configuration screen, shown here:
 
 ![Configuring HTTP Digest settings](/asset/apigility-documentation/img/auth-authentication-http-digest-ui-settings.jpg)
 
-Like HTTP Basic configuration, sensitive information will be stored in your application's
-`config/autoload/local.php` file, while the structure and non-sensitive parts are stored in
-`config/autoload/global.php`.  This mean that for this authentication strategy to become part of
-your application when it is deployed to production, you will need to provide it a digest file in your
-production `config/autoload/local.php` configuration file.
+The configuration data will be stored in `config/autoload/local.php` under the key
+`['zf-mvc-auth']['authentication']['adapters']['digest']` where `digest` is the name of the adapter chosen
+in the previous screenshot.
+You can have many authentication adapters in your configuration file, and choose the one to be used for your API.
+For instance, this is an example of config with two authentication adapters (HTTP Basic and Digest).
+
+```php
+// config/autoload/local.php
+return array(
+    'zf-mvc-auth' => array(
+        'authentication' => array(
+            'adapters' => array(
+                'basic' => array(
+                    'adapter' => 'ZF\\MvcAuth\\Authentication\\HttpAdapter',
+                    'options' => array(
+                        'accept_schemes' => array(
+                            0 => 'basic',
+                        ),
+                        'realm' => 'api',
+                        'htpasswd' => 'data/users.htpasswd',
+                    ),
+                ),
+                'digest' => array(
+                    'adapter' => 'ZF\\MvcAuth\\Authentication\\HttpAdapter',
+                    'options' => array(
+                        'accept_schemes' => array(
+                            0 => 'digest',
+                        ),
+                        'realm' => 'Secure API',
+                        'digest_domains' => '',
+                        'nonce_timeout' => '3600',
+                        'htdigest' => 'data/users.htdigest',
+                    ),
+                ),
+            ),
+        ),
+    ),
+);
+```
 
 At this point, HTTP Digest authentication has been setup and is ready to use.
 
@@ -72,8 +106,8 @@ Content-Type: application/problem+json
 
 Important notes:
 
-- Your client should be capable of properly encoding the HTTP Digest `Authorization` header, and 
+- Your client should be capable of properly encoding the HTTP Digest `Authorization` header, and
   able to fulfill the digest handshake.
-- In production, ensure a `htdigest` file can be utilized in the same relative location as in 
+- In production, ensure a `htdigest` file can be utilized in the same relative location as in
   development, even if the `htdigest` was not checked into your VCS.
 - No `Authorization` header in the request implies that the "guest" identity will be used.

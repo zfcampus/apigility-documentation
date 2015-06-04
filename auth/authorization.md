@@ -1,10 +1,10 @@
 Authorization
 =============
 
-Authorization is the process by which a system can take a *validated identity* (or lack of 
-identity) and *determine if that identity has access to a given resource*.  In terms of APIs and 
-Apigility, the identity that is passed in via the `Authorization` header, which is then validated 
-during authentication, is then passed into the process that determines if the request/resource can 
+Authorization is the process by which a system can take a *validated identity* (or lack of
+identity) and *determine if that identity has access to a given resource*.  In terms of APIs and
+Apigility, the identity that is passed in via the `Authorization` header, which is then validated
+during authentication, is then passed into the process that determines if the request/resource can
 be accessed by that identity.
 
 With Apigility, the information presented through the `Authorization` header is then converted to
@@ -22,10 +22,12 @@ What is unique to Apigility is that with REST resources you have the ability to 
 for each allowed HTTP method for either collections *or* entities.  With RPC services you have the
 ability to assign permissions for each allowed HTTP method to the RPC controller.
 
-Since the granularity of configuration is specific to APIs, you will be able to find an 
-"Authorization" navigation item under each API you have created in the Apigility application.  Both 
-REST and RPC services will be listed in the matrix; a checkbox denotes that the particular method 
-in question requires authentication. HTTP Methods that are not allowed will not be activated to 
-be checked:
+You can specify the HTTP methods to be use for REST and RPC services selecting the "Authorization"
+tab in the service window.
 
-![Authorization Settings](/asset/apigility-documentation/img/auth-authorization-ui-settings.jpg)
+![Authorization Settings REST](/asset/apigility-documentation/img/auth-authorization-ui-settings-rest.png)
+
+For REST services you can specify the HTTP methods to put under authorization for Entity and
+Collection. For RPC services you have only one set of HTTP methods to configure.
+
+![Authorization Settings RPC](/asset/apigility-documentation/img/auth-authorization-ui-settings-rpc.png) 
