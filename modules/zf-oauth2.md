@@ -233,7 +233,7 @@ an Authorization code. This code must be used to request an OAuth2 token; the
 following HTTPie command provides an example of how to do that:
 
 ```bash
-http --auth testclient:testpass -f POST http://<URL of your ZF2 app>/oauth grant_type=authorization_code&code=YOUR_CODE&redirect_uri=/oauth/receivecode
+http --auth testclient:testpass -f POST http://<URL of your ZF2 app>/oauth grant_type=authorization_code code=YOUR_CODE redirect_uri=/oauth/receivecode
 ```
 
 In client-side scenarios (i.e mobile) where you cannot store the Client
