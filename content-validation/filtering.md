@@ -14,7 +14,8 @@ Here is a list of the available filters:
 
 Filters are executed prior to validation, allowing you to perform normalization tasks.
 
-In this example we'll add a `StringTrim` filter to the name field.
+In this example we'll add a `StringTrim` filter to the name field. To add a filter for a specific
+field you need to click on the plus (+) button on the "filter" column:
 
 ![Content Validation Filtering Setup](/asset/apigility-documentation/img/content-validation-filtering-setup.jpg)
 
@@ -54,4 +55,4 @@ Location: http://localhost:8000/contact/5
 ```
 
 As you will notice, `name` was provided with leading and trailing whitespace, but the response field
-does not contain the whitespace. 
+does not contain the whitespace.

@@ -17,14 +17,14 @@ definitions:
 - *Client*: the Third-Party Application
 
 In Apigility, the *Resource Server* and the *Authorization Server* are delivered from the same API
-server. 
+server.
 
 The OAuth2 protocol is actually a framework for authorization. From the abstract of RFC 6749
 we can read:
 
 > The OAuth 2.0 authorization framework enables a third-party application to obtain limited access
 > to an HTTP service, either on behalf of a resource owner by orchestrating an approval interaction
-> between the resource owner and the HTTP service, or by allowing the third-party application to 
+> between the resource owner and the HTTP service, or by allowing the third-party application to
 > obtain access on its own behalf.
 
 The use cases covered by the OAuth2 framework are:
@@ -67,19 +67,17 @@ Setup OAuth2
 ------------
 
 Before we jump into the different use cases for OAuth2 authentication, we need to configure
-Apigility to use OAuth2. Go to the dashboard page and click on the "OAuth2" button, shown here:
+an authentication adapter for Apigility. Go to the Authentication page, click on the "New adapter"
+button:
 
-![OAuth2 dashboard](/asset/apigility-documentation/img/auth-oauth2-dashboard.png)
-
-> **Note**: if you have previously configured authentication, you will need to remove it first
-> before configuring OAuth2!
+![Authentication settings](/asset/apigility-documentation/img/auth-authentication-settings.jpg)
 
 You need to choose which adapter to use for the OAuth2 dataset. You can manage the dataset using a
 relational database (the OAuth2 library Apigility utilizes uses
 [PDO](http://www.php.net/manual/en/book.pdo.php) specifically) or
 [MongoDB](https://www.mongodb.org/).
 
-If you select the PDO adapter, you will see the following form:
+If you select the OAuth2 PDO adapter, you will see the following form:
 
 ![PDO adapter](/asset/apigility-documentation/img/auth-oauth2-pdo.png)
 
@@ -102,7 +100,7 @@ field, using the syntax `sqlite:/path/to/database/file`.  In this database we cr
 and a `password` **testpass**. We will use this data in the following use cases.
 
 All sensitive data such as `client_secret` (in the `oauth_clients` table) and `password` (in the
-`oauth_users` table), are encrypted by Apigility using the
+`oauth_users` table), are hashed by Apigility using the
 [bcrypt](http://en.wikipedia.org/wiki/Bcrypt) algorithm. If you want to generate the bcrypt value of
 a plaintext password, you can use the
 [Zend\Crypt\Password\Bcrypt](http://framework.zend.com/manual/2.2/en/modules/zend.crypt.password.html#bcrypt)
@@ -132,11 +130,11 @@ in this diagram:
 
 ![Web-server applications](/asset/apigility-documentation/img/auth-oauth2-web-server-app.png)
 
-The web application sends a request (including the `client_id` and the `redirect_uri`) to the 
+The web application sends a request (including the `client_id` and the `redirect_uri`) to the
 third-party service asking for an Authorization code (1).
 The third-party server shows an *Allow/Deny* page to the end-user requesting authorization for access.
 If the user clicks on "Allow", the server sends the Authorization Code to the web application using
-the `redirect_uri` (2). The web application can now perform a token request, passing the 
+the `redirect_uri` (2). The web application can now perform a token request, passing the
 `client_id`, the `redirect_uri`, and the `client_secret` to prove that it is authorized to perform
 this request (3). The third-party server sends the `token` as response if the request is valid (4).
 
@@ -237,9 +235,9 @@ Content-Type: application/json
 
 {
     "access_token": "907c762e069589c2cd2a229cdae7b8778caa9f07",
-    "expires_in": 3600, 
-    "refresh_token": "43018382188f462f6b0e5784dd44c36f476ccce6", 
-    "scope": null, 
+    "expires_in": 3600,
+    "refresh_token": "43018382188f462f6b0e5784dd44c36f476ccce6",
+    "scope": null,
     "token_type": "Bearer"
 }
 ```
@@ -282,7 +280,7 @@ view, because the token is not passed to the server; the token can be accessed o
 (browser).
 
 The browser-based application scenario is supported by Apigility using the *implicit* grant type.
-This grant type is disabled by default and you need to enable it manually, changing the 
+This grant type is disabled by default and you need to enable it manually, changing the
 configuration of `allow_implicit` to `true` in the `config/autoload/local.php` file:
 
 ```php
@@ -333,10 +331,10 @@ value. An example of this javascript code is shown below:
 // function to parse fragment parameters
 var parseQueryString = function( queryString ) {
     var params = {}, queries, temp, i, l;
- 
+
     // Split into key/value pairs
     queries = queryString.split("&");
- 
+
     // Convert the array of strings into an object
     for ( i = 0, l = queries.length; i < l; i++ ) {
         temp = queries[i].split('=');
@@ -344,7 +342,7 @@ var parseQueryString = function( queryString ) {
     }
     return params;
 };
- 
+
 // get token params from URL fragment
 var tokenParams = parseQueryString(window.location.hash.substr(1));
 ```
@@ -412,7 +410,7 @@ Content-Type: application/json
 If we are using a **public client** (by default, this is true when no secret is associated with the
 client) you can omit the `client_secret` value; additionally, you will now pass the `client_id` in
 the request body. In our example database the **testclient2** `client_id` has an empty
-`client_secret`. 
+`client_secret`.
 
 ```HTTP
 POST /oauth HTTP/1.1
@@ -466,9 +464,9 @@ HTTP/1.1 200 OK
 Content-Type: application/json
 
 {
-    "access_token": "470d9f3c6b0371ff2a88d0c554cbee9cad495e8d", 
-    "expires_in": 3600, 
-    "scope": null, 
+    "access_token": "470d9f3c6b0371ff2a88d0c554cbee9cad495e8d",
+    "expires_in": 3600,
+    "scope": null,
     "token_type": "Bearer"
 }
 ```
@@ -479,7 +477,7 @@ the `refresh_token` fields.
 If you want to generate a new `refresh_token` value, you need to enable the
 `always_issue_new_refresh_token` zf-oauth2 configuration option, setting it to
 `true` (the default is `false`). This option can be changed in the
-`config/autoload/local.php` file of your Apigility project. 
+`config/autoload/local.php` file of your Apigility project.
 
 ```php
 return array(
@@ -496,7 +494,7 @@ return array(
 
 You can also change the lifetime of the new refresh token using the `refresh_token_lifetime`
 option. The value is expressed in seconds (default is 1209600, equal to 14 days).
- 
+
 
 Revoke OAuth2 token
 -------------------

@@ -17,14 +17,18 @@ authentication, and OAuth2 (by way of Brent Shaffer's [PHP OAuth2
 package](https://github.com/bshaffer/oauth2-server-php)).  HTTP Basic and HTTP Digest
 authentication can be configured to be used with minimal tools.
 
-Authentication is something that happens "pre-route", meaning it is something that is configured 
-per-application instead of per-module/API that is configured.  So if you need per-API groups of 
-users for your APIs, it might make sense to either break your APIs out into their own Apigility 
-powered applications or use a more advanced code-driven extension to the authentication module.
+Authentication is something that happens "pre-route", and since Apigility 1.1 it's configured
+per-module/API.
 
-To get started with any of the configurable authentication schemes, click "Settings", then 
+To get started with any of the configurable authentication schemes, click "Settings", then
 "Authentication":
 
 ![Authentication settings](/asset/apigility-documentation/img/auth-authentication-settings.jpg)
 
-Once here, you will be presented with the aforementioned authentication schemes to be configured.
+Once here, you can create a new Authentication Adapter by click on "New adapter" button.
+
+When done with the authentication adapter configuration, you can assign it to a specific API.
+You need to click on the API name (step 1), in the sidebar on the left, and choose the authentication
+adapter to use in the "Set authentication type" combo box (step 2).
+
+![Authentication per API](/asset/apigility-documentation/img/auth-authentication-per-api.jpg)
