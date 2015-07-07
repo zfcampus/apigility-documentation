@@ -1,7 +1,7 @@
-Hypermedia Application Language (HAL)
-=====================================
+Hypertext Application Language (HAL)
+====================================
 
-HAL, short for "Hypermedia Application Language", is an [open specification describing a generic
+HAL, short for "Hypertext Application Language", is an [open specification describing a generic
 structure for RESTful resources](http://stateless.co/hal_specification.html). The structure it
 proposes readily achieves the [Richardson Maturity Model](http://martinfowler.com/articles/richardsonMaturityModel.html)'s
 Level 3 by ensuring that each resource contains relational links, and that a standard, identifiable
