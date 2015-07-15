@@ -289,7 +289,7 @@ In Apigility, we make the following choices for REST services:
   collections. Each type can specify HTTP request methods allowed; requests using methods outside
   those configured result in a `405 Method Not Allowed` status; `OPTIONS` requests will detail which
   requests methods are allowed.
-- By default, we use [Hypermedia Application Language](/api-primer/halprimer.md), which provides both relational
+- By default, we use [Hypertext Application Language](/api-primer/halprimer.md), which provides both relational
   links as well as the ability to embed other addressable resources.
 - Errors are reported in a consistent fashion (specifically,
   [application/problem+json](/api-primer/error-reporting.md#api-problem).
