@@ -72,7 +72,7 @@ In the latter case, do the following:
 
 ```console
 cd path/to/install
-php -S 0.0.0.0:8888 -t public public/index.php
+php -S 0.0.0.0:8888 -ddisplay_errors=0 -t public public/index.php
 ```
 
 You can then visit the site at http://localhost:8888/ - which will bring up a
@@ -102,3 +102,19 @@ inspect your APIs.
 > disable development mode, thus disabling the admin interface, and safely run an
 > opcode cache again. Doing so is recommended for production due to the tremendous
 > performance benefits opcode caches provide.
+
+> ### NOTE ABOUT DISPLAY_ERRORS
+> 
+> The `display_errors` `php.ini` setting is useful in development to understand what warnings,
+> notices, and error conditions are affecting your application. However, they cause problems for APIs:
+> APIs are typically a specific serialization format, and error reporting is usually in either plain
+> text, or, with extensions like XDebug, in HTML. This breaks the response payload, making it unusable
+> by clients.
+> 
+> For this reason, we recommend disabling `display_errors` when using the Apigility admin interface.
+> This can be done using the `-ddisplay_errors=0` flag when using the built-in PHP web server, or you
+> can set it in your virtual host or server definition. If you disable it, make sure you have
+> reasonable error log settings in place. For the built-in PHP web server, errors will be reported in
+> the console itself; otherwise, ensure you have an error log file specified in your configuration.
+> 
+> `display_errors` should *never* be enabled in production, regardless.

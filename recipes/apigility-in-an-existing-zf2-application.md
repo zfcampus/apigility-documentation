@@ -181,7 +181,7 @@ To do this, you will need a web server running your application; this can be the
 server, as detailed in the [installation guide](/intro/installation.md#all-methods):
 
 ```console
-php -S 0.0.0.0:8888 -t public public/index.php
+php -S 0.0.0.0:8888 -ddisplay_errors=0 -t public public/index.php
 ```
 
 Once running, initiate a `PUT` request to the `/apigility/api/module.enable` path, providing the
