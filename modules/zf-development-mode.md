@@ -17,7 +17,9 @@ Installation with Composer
    `composer.json` file and run `php composer.phar update`.
 1. Copy `development.config.php.dist` to your application's `config/` directory,
    without renaming the file, and edit as required. Commit this file to your
-   version control system.
+   version control system. Optionally, if you want to override application config
+   as well, copy `development.local.php.dist` file into `config/autoload/` and
+   update it.
 1. Add any development modules to the `"require-dev"` section of your
    application's `composer.json`. e.g:
    
@@ -43,7 +45,6 @@ Installation with Composer
    with
 
    ```php
-        // Run the application!
         // Config
         $appConfig = include 'config/application.config.php';
 
@@ -63,6 +64,10 @@ To enable development mode
 cd path/to/install
 php public/index.php development enable
 ```
+
+Note: enabling development mode will also clear your module configuation cache,
+to allow safely updating dependencies and ensuring any new configuration is
+picked up by your application.
 
 To disable development mode
 ---------------------------

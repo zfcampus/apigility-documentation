@@ -67,7 +67,7 @@ accepts a request body (i.e., `POST`, `PUT`, `PATCH`, or `DELETE`), or it can be
 `input_filter`. The value assigned for the `input_filter` key will be used in the case that no input
 filter is configured for the current HTTP request method.
 
-Example where there is a default as well as a POST filter:
+Example where there is a default as well as a GET filter:
 
 ```php
 'zf-content-validation' => array(
@@ -80,6 +80,17 @@ Example where there is a default as well as a POST filter:
 
 In the above example, the `Application\Controller\HelloWorld\Validator` service will be selected for
 `PATCH`, `PUT`, or `DELETE` requests, while the `Application\Controller\HelloWorld\CreationValidator`will be selected for `POST` requests.
+
+Starting in version 1.1.0, two additional keys can be defined to affect application validation
+behavior:
+
+- `use_raw_data`: if NOT present, raw data is ALWAYS injected into the "BodyParams" container (defined
+  by zf-content-negotiation).  If this key is present and a boolean false, then the validated,
+  filtered data from the input filter will be used instead.
+
+- `allows_only_fields_in_filter`: if present, and `use_raw_data` is boolean false, the value of this
+  flag will define whether or not additional fields present in the payload will be merged with the
+  filtered data.
 
 #### input_filter_spec
 
@@ -151,6 +162,15 @@ get the deserialized content body parameters.
 
 ZF2 Services
 ============
+
+### Controller Plugins
+
+#### ZF\ContentValidation\InputFilter\InputFilterPlugin (aka getInputFilter)
+
+This plugin is available to Zend Framework 2 controllers. When invoked (`$this->getInputFilter()` or
+`$this->plugin('getinputfilter')->__invoke()`), it returns whatever is in the MVC event parameter
+`ZF\ContentValidation\InputFilter`, returning null for any value that is not an implementation of
+`Zend\InputFilter\InputFilter`.
 
 ### Service
 

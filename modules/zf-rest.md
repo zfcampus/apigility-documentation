@@ -17,7 +17,7 @@ It allows you to create RESTful JSON APIs that use the following standards:
 Requirements
 ------------
   
-Please see the [composer.json](composer.json) file.
+Please see the [composer.json](https://github.com/zfcampus/zf-rest/tree/master/composer.json) file.
 
 Installation
 ------------
@@ -90,6 +90,15 @@ An alternate controller class to use when creating the controller service; it **
 `ZF\Rest\RestController`. Only use this if you are altering the workflow present in the
 `RestController`.
 
+##### Sub-key: `identifier` (optional)
+
+The name of event identifier for controller. It allows multiple instances of controller to react
+to different sets of shared events.
+
+##### Sub-key: `resource_identifiers` (optional)
+
+The name or an array of names of event identifier/s for resource.
+
 ##### Sub-key: `entity_class`
 
 The class to be used for representing an entity.  Primarily useful for introspection (for example in
@@ -113,23 +122,21 @@ The resource class that will be dispatched to handle any collection or entity re
 The number of entities to return per "page" of a collection. This is only used if the collection
 returned is a `Zend\Paginator\Paginator` instance or derivative.
 
+##### Sub-key: `max_page_size` (optional)
+
+The maximum number of entities to return per "page" of a collection.  This is tested against the
+`page_size_param`. This parameter can be set to help prevent denial of service attacks against your API.
+
+##### Sub-key: `min_page_size` (optional)
+
+The minimum number of entities to return per "page" of a collection.  This is tested against the
+`page_size_param`.
+
 ##### Sub-key: `page_size_param` (optional)
 
 The name of a query string argument that will set a per-request page size. Not set by default; we
 recommend having additional logic to ensure a ceiling for the page size as well, to prevent denial
 of service attacks on your API.
-
-##### Sub-key: `max_page_size` (optional)
-
-The maximum page size. If this parameter is set and the requested page size exceeds the maximum, the
-controller will return an error response. This prevents clients requesting too many entities per
-page and thus overloading the server.
-
-##### Sub-key: `min_page_size` (optional)
-
-The minimum page size. If this parameter is set and the requested page size is below the minimum,
-the controller will return an error response. This prevents clients requesting too few entities per
-page and thus overloading the server with repeated requests.
 
 #### User configuration example:
 
@@ -215,7 +222,7 @@ ZF2 Services
 
 #### ZF\Rest\AbstractResourceListener
 
-This abstract class is the base implementation of a [Resource](https://github.com/zfcampus/zf-rest/tree/master/zfrestresource) listener.  Since
+This abstract class is the base implementation of a [Resource](#zfrestresource) listener.  Since
 dispatching of `zf-rest` based REST services is event driven, a listener must be constructed to
 listen for events triggered from `ZF\Rest\Resource` (which is called from the `RestController`).
 The following methods are called during `dispatch()`, depending on the HTTP method:
