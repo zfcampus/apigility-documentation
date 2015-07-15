@@ -77,32 +77,32 @@ Within the Apigility documentation, and, in particular, this chapter, uses the f
 terminology:
 
 <dl>
-    <dt>Entity</dt>
-    <dd>
-        An <em>addressable</em> item being returned. Entities are distinguished by a unique
-        identifier present in the URI.
-    </dd>
+<dt>Entity</dt>
+<dd>
+    An <em>addressable</em> item being returned. Entities are distinguished by a unique
+    identifier present in the URI.
+</dd>
 
-    <dt>Collection</dt>
-    <dd>
-        A addressable <em>set</em> of <em>entities</em>. Typically, all entities contained in the
-        collection are of the same type, and share the same base URI as the collection.
-    </dd>
+<dt>Collection</dt>
+<dd>
+    A addressable <em>set</em> of <em>entities</em>. Typically, all entities contained in the
+    collection are of the same type, and share the same base URI as the collection.
+</dd>
 
-    <dt>Resource</dt>
-    <dd>
-        An object that receives the incoming request data, determines whether a <em>collection</em>
-        or <em>entity</em> was identified in the URI, and determines what <em>operation</em> to
-        perform.
-    </dd>
+<dt>Resource</dt>
+<dd>
+    An object that receives the incoming request data, determines whether a <em>collection</em>
+    or <em>entity</em> was identified in the URI, and determines what <em>operation</em> to
+    perform.
+</dd>
 
-    <dt>Relational Links</dt>
-    <dd>
-        A URI to a resource that has the described <em>relation</em>. Relational links allow you to
-        describe relations between different entities and collections, as well as directly link to
-        them so that the web service client can perform operations on those relations. These are
-        also sometimes called <em>hypermedia links</em>.
-    </dd>
+<dt>Relational Links</dt>
+<dd>
+    A URI to a resource that has the described <em>relation</em>. Relational links allow you to
+    describe relations between different entities and collections, as well as directly link to
+    them so that the web service client can perform operations on those relations. These are
+    also sometimes called <em>hypermedia links</em>.
+</dd>
 </dl>
 
 REST services return entities and collections, and provide hypermedia links between related entities
