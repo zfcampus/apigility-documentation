@@ -2,14 +2,11 @@ How to install the Swagger adapter
 ==================================
 
 To activate the [Swagger](https://helloreverb.com/developers/swagger) adapter for the API
-documentation, you need to add the following dependency in your application's `composer.json` file,
-under the `require` field:
+documentation, you need to require the following dependency by running:
 
-```JSON
-"zfcampus/zf-apigility-documentation-swagger": "~1.0-dev"
+```sh
+composer require zfcampus/zf-apigility-documentation-swagger
 ```
-
-Once added, execute the `composer update` commmand.
 
 After installation of `zf-apigility-documentation-swagger`, enable the module in
 `config/application.config.php` file.  Add the following line after `'ZF\Apigility\Documentation'`:
