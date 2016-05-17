@@ -509,3 +509,7 @@ with a SQL query:
 ```sql
 DELETE FROM oauth_access_tokens WHERE access_token="<token to remove>";
 ```
+
+Multiple grant types
+-------------------
+You can add multiple `grant_type`'s to a client by seperating the grant types with a space.
