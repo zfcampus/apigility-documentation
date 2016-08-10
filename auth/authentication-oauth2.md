@@ -526,3 +526,8 @@ directive to your virtual host configuration:
 ```apacheconf
 SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
 ```
+
+Multiple grant types
+--------------------
+
+You can add multiple `grant_type`'s to a client by seperating the grant types with a space.
