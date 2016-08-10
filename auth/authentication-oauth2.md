@@ -509,3 +509,20 @@ with a SQL query:
 ```sql
 DELETE FROM oauth_access_tokens WHERE access_token="<token to remove>";
 ```
+
+Apache2 FastCGI
+---------------
+
+If you are using Apache2 with FastCGI to pass traffic in using PHP-FPM, you may
+experience an unexpected 403 error for any methods that have the Authorization
+box ticked.
+
+This is because Apache2 strips the `Authentication` header by default when
+FastCGI is enabled.
+
+In order to pass in the `Authentication` header to PHP, add the following
+directive to your virtual host configuration:
+
+```apacheconf
+SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
+```
