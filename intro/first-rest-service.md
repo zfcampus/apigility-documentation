@@ -23,7 +23,7 @@ $ php composer.phar require "zfcampus/statuslib-example:~1.0-dev"
 
 ### Step 2
 
-Edit the file `config/application.config.php` and add the `StatusLib` module:
+Edit the file `config/modules.config.php` and add the `StatusLib` module:
 
 ```php
 array(
