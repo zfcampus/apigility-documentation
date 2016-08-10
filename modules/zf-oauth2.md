@@ -182,9 +182,9 @@ To test the OAuth2 module, you have to add a `client_id` and a `client_secret`
 into the oauth2 database. If you are using the SQLite test database, you don't
 need to add a `client_id`; just use the default "testclient"/"testpass" account.
 
-Because we encrypt the password to be used as `client_secret` with the `bcrypt` algorithm, you'll need to
-use [Zend\Crypt\Password\Bcrypt](http://framework.zend.com/manual/2.2/en/modules/zend.crypt.password.html#bcrypt)
-class from Zend Framework 2. We provided a simple script in `/bin/bcrypt.php` to
+Because we encrypt the password to be used as the `client_secret` with the `bcrypt` algorithm, you'll need to
+use the [Zend\Crypt\Password\Bcrypt](http://framework.zend.com/manual/2.2/en/modules/zend.crypt.password.html#bcrypt)
+class from Zend Framework. We provid a script in `bin/bcrypt.php` to
 generate its hash value. You can use this tool from the
 command line, with the following syntax:
 
