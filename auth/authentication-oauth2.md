@@ -526,3 +526,11 @@ directive to your virtual host configuration:
 ```apacheconf
 SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
 ```
+
+Multiple grant types
+--------------------
+
+For OAuth2 adapters that support grant types, most will allow you to add
+multiple `grant_type`'s to a client by providing them as space-separated values.
+
+Always consult the documentation for a given adapter to verify the format.
