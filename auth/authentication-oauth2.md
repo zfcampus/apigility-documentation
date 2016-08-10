@@ -530,4 +530,7 @@ SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
 Multiple grant types
 --------------------
 
-You can add multiple `grant_type`'s to a client by seperating the grant types with a space.
+For OAuth2 adapters that support grant types, most will allow you to add
+multiple `grant_type`'s to a client by providing them as space-separated values.
+
+Always consult the documentation for a given adapter to verify the format.
