@@ -119,8 +119,11 @@ Docker
 ------
 
 The default container in the docker-compose configuration has been renamed from
-`dev` to `apigility`. This will only affect users creating new projects who were
-accustomed to the previous configuration.
+`dev` to `apigility`. Additionally, we now only ship one Dockerfile, and
+recommend manipulating things like development mode via composer.
+
+These changes will only affect users creating new projects who were accustomed
+to the previous configuration.
 
 Vagrant
 -------
