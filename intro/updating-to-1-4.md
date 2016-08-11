@@ -114,3 +114,27 @@ $ composer require "zendframework/zendframework:^3.0"
 However, we recommend adding only the dependencies you require, versus the
 entire framework. Doing so will reduce both the amount of disk space the
 application requires, as well as the memory and resource usage during execution.
+
+Docker
+------
+
+The default container in the docker-compose configuration has been renamed from
+`dev` to `apigility`. This will only affect users creating new projects who were
+accustomed to the previous configuration.
+
+Vagrant
+-------
+
+The vagrant configuration has been completely redone. We have removed the
+previous configuration, as it was no longer functioning. In its place, we've
+provided a minimal setup that provides Apache 2.4, PHP 7, and Composer, with a
+properly configured default virtual host.
+
+The new image is based on ubuntu/xenial64. If you are using VirtualBox as your
+provider, you will need:
+
+- Vagrant 1.8.5 or later
+- VirtualBox 5.0.26 or later
+
+If you need additional features (databases, etc.), you will need to provide your
+own configuration.
