@@ -141,3 +141,17 @@ provider, you will need:
 
 If you need additional features (databases, etc.), you will need to provide your
 own configuration.
+
+PSR-4 by default
+----------------
+
+All previous versions of Apigility generated and manipulated new modules using
+[PSR-0](http://www.php-fig.org/psr/psr-0/) by default. zf-apigility-admin 1.1.0
+introduced a new configuration, `zf-apigility-admin.path_spec`, by which you
+could specify `psr-4` for the default; however, we never made it the default in
+order to keep backwards compatibility.
+
+While it's still not the default when installing zf-apigility-admin, the
+Apigility 1.4 skeleton enables it by default by setting the value in
+`config/autoload/global-development.php`. As such, any modules you create in
+Apigility 1.4 and up will have a PSR-4 structure.
