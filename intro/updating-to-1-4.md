@@ -155,3 +155,23 @@ While it's still not the default when installing zf-apigility-admin, the
 Apigility 1.4 skeleton enables it by default by setting the value in
 `config/autoload/global-development.php`. As such, any modules you create in
 Apigility 1.4 and up will have a PSR-4 structure.
+
+Short-array syntax by default
+-----------------------------
+
+zf-configuration has supported short array notation since the first stable
+release. However, because we originally were still supporting PHP 5.3, which did
+not support short array syntax, we had it disabled by default.
+
+As our minimum required PHP version at this time is 5.6, there's no reason not
+to enable it by default in *new* applications (enabling it for existing
+applications would result in completely new contents for generated
+configuration files!). As such, the Apigility 1.4 skeleton enables this by
+default.
+
+::class notation by default
+---------------------------
+
+zend-config's `PhpArray` config writer has supported enumerating class names
+using `::class` notation since version 2.6.0, which is now installed by default
+with Apigility 1.4. As such, we now enable this feature by default.
