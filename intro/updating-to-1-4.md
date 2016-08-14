@@ -169,9 +169,23 @@ applications would result in completely new contents for generated
 configuration files!). As such, the Apigility 1.4 skeleton enables this by
 default.
 
+You may disable it by removing the following line from your
+`config/autoload/global-development.php` file:
+
+```php
+'enable_short_array' => true,
+```
+
 ::class notation by default
 ---------------------------
 
 zend-config's `PhpArray` config writer has supported enumerating class names
 using `::class` notation since version 2.6.0, which is now installed by default
 with Apigility 1.4. As such, we now enable this feature by default.
+
+You may disable it by removing the following line from your
+`config/autoload/global-development.php` file:
+
+```php
+'class_name_scalars' => true,
+```
