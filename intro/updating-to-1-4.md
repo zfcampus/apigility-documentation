@@ -71,6 +71,28 @@ $ composer development-disable
 $ composer development-status
 ```
 
+Asset management
+----------------
+
+In previous versions, we shipped with rwoverdijk/assetmanager by default. In
+parallel to developing 1.4, the AssetManager team was working on v3
+compatibility. However, the efforts were still in progress when we were testing
+Apigility 1.4, and we needed to provide an alternative solution for the interim.
+
+As such, when upgrading, you will need to do the following:
+
+- If you find that rwoverdijk/assetmanager 1.7 has been released (check the
+  [releases page](https://github.com/RWOverdijk/AssetManager/releases), run
+  `composer require --dev rwoverdijk/assetmanager`.
+- Alternately, you may use the new [zfcampus/zf-asset-manager](https://github.com/zfcampus/zf-asset-manager)
+  package: `composer require --dev zfcampus/zf-asset-manager`. If you use this
+  package, you should likely remove your `vendor/` directory afterwards and
+  re-run `composer install` in order for it to copy assets into your public
+  tree.
+
+*You will need one or the other of these packages present in order to run the
+Apigility admin interface!*
+
 Smaller footprint
 -----------------
 
