@@ -156,6 +156,15 @@ Apigility 1.4 skeleton enables it by default by setting the value in
 `config/autoload/global-development.php`. As such, any modules you create in
 Apigility 1.4 and up will have a PSR-4 structure.
 
+You may disable it by removing the following line from your
+`config/autoload/global-development.php` file:
+
+```php
+'path_spec' => ModulePathSpec::PSR_4,
+```
+
+(Once removed, you may also remove the import for the `ModulePathSpec` class.)
+
 Short-array syntax by default
 -----------------------------
 
