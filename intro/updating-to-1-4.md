@@ -165,6 +165,17 @@ You may disable it by removing the following line from your
 
 (Once removed, you may also remove the import for the `ModulePathSpec` class.)
 
+### Enabling PSR-4 module generation in an existing application
+
+If you have an existing application and want to enable this feature, add the
+following configuration to your `config/autoload/global-development.php` file:
+
+```php
+'zf-apigility-admin' => [
+    'path_spec' => \ZF\Apigility\Admin\Model\ModulePathSpec::PSR_4,
+],
+```
+
 Short-array syntax by default
 -----------------------------
 
@@ -185,6 +196,17 @@ You may disable it by removing the following line from your
 'enable_short_array' => true,
 ```
 
+### Enabling short-array syntax in an existing application
+
+If you have an existing application and want to enable this feature, add the
+following configuration to your `config/autoload/global-development.php` file:
+
+```php
+'zf-configuration' => [
+    'enable_short_array' => true,
+],
+```
+
 ::class notation by default
 ---------------------------
 
@@ -197,4 +219,44 @@ You may disable it by removing the following line from your
 
 ```php
 'class_name_scalars' => true,
+```
+
+### Enabling class notation in an existing application
+
+If you have an existing application and want to enable this feature, add the
+following configuration to your `config/autoload/global-development.php` file:
+
+```php
+'zf-configuration' => [
+    'class_name_scalars' => true,
+],
+```
+
+Enabling Composer-based autoloading
+-----------------------------------
+
+Prior to the 1.4 release, in order to enable Composer-based autoloading in your
+application, you needed to manually add autoloading rules to your project's
+`composer.json` file.
+
+Starting in 1.4, Apigility ships with the zfcampus/zf-composer-autoloading
+package as a development dependency. This package ships with a vendor binary
+that will define autoloading rules in your `composer.json` and then update the
+autoloader. You may invoke it as follows:
+
+```bash
+$ ./vendor/bin/autoload-module-via-composer <ModuleName>
+```
+
+The binary has several other arguments you may provide; invoke it with `--help`,
+`-h`, or `--help` to discover these.
+
+Once done, be sure to commit your `composer.json` and `composer.lock` files!
+
+### Adding the utility to an existing application
+
+If you want to add the above feature to an existing Apigility application:
+
+```bash
+$ composer require --dev zfcampus/zf-composer-autoloading
 ```
