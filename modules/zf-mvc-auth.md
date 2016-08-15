@@ -32,7 +32,7 @@ Alternately, manually add the following to your `composer.json`, in the `require
 
 ```javascript
 "require": {
-    "zfcampus/zf-mvc-auth": "~1.0-dev"
+    "zfcampus/zf-mvc-auth": "^1.4"
 }
 ```
 
@@ -43,14 +43,14 @@ key:
 
 
 ```php
-return array(
+return [
     /* ... */
-    'modules' => array(
+    'modules' => [
         /* ... */
         'ZF\MvcAuth',
-    ),
+    ],
     /* ... */
-);
+];
 ```
 
 Configuration
@@ -91,14 +91,14 @@ Beyond those configuration options, one or both of the following resolver config
 An example might look like the following:
 
 ```php
-'http' => array(
-    'accept_schemes' => array('basic', 'digest'),
+'http' => [
+    'accept_schemes' => ['basic', 'digest'],
     'realm' => 'My Web Site',
     'digest_domains' => '/',
     'nonce_timeout' => 3600,
     'htpasswd' => APPLICATION_PATH . '/data/htpasswd', // htpasswd tool generated
     'htdigest' => APPLICATION_PATH . '/data/htdigest', // @see http://www.askapache.com/online-tools/htpasswd-generator/
-),
+],
 ```
 
 ##### Sub-key: `map`
@@ -111,20 +111,20 @@ namespace) to a given authentication type (typically, one of `basic`, `digest`, 
 different APIs, or even versions of the same API.
 
 ```php
-return array(
-    'zf-mvc-auth' => array(
-        'authentication' => array(
-            'map' => array(
+return [
+    'zf-mvc-auth' => [
+        'authentication' => [
+            'map' => [
                 'Status\V1' => 'basic',  // v1 only!
                 'Status\V2' => 'oauth2', // v2 only!
                 'Ping'      => 'digest', // all versions!
-            ),
-        ),
-    ),
-);
+            ],
+        ],
+    ],
+];
 ```
 
-In the absence of a `map` subkey, if andy authentication adapter configuration
+In the absence of a `map` subkey, if any authentication adapter configuration
 is defined, that configuration will be used for any API.
 
 **Note for users migrating from 1.0**: In the 1.0 series, authentication was
@@ -151,16 +151,16 @@ documentation feature in such instances), the `types` subkey exists. This key is
 an array of string authentication types:
 
 ```php
-return array(
-    'zf-mvc-auth' => array(
-        'authentication' => array(
-            'types' => array(
+return [
+    'zf-mvc-auth' => [
+        'authentication' => [
+            'types' => [
                 'token',
                 'key',
-            ),
-        ),
-    ),
-);
+            ],
+        ],
+    ],
+];
 ```
 
 This key and its contents **must** be created manually.
@@ -179,55 +179,55 @@ the type, and the value as configuration for providing a
 `ZF\MvcAuth\Authentication\OAuth2Adapter` instance, as follows:
 
 ```php
-return array(
-    'zf-mvc-auth' => array(
-        'authentication' => array(
-            'adapters' => array(
-                'api' => array(
+return [
+    'zf-mvc-auth' => [
+        'authentication' => [
+            'adapters' => [
+                'api' => [
                     // This defines an HTTP adapter that can satisfy both
                     // basic and digest.
                     'adapter' => 'ZF\MvcAuth\Authentication\HttpAdapter',
-                    'options' => array(
-                        'accept_schemes' => array('basic', 'digest'),
+                    'options' => [
+                        'accept_schemes' => ['basic', 'digest'],
                         'realm' => 'api',
                         'digest_domains' => 'https://example.com',
                         'nonce_timeout' => 3600,
                         'htpasswd' => 'data/htpasswd',
                         'htdigest' => 'data/htdigest',
-                    ),
-                ),
-                'user' => array(
+                    ],
+                ],
+                'user' => [
                     // This defines an OAuth2 adapter backed by PDO.
                     'adapter' => 'ZF\MvcAuth\Authentication\OAuth2Adapter',
-                    'storage' => array(
+                    'storage' => [
                         'adapter' => 'pdo',
                         'dsn' => 'mysql:host=localhost;dbname=oauth2',
                         'username' => 'username',
                         'password' => 'password',
                         'options' => aray(
                             1002 => 'SET NAMES utf8', // PDO::MYSQL_ATTR_INIT_COMMAND
-                        ),
-                    ),
-                ),
-                'client' => array(
+                        ],
+                    ],
+                ],
+                'client' => [
                     // This defines an OAuth2 adapter backed by Mongo.
                     'adapter' => 'ZF\MvcAuth\Authentication\OAuth2Adapter',
-                    'storage' => array(
+                    'storage' => [
                         'adapter' => 'mongo',
                         'locator_name' => 'SomeServiceName', // If provided, pulls the given service
                         'dsn' => 'mongodb://localhost',
                         'database' => 'oauth2',
-                        'options' => array(
+                        'options' => [
                             'username' => 'username',
                             'password' => 'password',
                             'connectTimeoutMS' => 500,
-                        ),
-                    ),
-                ),
-            ),
-        ),
-    ),
-);
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ],
+];
 ```
 
 #### Key: `authorization`
@@ -254,20 +254,20 @@ Example:
 > As an example:
 >
 > ```php
-> `authorization` => array(
+> `authorization` => [
 >     'deny_by_default' => true,
->     'ZF\\OAuth2\\Controller\\Auth' => array(
->         'actions' => array(
->             'token' => array(
+>     'ZF\\OAuth2\\Controller\\Auth' => [
+>         'actions' => [
+>             'token' => [
 >                 'GET'    => false,
 >                 'POST'   => true,   // <-----
 >                 'PATCH'  => false,
 >                 'PUT'    => false,
 >                 'DELETE' => false,
->             ),
->         ),
->     ),
-> ),
+>             ],
+>         ],
+>     ],
+> ],
 > ```
 
 #### Sub-Key: Controller Service Name
@@ -292,30 +292,30 @@ the behavior of the `deny_by_default` key (discussed above) will be assumed.
 Below is an example:
 
 ```php
-`authorization` => array(
-    'Controller\Service\Name' => array(
-        'actions' => array(
-            'action' => array(
+`authorization` => [
+    'Controller\Service\Name' => [
+        'actions' => [
+            'action' => [
                 'default' => boolean,
                 'GET' => boolean,
                 'POST' => boolean,
                 // etc.
-            ),
-        ),
-        'collection' => array(
+            ],
+        ],
+        'collection' => [
             'default' => boolean,
             'GET' => boolean,
             'POST' => boolean,
             // etc.
-        ),
-        'entity' => array(
+        ],
+        'entity' => [
             'default' => boolean,
             'GET' => boolean,
             'POST' => boolean,
             // etc.
-        ),
-    ),
-),
+        ],
+    ],
+],
 ```
 
 ### System Configuration
@@ -324,13 +324,13 @@ The following configuration is provided in `config/module.config.php` to enable 
 function:
 
 ```php
-'service_manager' => array(
-    'aliases' => array(
+'service_manager' => [
+    'aliases' => [
         'authentication' => 'ZF\MvcAuth\Authentication',
         'authorization' => 'ZF\MvcAuth\Authorization\AuthorizationInterface',
         'ZF\MvcAuth\Authorization\AuthorizationInterface' => 'ZF\MvcAuth\Authorization\AclAuthorization',
-    ),
-    'factories' => array(
+    ],
+    'factories' => [
         'ZF\MvcAuth\Authentication' => 'ZF\MvcAuth\Factory\AuthenticationServiceFactory',
         'ZF\MvcAuth\ApacheResolver' => 'ZF\MvcAuth\Factory\ApacheResolverFactory',
         'ZF\MvcAuth\FileResolver' => 'ZF\MvcAuth\Factory\FileResolverFactory',
@@ -339,12 +339,12 @@ function:
         'ZF\MvcAuth\Authorization\AclAuthorization' => 'ZF\MvcAuth\Factory\AclAuthorizationFactory',
         'ZF\MvcAuth\Authorization\DefaultAuthorizationListener' => 'ZF\MvcAuth\Factory\DefaultAuthorizationListenerFactory',
         'ZF\MvcAuth\Authorization\DefaultResourceResolverListener' => 'ZF\MvcAuth\Factory\DefaultResourceResolverListenerFactory',
-    ),
-    'invokables' => array(
+    ],
+    'invokables' => [
         'ZF\MvcAuth\Authentication\DefaultAuthenticationPostListener' => 'ZF\MvcAuth\Authentication\DefaultAuthenticationPostListener',
         'ZF\MvcAuth\Authorization\DefaultAuthorizationPostListener' => 'ZF\MvcAuth\Authorization\DefaultAuthorizationPostListener',
-    ),
-),
+    ],
+],
 ```
 
 These services will be described in the events and services section.
@@ -570,63 +570,63 @@ requires a unique key under the `zf-mvc-auth.authentication.adapters`
 configuration, and each type has its own format.
 
 ```php
-return array(
+return [
     /* ... */
-    'zf-mvc-auth' => array(
-        'authentication' => array(
-            'adapters' => array(
-                'api' => array(
+    'zf-mvc-auth' => [
+        'authentication' => [
+            'adapters' => [
+                'api' => [
                     // This defines an HTTP adapter that can satisfy both
                     // basic and digest.
                     'adapter' => 'ZF\MvcAuth\Authentication\HttpAdapter',
-                    'options' => array(
-                        'accept_schemes' => array('basic', 'digest'),
+                    'options' => [
+                        'accept_schemes' => ['basic', 'digest'],
                         'realm' => 'api',
                         'digest_domains' => 'https://example.com',
                         'nonce_timeout' => 3600,
                         'htpasswd' => 'data/htpasswd',
                         'htdigest' => 'data/htdigest',
-                    ),
-                ),
-                'user' => array(
+                    ],
+                ],
+                'user' => [
                     // This defines an OAuth2 adapter backed by PDO.
                     'adapter' => 'ZF\MvcAuth\Authentication\OAuth2Adapter',
-                    'storage' => array(
+                    'storage' => [
                         'adapter' => 'pdo',
                         'dsn' => 'mysql:host=localhost;dbname=oauth2',
                         'username' => 'username',
                         'password' => 'password',
-                        'options' => aray(
+                        'options' => [
                             1002 => 'SET NAMES utf8', // PDO::MYSQL_ATTR_INIT_COMMAND
-                        ),
-                    ),
-                ),
-                'client' => array(
+                        ],
+                    ],
+                ],
+                'client' => [
                     // This defines an OAuth2 adapter backed by Mongo.
                     'adapter' => 'ZF\MvcAuth\Authentication\OAuth2Adapter',
-                    'storage' => array(
+                    'storage' => [
                         'adapter' => 'mongo',
                         'locator_name' => 'SomeServiceName', // If provided, pulls the given service
                         'dsn' => 'mongodb://localhost',
                         'database' => 'oauth2',
-                        'options' => array(
+                        'options' => [
                             'username' => 'username',
                             'password' => 'password',
                             'connectTimeoutMS' => 500,
-                        ),
-                    ),
-                ),
-            ),
+                        ],
+                    ],
+                ],
+            ],
             /* ... */
-        ),
+        ],
         /* ... */
-    ),
+    ],
     /* ... */
-);
+];
 ```
 
 The above configuration would provide the authentication types
-`array('api-basic', 'api-digest', 'user', 'client')` to your application, which
+`['api-basic', 'api-digest', 'user', 'client']` to your application, which
 can each them be associated in the authentication type map.
 
 If you use `zf-apigility-admin`'s Admin API and/or the Apigility UI to
@@ -702,18 +702,18 @@ class CustomAuthenticationDelegatorFactory implements DelegatorFactoryInterface
 We then need to tell the `ServiceManager` about the delegator factory; we do this in our module's `config/module.config.php`, or one of the `config/autoload/` configuration files:
 
 ```php
-return array(
+return [
     /* ... */
-    'service_manager' => array(
+    'service_manager' => [
         /* ... */
-        'delegators' => array(
-            'ZF\MvcAuth\Authentication\DefaultAuthenticationListener' => array(
+        'delegators' => [
+            'ZF\MvcAuth\Authentication\DefaultAuthenticationListener' => [
                 'CustomAuthenticationDelegatorFactory',
-            ),
-        ),
-    ),
+            ],
+        ],
+    ],
     /* ... */
-);
+];
 ```
 
 Once configured, our adapter will be attached to every instance of the `DefaultAuthenticationListener` that is retrieved.

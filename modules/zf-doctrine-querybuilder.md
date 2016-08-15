@@ -1,7 +1,10 @@
-ZF Campus Doctrine QueryBuilder
+ZF Doctrine QueryBuilder
 ===============================
+[![Total Downloads](https://poser.pugx.org/zfcampus/zf-doctrine-querybuilder/downloads)](https://packagist.org/packages/zfcampus/zf-doctrine-querybuilder)
 
 This library provides query builder directives from array parameters.  This library was designed to apply filters from an HTTP request to give an API fluent filter and order-by dialects.
+
+[![Watch and learn from the maintainer of this repository](https://raw.githubusercontent.com/API-Skeletons/zf-doctrine-querybuilder/master/media/api-skeletons-play.png)](https://apiskeletons.pivotshare.com/media/zf-doctrine-querybuilder/50592)
 
 
 Philosophy
@@ -26,7 +29,7 @@ Installation
 Installation of this module uses composer. For composer documentation, please refer to [getcomposer.org](http://getcomposer.org/).
 
 ``` console
-$ php composer.phar require zfcampus/zf-doctrine-querybuilder ~2.0
+$ php composer.phar require zfcampus/zf-doctrine-querybuilder ^1.3
 ```
 
 Once installed, add `ZF\Doctrine\QueryBuilder` to your list of modules inside
@@ -42,7 +45,7 @@ Copy `config/zf-doctrine-querybuilder.global.php.dist` to `config/autoload/zf-do
 Use With Apigility Doctrine
 ---------------------------
 
-To enable all filters you may override the default query providers in zf-apigility-doctrine.  Add this to your `zf-doctrine-querybuilder.global.php` config file and filters and order-by will be applied if the are in `$_GET['filter']` or `$_GET['order-by']` request.  These $_GET keys are customizable through `zf-doctrine-querybuilder-options`
+To enable all filters you may override the default query providers in zf-apigility-doctrine.  Add this to your `zf-doctrine-querybuilder.global.php` config file and filters and order-by will be applied if they are in `$_GET['filter']` or `$_GET['order-by']` request.  These $_GET keys are customizable through `zf-doctrine-querybuilder-options`
 
 ```php
 'zf-apigility-doctrine-query-provider' => array(
@@ -106,9 +109,9 @@ $queryBuilder->select('row')
     ->from($entity, 'row')
 ;
 
-$metadata = $objectManager->getMetadataFactory()->getAllMetadata();
-$filterManager->filter($queryBuilder, $metadata[0], $_GET['filter']);
-$orderByManager->orderBy($queryBuilder, $metadata[0], $_GET['order-by']);
+$metadata = $objectManager->getMetadataFactory()->getMetadataFor(ENTITY_NAME); // $e->getEntity() using doctrine resource event
+$filterManager->filter($queryBuilder, $metadata, $_GET['filter']);
+$orderByManager->orderBy($queryBuilder, $metadata, $_GET['order-by']);
 
 $result = $queryBuilder->getQuery()->getResult();
 ```
@@ -162,6 +165,7 @@ $(function() {
 Querying Relations
 ------------------
 
+### Single valued
 It is possible to query collections by relations - just supply the relation name as `fieldName` and
 identifier as `value`.
 
@@ -193,6 +197,27 @@ find all users that belong to UserGroup id #1 by querying the user resource with
     array('type' => 'eq', 'field' => 'group', 'value' => '1')
 ```
 
+### Collection valued
+To match entities A that have entity B in a collection use `ismemberof`.
+Assuming `User` has a ManyToMany (or OneToMany) association with `UserGroup`...
+
+```php
+/**
+ * @Entity
+ */
+class User {
+    /**
+     * @ManyToMany(targetEntity="UserGroup")
+     * @var UserGroup[]|ArrayCollection
+     */
+    protected $groups;
+}
+```
+find all users that belong to UserGroup id #1 by querying the user resource with the following filter:
+
+```php
+    array('type' => 'ismemberof', 'field' => 'groups', 'value' => '1')
+```
 
 Format of Date Fields
 ---------------------
@@ -320,6 +345,12 @@ array('type' => 'like', 'field' => 'fieldName', 'value' => 'like%search')
 ```
 
 ### ORM Only
+
+Is Member Of:
+
+```php
+array('type' => 'ismemberof', 'field' => 'fieldName', 'value' => 1)
+```
 
 AndX:
 

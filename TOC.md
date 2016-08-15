@@ -76,6 +76,8 @@ Module Reference
 - [zf-apigility-provider](/modules/zf-apigility-provider.md)
 - [zf-apigility-welcome](/modules/zf-apigility-welcome.md)
 - [zf-api-problem](/modules/zf-api-problem.md)
+- [zf-asset-manager](/modules/zf-asset-manager.md)
+- [zf-composer-autoloading](/modules/zf-composer-autoloading.md)
 - [zf-configuration](/modules/zf-configuration.md)
 - [zf-content-negotiation](/modules/zf-content-negotiation.md)
 - [zf-content-validation](/modules/zf-content-validation.md)

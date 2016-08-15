@@ -34,29 +34,15 @@ Installation
 Run the following `composer` command:
 
 ```console
-$ composer require "zfcampus/zf-apigility-provider:~1.0-dev"
+$ composer require zfcampus/zf-apigility-provider
 ```
 
 Alternately, manually add the following to your `composer.json`, in the `require` section:
 
 ```javascript
 "require": {
-    "zfcampus/zf-apigility-provider": "~1.0-dev"
+    "zfcampus/zf-apigility-provider": "^1.0"
 }
 ```
 
 And then run `composer update` to ensure the module is installed.
-
-Finally, add the module name to your project's `config/application.config.php` under the `modules`
-key:
-
-```php
-return array(
-    /* ... */
-    'modules' => array(
-        /* ... */
-        'ZF\Apigility\Provider',
-    ),
-    /* ... */
-);
-```

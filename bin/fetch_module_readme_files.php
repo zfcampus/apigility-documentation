@@ -14,6 +14,8 @@ $modules = array(
     'zf-apigility-provider',
     'zf-apigility-welcome',
     'zf-api-problem',
+    'zf-asset-manager',
+    'zf-composer-autoloading',
     'zf-configuration',
     'zf-console',
     'zf-content-negotiation',
