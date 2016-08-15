@@ -39,6 +39,13 @@ If you choose either route, please be aware that you may now be missing some
 dependencies, based on what Zend Framework components you were consuming
 previously. Please see the [section detailing the smaller Apigility footprint, below](#smaller-footprint).
 
+zf-apigility-provider
+---------------------
+
+You no longer need to have the `ZF\Apigility\Provider` module listed in your
+application modules. The package provides only interfaces, and these are
+provided to your application via Composer autoloading already.
+
 Enabling and disabling development mode
 ---------------------------------------
 
