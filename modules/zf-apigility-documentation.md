@@ -4,7 +4,7 @@ ZF Apigility Documentation
 Introduction
 ------------
 
-This ZF2 module can be used with conjunction with Apigility in order to:
+This Zend Framework module can be used with conjunction with Apigility in order to:
 
 - provide an object model of all captured documentation information, including:
   - All APIs available.
@@ -32,14 +32,14 @@ Installation
 Run the following `composer` command:
 
 ```console
-$ composer require "zfcampus/zf-apigility-documentation:~1.0-dev"
+$ composer require zfcampus/zf-apigility-documentation
 ```
 
 Alternately, manually add the following to your `composer.json`, in the `require` section:
 
 ```javascript
 "require": {
-    "zfcampus/zf-apigility-documentation": "~1.0-dev"
+    "zfcampus/zf-apigility-documentation": "^1.2-dev"
 }
 ```
 
@@ -49,15 +49,20 @@ Finally, add the module name to your project's `config/application.config.php` u
 key:
 
 ```php
-return array(
+return [
     /* ... */
-    'modules' => array(
+    'modules' => [
         /* ... */
         'ZF\Apigility\Documentation',
-    ),
+    ],
     /* ... */
-);
+];
 ```
+
+> ### zf-component-installer
+>
+> If you use [zf-component-installer](https://github.com/zendframework/zf-component-installer),
+> that plugin will install zf-apigility-documentation as a module for you.
 
 Configuration
 =============
@@ -72,67 +77,92 @@ The following configuration is defined by the module to ensure operation within 
 MVC application.
 
 ```php
-'router' => array(
-    'routes' => array(
-        'zf-apigility' => array(
-            'child_routes' => array(
-                'documentation' => array(
-                    'type' => 'Zend\Mvc\Router\Http\Segment',
-                    'options' => array(
-                        'route'    => '/documentation[/:api[-v:version][/:service]]',
-                        'constraints' => array(
-                            'api' => '[a-zA-Z][a-zA-Z0-9_]+',
-                        ),
-                        'defaults' => array(
-                            'controller' => 'ZF\Apigility\Documentation\Controller',
-                            'action'     => 'show',
-                        ),
-                    ),
-                ),
-            ),
-        ),
-    ),
-),
-'controllers' => array(
-    'factories' => array(
-        'ZF\Apigility\Documentation\Controller' => 'ZF\Apigility\Documentation\ControllerFactory',
-    ),
-),
-'zf-content-negotiation' => array(
-    'controllers' => array(
-        'ZF\Apigility\Documentation\Controller' => 'Documentation',
-    ),
-    'accept_whitelist' => array(
-        'ZF\Apigility\Documentation\Controller' => array(
-            0 => 'application/vnd.swagger+json',
-            1 => 'application/json',
-        ),
-    ),
-    'selectors' => array(
-        'Documentation' => array(
-            'ZF\Apigility\Documentation\JsonModel' => array(
-                'application/json',
-            ),
-            'Zend\View\Model\ViewModel' => array(
-                'text/html',
-                'application/xhtml+xml',
-            ),
-        ),
-    ),
-),
-'view_helpers' => array(
-    'invokables' => array(
-        'agacceptheaders'      => 'ZF\Apigility\Documentation\View\AgAcceptHeaders',
-        'agcontenttypeheaders' => 'ZF\Apigility\Documentation\View\AgContentTypeHeaders',
-        'agservicepath'        => 'ZF\Apigility\Documentation\View\AgServicePath',
-        'agstatuscodes'        => 'ZF\Apigility\Documentation\View\AgStatusCodes',
-    ),
-),
-'view_manager' => array(
-    'template_path_stack' => array(
-        __DIR__ . '/../view',
-    ),
-),
+namespace ZF\Apigility\Documentation;
+
+use Zend\ServiceManager\Factory\InvokableFactory;
+use Zend\View\Modle\ViewModel;
+
+return [
+    'router' => [
+        'routes' => [
+            'zf-apigility' => [
+                'child_routes' => [
+                    'documentation' => [
+                        'type' => 'segment',
+                        'options' => [
+                            'route'    => '/documentation[/:api[-v:version][/:service]]',
+                            'constraints' => [
+                                'api' => '[a-zA-Z][a-zA-Z0-9_.]+',
+                            ],
+                            'defaults' => [
+                                'controller' => Controller::class,
+                                'action'     => 'show',
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ],
+    'service_manager' => [
+        'factories' => [
+            ApiFactory::class => Factory\ApiFactoryFactory::class,
+        ],
+    ],
+    'controllers' => [
+        'factories' => [
+            Controller::class => ControllerFactory::class,
+        ],
+    ],
+    'zf-content-negotiation' => [
+        'controllers' => [
+            Controller::class => 'Documentation',
+        ],
+        'accept_whitelist' => [
+            Controller::class => [
+                0 => 'application/vnd.swagger+json',
+                1 => 'application/json',
+            ],
+        ],
+        'selectors' => [
+            'Documentation' => [
+                ViewModel::class => [
+                    'text/html',
+                    'application/xhtml+xml',
+                ],
+                JsonModel::class => [
+                    'application/json',
+                ],
+            ],
+        ],
+    ],
+    'view_helpers' => [
+        'aliases' => [
+            'agacceptheaders'         => View\AgAcceptHeaders::class,
+            'agAcceptHeaders'         => View\AgAcceptHeaders::class,
+            'agcontenttypeheaders'    => View\AgContentTypeHeaders::class,
+            'agContentTypeHeaders'    => View\AgContentTypeHeaders::class,
+            'agservicepath'           => View\AgServicePath::class,
+            'agServicePath'           => View\AgServicePath::class,
+            'agstatuscodes'           => View\AgStatusCodes::class,
+            'agStatusCodes'           => View\AgStatusCodes::class,
+            'agtransformdescription'  => View\AgTransformDescription::class,
+            'agTransformDescription'  => View\AgTransformDescription::class,
+        ],
+        'factories' => [
+            View\AgAcceptHeaders::class        => InvokableFactory::class,
+            View\AgContentTypeHeaders::class   => InvokableFactory::class,
+            View\AgServicePath::class          => InvokableFactory::class,
+            View\AgStatusCodes::class          => InvokableFactory::class,
+            View\AgTransformDescription::class => InvokableFactory::class,
+        ],
+    ],
+    'view_manager' => [
+        'template_path_stack' => [
+            __DIR__ . '/../view',
+        ],
+    ],
+];
 ```
 
 ZF2 Events
@@ -156,6 +186,8 @@ scripts.
   view representation of the route configuration of a service path.
 - `ZF\Apigility\Documentation\View\AgStatusCodes` (a.k.a `agStatusCodes`) for making an
   escaped list of status codes and their messages.
+- `ZF\Apigility\Documentation\View\AgTransformDescription` (a.k.a `agTransformDescription`) for transforming the written 
+  descriptions into Markdown.
 
 ### Factories
 

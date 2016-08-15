@@ -4,7 +4,7 @@ ZF Versioning
 Introduction
 ------------
 
-`zf-versioning` is a ZF2 module for automating service versioning through both URIs and `Accept` or
+zf-versioning is a Zend Framework module for automating service versioning through both URIs and `Accept` or
 `Content-Type` header media types.  Information extracted from either the URI or header media type
 that relates to versioning will be made available in the route match object.  In situations where a
 controller service name is utilizing a sub-namespace matching the regexp `V(\d)`, the matched
@@ -21,14 +21,14 @@ Installation
 Run the following `composer` command:
 
 ```console
-$ composer require "zfcampus/zf-versioning:~1.0-dev"
+$ composer require zfcampus/zf-versioning
 ```
 
 Alternately, manually add the following to your `composer.json`, in the `require` section:
 
 ```javascript
 "require": {
-    "zfcampus/zf-versioning": "~1.0-dev"
+    "zfcampus/zf-versioning": "^1.2"
 }
 ```
 
@@ -39,15 +39,20 @@ key:
 
 
 ```php
-return array(
+return [
     /* ... */
-    'modules' => array(
+    'modules' => [
         /* ... */
         'ZF\Versioning',
-    ),
+    ],
     /* ... */
-);
+];
 ```
+
+> ### zf-component-installer
+>
+> If you use [zf-component-installer](https://github.com/zendframework/zf-component-installer),
+> that plugin will install zf-versioning as a module for you.
 
 
 Configuration
@@ -78,11 +83,11 @@ All captured parts should utilize named parameters.  A more specific example, wi
 would look like:
 
 ```php
-'zf-versioning' => array(
-    'content-type' => array(
+'zf-versioning' => [
+    'content-type' => [
         '#^application/vendor\.(?P<vendor>mwop)\.v(?P<version>\d+)\.(?P<resource>status|user)$#',
-    ),
-),
+    ],
+],
 ```
 
 #### Key: `default_version`
@@ -93,9 +98,9 @@ provided by the client.  `1` is the default for `default_version`.
 Full Example:
 
 ```php
-'zf-versioning' => array(
+'zf-versioning' => [
     'default_version' => 1,
-),
+],
 ```
 
 #### Key: `uri`
@@ -111,13 +116,13 @@ of digits only for the version parameter.
 Example:
 
 ```php
-'zf-versioning' => array(
-    'uri' => array(
+'zf-versioning' => [
+    'uri' => [
         'api',
         'status',
         'user',
-    ),
-),
+    ],
+],
 ```
 
 ### System Configuration
@@ -126,11 +131,13 @@ The following configuration is provided in `config/module.config.php` to enable 
 function:
 
 ```php
-'service_manager' => array(
-    'invokables' => array(
-        'ZF\Versioning\VersionListener' => 'ZF\Versioning\VersionListener',
-    ),
-),
+'service_manager' => [
+    'factories' => [
+        \ZF\Versioning\AcceptListener::class => \ZF\Versioning\Factory\AcceptListenerFactory::class,
+        \ZF\Versioning\ContentTypeListener::class => \ZF\Versioning\Factory\ContentTypeListenerFactory::class,
+        \ZF\Versioning\VersionListener::class => \Zend\ServiceManager\Factory\InvokableFactory::class,
+    ],
+],
 ```
 
 

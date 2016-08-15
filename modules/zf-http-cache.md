@@ -13,14 +13,14 @@ Installation
 Run the following `composer` command:
 
 ```console
-$ composer require "zfcampus/zf-http-cache:~1.0-dev@dev"
+$ composer require "zfcampus/zf-http-cache:^1.0"
 ```
 
 Alternately, manually add the following to your `composer.json`, in the `require` section:
 
 ```javascript
 "require": {
-    "zfcampus/zf-http-cache": "~1.0-dev@dev"
+    "zfcampus/zf-http-cache": "^1.0"
 }
 ```
 
@@ -31,14 +31,14 @@ key:
 
 
 ```php
-return array(
+return [
     /* ... */
-    'modules' => array(
+    'modules' => [
         /* ... */
         'ZF\HttpCache',
-    ),
+    ],
     /* ... */
-);
+];
 ```
 
 Configuration
@@ -54,33 +54,48 @@ The `config/module.config.php` file contains a self-explanative example of confi
 
 #### Key: `controllers`
 
-The `controllers` key is utilized for mapping a combination of a controller and a HTTP method (see below) to a cache header configuration.
+The `controllers` key is utilized for mapping any of
+
+- a route name
+- a concatenated `controller::action`
+- a controller
+- a regexp 
+- a wildcard
+
+Each is case sensitive, and will map one or more HTTP methods to the cache
+header configuration specific to the given rule.
 
 Example:
 
 ```php
 // See the `config/application.config.php` for a complete commented example
-'zf-http-cache' => array(
+'zf-http-cache' => [
     /* ... */
-    'controllers' => array(
-        '<controller>' => array(
-            '<http-method>'  => array(
-                '<cache-header-name>' => array(
+    'controllers' => [
+        '<controller>' => [
+            '<http-method>'  => [
+                '<cache-header-name>' => [
                     'override' => true,
                     'value'    => '<cache-header-value>',
-                ),
-            ),
-        ),
-    ),
+                ],
+            ],
+        ],
+    ],
     /* ... */
-),    
+],    
 ```
 
 ##### Key: `<controller>` 
 
-Either a controller name (as returned by `Zend\Mvc\MvcEvent::getRouteMatch()->getParam('controller')`, case-sensitive) or a wildcard.
+Either 
 
-A wildcard stands for all the non-specified controllers.
+- a concatenation of `$controller::$action` 
+- a controller name (as returned by `Zend\Mvc\MvcEvent::getRouteMatch()->getParam('controller')`;
+  the value is case-sensitive) 
+- a regexp (see `<regex_delimiter>` key)
+- a wildcard
+
+A wildcard matches any unspecified controllers.
 
 ##### Key: `<http-method>` 
 
@@ -90,7 +105,21 @@ A wildcard stands for all the non-specified HTTP methods.
 
 ##### Key: `<cache-header-name>` 
 
-A http cache header name (`Cache-control`, `Expires`, etc.).
+An HTTP cache header name (`Cache-control`, `expires`, `etag` etc.).
+
+###### ETags
+
+For ETags you can specify a custom generator in the configuration:
+
+```
+'etag' => [
+    'override' => true,
+    'generator' => 'Your\Own\ETagGenerator',
+],
+```
+
+A generator example can be found in `\ZF\HttpCache\DefaultETagGenerator`. 
+
 
 ##### Key: `<cache-header-value>`
 
@@ -111,11 +140,11 @@ If you no longer need this module, rather consider removing the module from the 
 Example:
 
 ```php
-'zf-http-cache' => array(
+'zf-http-cache' => [
     /* ... */
     'enable' => true, // Cache module is enabled.
     /* ... */
-),    
+],
 ```
 
 #### Key: `http_codes_black_list`
@@ -126,11 +155,11 @@ Defaults to all others than `200`.
 Example:
 
 ```php
-'zf-http-cache' => array(
+'zf-http-cache' => [
     /* ... */
-    'http_codes_black_list' => array('201', '304', '400', '500'), // Whatever the other configurations, the responses with these HTTP codes won't be cached.
+    'http_codes_black_list' => ['201', '304', '400', '500'], // Whatever the other configurations, the responses with these HTTP codes won't be cached.
     /* ... */
-),
+],
 ```
 
 #### Key: `regex_delimiter`
@@ -150,17 +179,17 @@ Regexp wins over wildcard.
 Example:
 
 ```php
-'zf-http-cache' => array(
+'zf-http-cache' => [
     /* ... */
     'regex_delimiter' => '~',
     /* ... */
-    'controllers' => array(
-        '~.*~' => array( // Acts as a wildcard.
+    'controllers' => [
+        '~.*~' => [ // Acts as a wildcard.
             /* ... */
-        ),
-    ),
+        ],
+    ],
     /* ... */
-),
+],
 ```
 
 ### System Configuration
@@ -168,11 +197,11 @@ Example:
 The following configuration is provided in `config/module.config.php`:
 
 ```php
-'service_manager' => array(
-    'factories' => array(
+'service_manager' => [
+    'factories' => [
         'ZF\HttpCache\HttpCacheListener' => 'ZF\HttpCache\HttpCacheListenerFactory',
-    )
-),
+    ],
+],
 ```
 
 ZF2 Events
