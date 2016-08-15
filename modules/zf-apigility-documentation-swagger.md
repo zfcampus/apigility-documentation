@@ -5,7 +5,7 @@ Introduction
 ------------
 
 This module provides Apigility the ability to show API documentation through a
-[Swagger UI](http://swagger.wordnik.com/).
+[Swagger UI](http://swagger.io/).
 
 The Swagger UI is immediately accessible after enabling this module at the URI path `/apigility/swagger`.
 
@@ -26,14 +26,14 @@ Installation
 Run the following `composer` command:
 
 ```console
-$ composer require "zfcampus/zf-apigility-documentation-swagger:~1.0-dev"
+$ composer require zfcampus/zf-apigility-documentation-swagger
 ```
 
 Alternately, manually add the following to your `composer.json`, in the `require` section:
 
 ```javascript
 "require": {
-    "zfcampus/zf-apigility-documentation-swagger": "~1.0-dev"
+    "zfcampus/zf-apigility-documentation-swagger": "^1.2"
 }
 ```
 
@@ -43,15 +43,20 @@ Finally, add the module name to your project's `config/application.config.php` u
 key:
 
 ```php
-return array(
+return [
     /* ... */
-    'modules' => array(
+    'modules' => [
         /* ... */
         'ZF\Apigility\Documentation\Swagger',
-    ),
+    ],
     /* ... */
-);
+];
 ```
+
+> ### zf-component-installer
+>
+> If you use [zf-component-installer](https://github.com/zendframework/zf-component-installer),
+> that plugin will install zf-apigility-documentation-swagger as a module for you.
 
 Routes
 ------
@@ -74,73 +79,82 @@ The following is required to ensure the module works within a ZF2 and/or Apigili
 application:
 
 ```php
-'router' => array(
-    'routes' => array(
-        'zf-apigility' => array(
-            'child_routes' => array(
-                'swagger' => array(
-                    'type' => 'Zend\Mvc\Router\Http\Segment',
-                    'options' => array(
-                        'route'    => '/swagger',
-                        'defaults' => array(
-                            'controller' => 'ZF\Apigility\Documentation\Swagger\SwaggerUi',
-                            'action'     => 'list',
-                        ),
-                    ),
-                    'may_terminate' => true,
-                    'child_routes' => array(
-                        'api' => array(
-                            'type' => 'Segment',
-                            'options' => array(
-                                'route' => '/:api',
-                                'defaults' => array(
-                                    'action' => 'show',
-                                ),
-                            ),
-                            'may_terminate' => true,
-                        ),
-                    ),
-                ),
-            ),
-        ),
-    ),
-),
-'service_manager' => array(
-    'factories' => array(
-        'ZF\Apigility\Documentation\Swagger\SwaggerViewStrategy' => 'ZF\Apigility\Documentation\Swagger\SwaggerViewStrategyFactory',
-    ),
-),
-'controllers' => array(
-    'factories' => array(
-        'ZF\Apigility\Documentation\Swagger\SwaggerUi' => 'ZF\Apigility\Documentation\Swagger\SwaggerUiControllerFactory',
-    ),
-),
-'view_manager' => array(
-    'template_path_stack' => array(
-        'zf-apigility-documentation-swagger' => __DIR__ . '/../view',
-    ),
-),
-'asset_manager' => array(
-    'resolver_configs' => array(
-        'paths' => array(
-            __DIR__ . '/../asset',
-        ),
-    ),
-),
-'zf-content-negotiation' => array(
-    'accept_whitelist' => array(
-        'ZF\Apigility\Documentation\Controller' => array(
-            0 => 'application/vnd.swagger+json',
-        ),
-    ),
-    'selectors' => array(
-        'Documentation' => array(
-            'ZF\Apigility\Documentation\Swagger\ViewModel' => array(
-                'application/vnd.swagger+json',
-            ),
-        )
-    )
-),
+namespace ZF\Apigility\Documentation\Swagger;
+
+return [
+    'router' => [
+        'routes' => [
+            'zf-apigility' => [
+                'child_routes' => [
+                    'swagger' => [
+                        'type' => 'segment',
+                        'options' => [
+                            'route'    => '/swagger',
+                            'defaults' => [
+                                'controller' => SwaggerUi::class,
+                                'action'     => 'list',
+                            ],
+                        ],
+                        'may_terminate' => true,
+                        'child_routes' => [
+                            'api' => [
+                                'type' => 'segment',
+                                'options' => [
+                                    'route' => '/:api',
+                                    'defaults' => [
+                                        'action' => 'show',
+                                    ],
+                                ],
+                                'may_terminate' => true,
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ],
+
+    'service_manager' => [
+        'factories' => [
+            SwaggerViewStrategy::class => SwaggerViewStrategyFactory::class,
+        ],
+    ],
+
+    'controllers' => [
+        'factories' => [
+            SwaggerUi::class => SwaggerUiControllerFactory::class,
+        ],
+    ],
+
+    'view_manager' => [
+        'template_path_stack' => [
+            'zf-apigility-documentation-swagger' => __DIR__ . '/../view',
+        ],
+    ],
+
+    'asset_manager' => [
+        'resolver_configs' => [
+            'paths' => [
+                __DIR__ . '/../asset',
+            ],
+        ],
+    ],
+
+    'zf-content-negotiation' => [
+        'accept_whitelist' => [
+            'ZF\Apigility\Documentation\Controller' => [
+                0 => 'application/vnd.swagger+json',
+            ],
+        ],
+        'selectors' => [
+            'Documentation' => [
+                ViewModel::class => [
+                    'application/vnd.swagger+json',
+                ],
+            ],
+        ],
+    ],
+];
 ```
 
 ZF2 Events

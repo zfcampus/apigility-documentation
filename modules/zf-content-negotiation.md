@@ -29,14 +29,14 @@ Installation
 Run the following `composer` command:
 
 ```console
-$ composer require "zfcampus/zf-content-negotiation:~1.0-dev"
+$ composer require zfcampus/zf-content-negotiation
 ```
 
 Alternately, manually add the following to your `composer.json`, in the `require` section:
 
 ```javascript
 "require": {
-    "zfcampus/zf-content-negotiation": "~1.0-dev"
+    "zfcampus/zf-content-negotiation": "^1.2"
 }
 ```
 
@@ -46,15 +46,20 @@ Finally, add the module name to your project's `config/application.config.php` u
 key:
 
 ```php
-return array(
+return [
     /* ... */
-    'modules' => array(
+    'modules' => [
         /* ... */
         'ZF\ContentNegotiation',
-    ),
+    ],
     /* ... */
-);
+];
 ```
+
+> ### zf-component-installer
+>
+> If you use [zf-component-installer](https://github.com/zendframework/zf-component-installer),
+> that plugin will install zf-content-negotiation as a module for you.
 
 Configuration
 -------------
@@ -77,37 +82,37 @@ model.
 Example:
 
 ```php
-'controllers' => array(
+'controllers' => [
     // Named selector:
     'Application\Controller\HelloWorld1' => 'Json',
 
     // Selector definition:
-    'Application\Controller\HelloWorld2' => array(
-        'ZF\ContentNegotiation\JsonModel' => array(
+    'Application\Controller\HelloWorld2' => [
+        'ZF\ContentNegotiation\JsonModel' => [
             'application/json',
             'application/*+json',
-        ),
-    ),
-),
+        ],
+    ],
+],
 ```
 
 #### Key: `selectors`
 
 The `selectors` key is utilized to create named selector definitions for reuse between many different
 controllers.  The key part of the selectors array will be a name used to correlate the selector
-definition (which uses the format described in the [controllers](#controllers) key).
+definition (which uses the format described in the [controllers](#key-controllers) key).
 
 Example:
 
 ```php
-'selectors'   => array(
-    'Json' => array(
-        'ZF\ContentNegotiation\JsonModel' => array(
+'selectors'   => [
+    'Json' => [
+        'ZF\ContentNegotiation\JsonModel' => [
             'application/json',
             'application/*+json',
-        ),
-    ),
-),
+        ],
+    ],
+],
 ```
 
 A selector can contain multiple view models, each associated with different media types, allowing
@@ -115,17 +120,17 @@ you to provide multiple representations. As an example, the following selector w
 controller to return either JSON or HTML output:
 
 ```php
-'selectors'   => array(
-    'HTML-Json' => array(
-        'ZF\ContentNegotiation\JsonModel' => array(
+'selectors'   => [
+    'HTML-Json' => [
+        'ZF\ContentNegotiation\JsonModel' => [
             'application/json',
             'application/*+json',
-        ),
-        'ZF\ContentNegotiation\ViewModel' => array(
+        ],
+        'ZF\ContentNegotiation\ViewModel' => [
             'text/html',            
-        ),
-    ),
-),
+        ],
+    ],
+],
 ```
 
 #### Key: `accept_whitelist`
@@ -141,13 +146,13 @@ The value of each controller service name key can either be a string or an array
 Example:
 
 ```php
-'accept_whitelist' => array(
-    'Application\\Controller\\HelloApiController' => array(
+'accept_whitelist' => [
+    'Application\\Controller\\HelloApiController' => [
         'application/vnd.application-hello+json',
         'application/hal+json',
         'application/json',
-    ),
-),
+    ],
+],
 ```
 
 #### Key: `content_type_whitelist`
@@ -163,12 +168,12 @@ The value of each controller service name key can either be a string or an array
 Example:
 
 ```php
-'content_type_whitelist' => array(
-    'Application\\Controller\\HelloWorldController' => array(
+'content_type_whitelist' => [
+    'Application\\Controller\\HelloWorldController' => [
         'application/vnd.application-hello-world+json',
         'application/json',
-    ),
-),
+    ],
+],
 ```
 
 ### System Configuration
@@ -177,23 +182,53 @@ The following configuration is provided in `config/module.config.php` to enable 
 function:
 
 ```php
-'service_manager' => array(
-    'factories' => array(
-        'ZF\ContentNegotiation\AcceptListener'            => 'ZF\ContentNegotiation\Factory\AcceptListenerFactory',
-        'ZF\ContentNegotiation\AcceptFilterListener'      => 'ZF\ContentNegotiation\Factory\AcceptFilterListenerFactory',
-        'ZF\ContentNegotiation\ContentTypeFilterListener' => 'ZF\ContentNegotiation\Factory\ContentTypeFilterListenerFactory',
-    )
-),
-'controller_plugins' => array(
-    'invokables' => array(
-        'routeParam'  => 'ZF\ContentNegotiation\ControllerPlugin\RouteParam',
-        'queryParam'  => 'ZF\ContentNegotiation\ControllerPlugin\QueryParam',
-        'bodyParam'   => 'ZF\ContentNegotiation\ControllerPlugin\BodyParam',
-        'routeParams' => 'ZF\ContentNegotiation\ControllerPlugin\RouteParams',
-        'queryParams' => 'ZF\ContentNegotiation\ControllerPlugin\QueryParams',
-        'bodyParams'  => 'ZF\ContentNegotiation\ControllerPlugin\BodyParams',
-    )
-)
+'filters' => [
+    'aliases'   => [
+        'Zend\Filter\File\RenameUpload' => 'filerenameupload',
+    ],
+    'factories' => [
+        'filerenameupload' => Factory\RenameUploadFilterFactory::class,
+    ],
+],
+
+'validators' => [
+    'aliases'   => [
+        'Zend\Validator\File\UploadFile' => 'fileuploadfile',
+    ],
+    'factories' => [
+        'fileuploadfile' => Factory\UploadFileValidatorFactory::class,
+    ],
+],
+
+'service_manager' => [
+    'factories' => [
+        ContentTypeListener::class       => InvokableFactory::class,
+        'Request'                        => Factory\RequestFactory::class,
+        AcceptListener::class            => Factory\AcceptListenerFactory::class,
+        AcceptFilterListener::class      => Factory\AcceptFilterListenerFactory::class,
+        ContentTypeFilterListener::class => Factory\ContentTypeFilterListenerFactory::class,
+        ContentNegotiationOptions::class => Factory\ContentNegotiationOptionsFactory::class,
+    ],
+],
+
+'controller_plugins' => [
+    'aliases' => [
+        'routeParam'  => ControllerPlugin\RouteParam::class,
+        'queryParam'  => ControllerPlugin\QueryParam::class,
+        'bodyParam'   => ControllerPlugin\BodyParam::class,
+        'routeParams' => ControllerPlugin\RouteParams::class,
+        'queryParams' => ControllerPlugin\QueryParams::class,
+        'bodyParams'  => ControllerPlugin\BodyParams::class,
+    ],
+    'factories' => [
+        ControllerPlugin\RouteParam::class  => InvokableFactory::class,
+        ControllerPlugin\QueryParam::class  => InvokableFactory::class,
+        ControllerPlugin\BodyParam::class   => InvokableFactory::class,
+        ControllerPlugin\RouteParams::class => InvokableFactory::class,
+        ControllerPlugin\QueryParams::class => InvokableFactory::class,
+        ControllerPlugin\BodyParams::class  => InvokableFactory::class,
+    ],
+],
 ```
 
 ZF2 Events

@@ -17,22 +17,33 @@ Installation
 You can install using:
 
 ```bash
-curl -s https://getcomposer.org/installer | php
-php composer.phar install
+$ composer require zfcampus/zf-oauth2
 ```
 
-You can import the `zf-oauth2` module into an existing application by adding `zfcampus/zf-oauth2` to
-your `composer.json` "require" section. You should also add the following modules to your
-application's configuration:
+If you are using ext/mongodb, you will also need to install a compatibility
+package:
+
+```bash
+$ composer require alcaeus/mongo-php-adapter
+```
+
+Finally, you will need to add the following modules to your application's
+configuration:
 
 ```php
-'modules' => array (
-    ...
+'modules' => [
+    /* ... */
     'ZF\ApiProblem',
     'ZF\ContentNegotiation',
     'ZF\OAuth2',
-),
+],
 ```
+
+> ### zf-component-installer
+>
+> If you use [zf-component-installer](https://github.com/zendframework/zf-component-installer),
+> that plugin will install zf-oauth2 and its other Apigility dependencies as
+> modules for you.
 
 Configuration
 -------------
@@ -182,18 +193,18 @@ To test the OAuth2 module, you have to add a `client_id` and a `client_secret`
 into the oauth2 database. If you are using the SQLite test database, you don't
 need to add a `client_id`; just use the default "testclient"/"testpass" account.
 
-Because we encrypt the password to be used as the `client_secret` with the `bcrypt` algorithm, you'll need to
-use the [Zend\Crypt\Password\Bcrypt](http://framework.zend.com/manual/2.2/en/modules/zend.crypt.password.html#bcrypt)
-class from Zend Framework. We provid a script in `bin/bcrypt.php` to
-generate its hash value. You can use this tool from the
+Because we encrypt the password using the `bcrypt` algorithm, you need to
+encrypt the password using the [Zend\Crypt\Password\Bcrypt](http://framework.zend.com/manual/2.2/en/modules/zend.crypt.password.html#bcrypt)
+class from Zend Framework 2. We provided a simple script in `/bin/bcrypt.php` to
+generate the hash value of a user's password. You can use this tool from the
 command line, with the following syntax:
 
 ```bash
 php bin/bcrypt.php testpass
 ```
 
-where "testpass" is the password that you want to encrypt. The output of
-the previous command will be the hash value of the password, a string of
+where "testpass" is the user's password that you want to encrypt. The output of
+the previous command will be the hash value of the user's password, a string of
 60 bytes like the following:
 
 ```
@@ -332,6 +343,19 @@ var parseQueryString = function( queryString ) {
 // get token params from URL fragment
 var tokenParams = parseQueryString(window.location.hash.substr(1));
 ```
+
+REVOKE (code)
+-------------
+
+Starting with version 1.4.0, you can revoke access tokens. By default, revocation
+happens via a POST request to the path `/oauth/revoke`, which expects a payload
+with:
+
+- `token`, the OAuth2 access token to revoke.
+- `token_type_hint => 'access_token'`, indicating that an access token is being
+  revoked.
+
+The payload may be delivered as `application/x-www-form-urlencoded` or as JSON.
 
 Access a test resource
 ----------------------
