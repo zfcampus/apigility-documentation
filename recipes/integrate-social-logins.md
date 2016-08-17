@@ -42,14 +42,46 @@ Then create a new RPC service ``HybridAuth`` via Apigility admin interface. Sinc
 
 ![Create a new RPC service](/asset/apigility-documentation/img/recipes-social-login-rpc-service.png)
 
-In ``HybridAuthController.php``, we create two actions. The first one, ``hybridAuthAction()`` will redirect to the provider. And the second action, ``callbackAction()`` will be used as a callback for the provider. This is where we will create/update user, generate a token, and give it the popup.
+In ``module/YourApi/src/V1/Rpc/HybridAuth/HybridAuthController.php``, we create two actions. The first one, ``hybridAuthAction()`` will redirect to the provider. And the second action, ``callbackAction()`` will be used as a callback for the provider. This is where we will create/update user, generate a token, and give it to the popup.
 
 ```php
 <?php
 
+namespace YourApi\V1\Rpc\HybridAuth;
+
+use Application\Model\User;
+use Doctrine\ORM\EntityManager;
+use Zend\Mvc\Controller\AbstractActionController;
+
 class HybridAuthController extends AbstractActionController
 {
-    use \Application\Traits\EntityManagerAware;
+    /**
+     * @var EntityManager
+     */
+    private $entityManager;
+
+    /**
+     * @var array Hybridauth configuration
+     */
+    private $hybridauthConfiguration;
+
+    /**
+     * @var string
+     */
+    private $cryptoKey;
+
+    /**
+     * Constructor
+     * @param EntityManager $entityManager
+     * @param array $hybridauthConfiguration
+     * @param string $cryptoKey
+     */
+    public function __construct(EntityManager $entityManager, array $hybridauthConfiguration, $cryptoKey)
+    {
+        $this->entityManager = $entityManager;
+        $this->hybridauthConfiguration = $hybridauthConfiguration;
+        $this->cryptoKey = $cryptoKey;
+    }
 
     /**
      * Returns the select authentification provider
@@ -61,8 +93,11 @@ class HybridAuthController extends AbstractActionController
         $base = sprintf('%s://%s', $uri->getScheme(), $uri->getHost());
 
         $provider = $this->getRequest()->getQuery('provider');
-        $config = $this->getServiceLocator()->get('Config')['hybridauth'];
-        $config['callback'] = $base . $this->url()->fromRoute('MY-API-NAME.rpc.hybrid-auth', ['action' => 'callback']) . '?provider=' . $provider;
+        $config = $this->hybridauthConfiguration;
+
+        // CAUTION: Be sure to change the route name according to your need !
+        $routeName = 'your-api.rpc.hybrid-auth';
+        $config['callback'] = $base . $this->url()->fromRoute($routeName, ['action' => 'callback']) . '?provider=' . $provider;
 
         $hybridauth = new \Hybridauth\Hybridauth($config);
         $adapter = $hybridauth->getAdapter($provider);
@@ -88,42 +123,69 @@ class HybridAuthController extends AbstractActionController
         $profile = $provider->getUserProfile();
         $providerName = strtolower($this->getRequest()->getQuery('provider'));
 
-        $user = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager')->getRepository(\Application\Model\User::class)->createOrUpdate($providerName, $profile);
-        $this->getEntityManager()->flush();
-
-        $jwt = new \OAuth2\Encryption\Jwt();
-        $key = $this->getServiceLocator()->get('Config')['cryptoKey'];
+        $user = $this->entityManager->getRepository(User::class)->createOrUpdate($providerName, $profile);
+        $this->entityManager->flush();
 
         $message = [
             'id' => $user->getId(),
             'name' => $user->getName(),
             'photo' => $user->getPhoto(),
         ];
-        $token = $jwt->encode($message, $key);
 
-        return $this->redirect()->toUrl('http://www.example.com/receive.html?token=' . $token);
+        $jwt = new \OAuth2\Encryption\Jwt();
+        $token = $jwt->encode($message, $this->cryptoKey);
+
+        // CAUTION: Be sure to change the URL according to your need !
+        $url = 'http://www.example.com/receive.html?token=' . $token;
+
+        return $this->redirect()->toUrl($url);
     }
 }
 ```
 
-To make this work, we'll need to implement ``UserRepository::createOrUpdate()``. Here we're going to check if the user exists, from the same provider or another one. To be able to do that we have a ``User`` model and a ``Identity`` model. A ``User`` can have one or more ``identities``. If a user logs in with an email already existing in our database, then we will add an identity to that specific user.
+We need to complete the factory that builds the controller in `module/YourApi/src/V1/Rpc/HybridAuth/HybridAuthControllerFactory.php`:
+
+```php
+<?php
+
+namespace YourApi\V1\Rpc\HybridAuth;
+
+class HybridAuthControllerFactory
+{
+    public function __invoke($controllers)
+    {
+        $config = $controllers->getServiceLocator()->get('config');
+        $entityManager = $controllers->getServiceLocator()->get(\Doctrine\ORM\EntityManager::class);
+
+        return new HybridAuthController($entityManager, $config['hybridauth'], $config['cryptoKey']);
+    }
+}
+```
+
+To make this work, we'll need to implement ``UserRepository::createOrUpdate()`` in `module/Application/src/Repository/UserRepository.php`. Here we're going to check if the user exists, from the same provider or another one. To be able to do that we have a ``User`` model and an ``Identity`` model. A ``User`` can have one or more ``identities``. If a user logs in with an email already existing in our database, then we will add an identity to that specific user.
 
 
 ```php
 <?php
 
-class UserRepository extends AbstractRepository
+namespace Application\Repository;
+
+use Application\Model\Identity;
+use Doctrine\ORM\EntityRepository;
+use Hybridauth\User\Profile;
+
+class UserRepository extends EntityRepository
 {
     /**
      * Create or update a user according to its social identity (coming from Facebook, Google, etc.)
      * @param string $provider
-     * @param \Hybridauth\User\Profile $profile
+     * @param Profile $profile
      * @return User
      */
-    public function createOrUpdate($provider, \Hybridauth\User\Profile $profile)
+    public function createOrUpdate($provider, Profile $profile)
     {
         // First, look for pre-existing identity
-        $identityRepository = $this->getEntityManager()->getRepository(\Application\Model\Identity::class);
+        $identityRepository = $this->getEntityManager()->getRepository(Identity::class);
         $identity = $identityRepository->findOneBy([
             'provider' => $provider,
             'providerId' => $profile->identifier,
@@ -147,7 +209,7 @@ class UserRepository extends AbstractRepository
 
         // Also create an identity if we couldn't find one at the beginning
         if (!$identity) {
-            $identity = new \Application\Model\Identity();
+            $identity = new Identity();
             $identity->setUser($user);
             $identity->setProvider($provider);
             $identity->setProviderId($profile->identifier);
@@ -175,10 +237,14 @@ class UserRepository extends AbstractRepository
 }
 ```
 
-An extract of both the models would be:
+An extract of both the models, respectively in `module/Application/src/Model/User.php` and `module/Application/src/Model/Identity.php`, would be:
 
 ```php
 <?php
+
+namespace Application\Model;
+
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * User
@@ -187,8 +253,17 @@ An extract of both the models would be:
  * })
  * @ORM\Entity(repositoryClass="Application\Repository\UserRepository")
  */
-class User extends AbstractModel
+class User
 {
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
     /**
      * @var string
      * @ORM\Column(type="string", length=255)
@@ -207,6 +282,16 @@ class User extends AbstractModel
      * @ORM\Column(type="string", length=255)
      */
     private $photo;
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Set name
@@ -277,6 +362,10 @@ class User extends AbstractModel
 ```php
 <?php
 
+namespace Application\Model;
+
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * An identity coming from a 3rd party identity provider (Google, Facebook, etc.)
  * @ORM\Table(uniqueConstraints={
@@ -284,8 +373,17 @@ class User extends AbstractModel
  * })
  * @ORM\Entity(repositoryClass="Application\Repository\IdentityRepository")
  */
-class Identity extends AbstractModel
+class Identity
 {
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
     /**
      * @var User
      * @ORM\ManyToOne(targetEntity="User")
@@ -372,7 +470,7 @@ class Identity extends AbstractModel
 }
 ```
 
-We also need to add some configuration for providers and the key that will be used to encrypt the token. This is done in ``config/autoload/local.php``. To get the *client id* and *client secret*, you will need to go to the provider's site and create an app. When creating the app, we have to submit a *redirect URL* that will be something like `http://api.example.com/hybridauth/callback?provider=Google``. When we got all needed information from our providers, we can configure like so:
+We also need to add some configuration for providers and the key that will be used to encrypt the token. This is done in ``config/autoload/local.php``. To get the *client id* and *client secret*, you will need to go to the provider's site and create an app. When creating the app, we have to submit a *redirect URL* that will be something like ``http://api.example.com/hybridauth/callback?provider=Google``. When we got all needed information from our providers, we can configure like so:
 
 ```php
 <?php
@@ -404,9 +502,9 @@ By now we should have a fully functional login mechanism with auto-creation and 
 
 ### Client side
 
-The client side things are much more straightforward. Here are only basic example that should be adapted according to whatever client-side framework is in use.
+The client side things are much more straightforward. Here is only a basic example that should be adapted according to whatever client-side framework is in use.
 
-First of all the login page, **www**.example.com/login.html, will show all login alternatives, which are simple links that will open in a popup:
+First of all the login page, **www**.example.com/login.html, will show all login alternatives, which are simple links that will open in a popup. Be sure to modify `example.com` with your own domain in the following code:
 
 ```html
 <!DOCTYPE html>
@@ -474,15 +572,22 @@ And the second part is **www**.example.com/receive.html which will be final page
 </html>
 ```
 
-Up until now, we have a full login process usable by a real user.
+Up until now, we have a full login process usable by a real user, but Apigility does not know about it.
 
 Integration with Apigility authentication
 -------------------------------------------
 
-Now that we have a fully working login process, the only thing left is to integrate with Apigility authentication. We will hook into authentication events and inject our own version of identity. Modify ``Application\Module`` as folow:
+Now that we have a fully working login process, the only thing left is to integrate with Apigility authentication. We will hook into authentication events and inject our own version of identity. Modify `module/Application/Module.php` as follow:
 
 ```php
 <?php
+
+namespace Application;
+
+use Application\Model\User;
+use Application\Authentication\AuthenticatedIdentity;
+use ZF\MvcAuth\Identity\GuestIdentity;
+
 class Module
 {
     private $serviceManager;
@@ -501,11 +606,11 @@ class Module
     /**
      * If the AUTHORIZATION HTTP header is found, validate and return the user, otherwise default to 'guest'
      * @param \ZF\MvcAuth\MvcAuthEvent $e
-     * @return \Application\Authentication\AuthenticatedIdentity|\ZF\MvcAuth\Identity\GuestIdentity
+     * @return AuthenticatedIdentity|GuestIdentity
      */
     public function onAuthentication(\ZF\MvcAuth\MvcAuthEvent $e)
     {
-        $guest = new \ZF\MvcAuth\Identity\GuestIdentity();
+        $guest = new GuestIdentity();
         $header = $e->getMvcEvent()->getRequest()->getHeader('AUTHORIZATION');
         if (!$header) {
             return $guest;
@@ -513,7 +618,7 @@ class Module
 
         $token = $header->getFieldValue();
         $jwt = new \OAuth2\Encryption\Jwt();
-        $key = $this->serviceManager->get('Config')['cryptoKey'];
+        $key = $this->serviceManager->get('config')['cryptoKey'];
         $tokenData = $jwt->decode($token, $key);
 
         // If the token is invalid, give up
@@ -521,10 +626,10 @@ class Module
             return $guest;
         }
 
-        $entityManager = $this->serviceManager->get('Doctrine\ORM\EntityManager');
-        $user = $entityManager->getRepository(Model\User::class)->findOneById($tokenData['id']);
+        $entityManager = $this->serviceManager->get(\Doctrine\ORM\EntityManager::class);
+        $user = $entityManager->getRepository(User::class)->findOneById($tokenData['id']);
 
-        $identity = new \Application\Authentication\AuthenticatedIdentity($user);
+        $identity = new AuthenticatedIdentity($user);
 
         return $identity;
     }
@@ -541,24 +646,26 @@ class Module
 }
 ```
 
-And finally, our custom Identity class used to store our usage for easier access later on:
+And finally, our custom Identity class, used to store our user for easier access later on, should be created in `module/Application/src/Authentication/AuthenticatedIdentity.php`:
 
 ```php
 <?php
 
 namespace Application\Authentication;
 
+use Application\Model\User;
+
 class AuthenticatedIdentity extends \ZF\MvcAuth\Identity\AuthenticatedIdentity
 {
     /**
-     * @var \Application\Model\User
+     * @var User
      */
     private $user;
 
     /**
-     * @param \Application\Model\User $user
+     * @param User $user
      */
-    public function __construct(\Application\Model\User $user)
+    public function __construct(User $user)
     {
         parent::__construct($user->getEmail());
         $this->setName($user->getEmail());
@@ -566,7 +673,7 @@ class AuthenticatedIdentity extends \ZF\MvcAuth\Identity\AuthenticatedIdentity
     }
 
     /**
-     * @return \Application\Model\User
+     * @return User
      */
     public function getUser()
     {
