@@ -6,13 +6,13 @@ Installation
 The easiest way to install `Apigility` is from your terminal, executing the following command:
 
 ```console
-curl -sS https://apigility.org/install | php
+$ curl -sS https://apigility.org/install | php
 ```
 
 If you do not have [curl](http://curl.haxx.se/) installed you can use PHP itself:
 
 ```console
-php -r "readfile('https://apigility.org/install');" | php
+$ php -r "readfile('https://apigility.org/install');" | php
 ```
 Otherwise you can install `Apigility` using one of the alternative following procedures.
 
@@ -23,7 +23,7 @@ Grab the latest release from the Apigility [download](https://apigility.org/down
 Untar it:
 
 ```console
-tar xzf zf-apigility-skeleton-1.0.0beta1.tgz
+$ tar xzf zf-apigility-skeleton-1.0.0beta1.tgz
 ```
 
 ## Via Composer (create-project)
@@ -32,8 +32,7 @@ You can use the `create-project` command from [Composer](http://getcomposer.org/
 to create the project in one go:
 
 ```console
-curl -s https://getcomposer.org/installer | php --
-php composer.phar create-project -sdev zfcampus/zf-apigility-skeleton path/to/install
+$ composer create-project zfcampus/zf-apigility-skeleton path/to/install
 ```
 
 ## Via Git (clone)
@@ -41,15 +40,15 @@ php composer.phar create-project -sdev zfcampus/zf-apigility-skeleton path/to/in
 First, clone the repository:
 
 ```console
-git clone https://github.com/zfcampus/zf-apigility-skeleton.git # optionally, specify the directory in which to clone
-cd path/to/install
+$ git clone https://github.com/zfcampus/zf-apigility-skeleton.git # optionally, specify the directory in which to clone
+$ cd path/to/install
 ```
 
 At this point, you need to use [Composer](https://getcomposer.org/) to install
 dependencies. Assuming you already have Composer:
 
 ```console
-composer.phar install
+$ composer install
 ```
 
 ## All methods
@@ -57,33 +56,29 @@ composer.phar install
 Once you have the basic installation, you need to put it in development mode:
 
 ```console
-cd path/to/install
-php public/index.php development enable # put the skeleton in development mode
+$ cd path/to/install
+$ composer development-enable # put the skeleton in development mode
 ```
 
 Now, fire it up! Do one of the following:
 
 - Create a vhost in your web server that points the DocumentRoot to the
-  `public/` directory of the project
-- Fire up the built-in web server in PHP (5.4.8+) (**note**: do not use this for
+  `public/` directory of the project (hardest!).
+- Use the built-in vagrant configuration: `vagrant up`.
+- Use the built-in docker-compose configuration: `docker-compose up`.
+- Fire up the built-in web server in PHP (**note**: do not use this for
   production!)
 
 In the latter case, do the following:
 
 ```console
 cd path/to/install
-php -S 0.0.0.0:8888 -ddisplay_errors=0 -t public public/index.php
+php -S 0.0.0.0:8080 -ddisplay_errors=0 -t public public/index.php
 ```
 
-You can then visit the site at http://localhost:8888/ - which will bring up a
+You can then visit the site at http://localhost:8080/ - which will bring up a
 welcome page and the ability to visit the dashboard in order to create and
 inspect your APIs.
-
-> ### NOTE ABOUT USING THE PHP BUILT-IN WEB SERVER
-> 
-> PHP's built-in web server did not start supporting the `PATCH` HTTP method until
-> 5.4.8. Since the admin API makes use of this HTTP method, you must use a version
-> &gt;= 5.4.8 when using the built-in web server.
 
 > ### NOTE ABOUT OPCACHE
 > 

@@ -7,7 +7,7 @@ Assumptions
 -----------
 
 This chapter assumes you are running per the [installation guide](/intro/installation.md), and the
-application root is available at the URL `http://localhost:8888/`.
+application root is available at the URL `http://localhost:8080/`.
 
 > ### Note: File System Permissions
 >
@@ -24,7 +24,7 @@ application root is available at the URL `http://localhost:8888/`.
 First Steps
 -----------
 
-Visit the url `http://locahost:8888/`, which will look like this:
+Visit the url `http://locahost:8080/`, which will look like this:
 
 ![Apigility Welcome Screen](/asset/apigility-documentation/img/intro-getting-started-welcome.png)
 
@@ -69,7 +69,7 @@ list of fields now.
 
 Right now, our service does nothing. Let's change that.
 
-Open the file `module/Status/src/Status/V1/Rpc/Ping/PingController.php`, and edit it so that it
+Open the file `module/Status/src/V1/Rpc/Ping/PingController.php`, and edit it so that it
 looks like the code reported below:
 
 ```php
