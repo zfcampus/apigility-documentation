@@ -18,9 +18,9 @@ class MyEntity implements \JsonSerializable
 
     public function jsonSerialize()
     {
-        return array(
+        return [
             'name' => $this->getName(),
-        );
+        ];
     }
 }
 ```

@@ -108,16 +108,16 @@ $sharedEvents->attach(
 
 It is also possible to add custom event listeners to the configuration of a single doctrine-connected resource:
 ```php
-'zf-apigility' => array(
-    'doctrine-connected' => array(
-        'Api\\V1\\Rest\\User\\UserResource' => array(
+'zf-apigility' => [
+    'doctrine-connected' => [
+        'Api\\V1\\Rest\\User\\UserResource' => [
             // ...
-            'listeners' => array(
+            'listeners' => [
                 'key.of.aggregate.listener.in.service_manager'
-            ),
-        ),
-    ),
-),
+            ],
+        ],
+    ],
+],
 ```
 
 Querying Single Entities
@@ -152,11 +152,11 @@ A query provider returns a *QueryBuilder* object.  By using a custom query provi
 A custom plugin manager is available to register your own query providers.  This can be done through this configuration:
 
 ```php
-'zf-apigility-doctrine-query-provider' => array(
-    'invokables' => array(
+'zf-apigility-doctrine-query-provider' => [
+    'invokables' => [
         'entity_name_fetch_all' => 'Application\Query\Provider\EntityName\FetchAll',
-    )
-),
+    ]
+],
 ```
 
 When the query provider is registered attach it to the doctrine-connected resource configuration.  The default query provider is used if no specific query provider is set.  You may set query providers for these keys:
@@ -169,17 +169,17 @@ When the query provider is registered attach it to the doctrine-connected resour
 * delete
 
 ```php
-'zf-apigility' => array(
-    'doctrine-connected' => array(
-        'Api\\V1\\Rest\\....' => array(
-            'query_providers' => array(
+'zf-apigility' => [
+    'doctrine-connected' => [
+        'Api\\V1\\Rest\\....' => [
+            'query_providers' => [
                 'default' => 'default_orm',
                 'fetch_all' => 'entity_name_fetch_all',
                 // or fetch, update, patch, delete
-            ),
-        ),
-    ),
-),
+            ],
+        ],
+    ],
+],
 ```
 
 Query Create Filters
@@ -192,22 +192,22 @@ Create filters take the data as a parameter and return the data, modified or fil
 A custom plugin manager is available to register your own create filters.  This can be done through following configuration:
 
 ```php
-'zf-apigility-doctrine-query-create-filter' => array(
-    'invokables' => array(
+'zf-apigility-doctrine-query-create-filter' => [
+    'invokables' => [
         'entity_name' => 'Application\Query\CreateFilter\EntityName',
-    )
-),
+    ]
+],
 ```
 
 Register your Query Create Filter as:
 ```php
-'zf-apigility' => array(
-    'doctrine-connected' => array(
-        'Api\\V1\\Rest\\....' => array(
+'zf-apigility' => [
+    'doctrine-connected' => [
+        'Api\\V1\\Rest\\....' => [
             'query_create_filter' => 'entity_name',
             ...
-        ),
-    ),
-),
+        ],
+    ],
+],
 ```
 

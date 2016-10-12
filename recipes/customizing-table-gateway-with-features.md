@@ -85,18 +85,18 @@ that we want to use the above `DelegatorFactory` when retrieving the `TableGatew
 our `Tasks` service. 
 
 ```php
-return array(
+return [
     /* ... */
-    'service_manager' => array(
+    'service_manager' => [
         /* ... */
-        'delegators' => array(
-            'SomeApi\V1\Rest\Tasks\TasksResource\Table' => array(
+        'delegators' => [
+            'SomeApi\V1\Rest\Tasks\TasksResource\Table' => [
                 'SomeApi\TableGatewayFeaturesDelegatorFactory',
-            ),
-        ),
-    ),
+            ],
+        ],
+    ],
     /* ... */
-);
+];
 ```
 
 The above tells the `ServiceManager` to apply our delegator when creating the initial instance for
@@ -109,23 +109,23 @@ In `config/module.config.php`, let's do some more editing, this time in the `zf-
 section.
 
 ```php
-return array(
+return [
     /* ... */
-    'zf-apigility' => array(
-        'db-connected' => array(
+    'zf-apigility' => [
+        'db-connected' => [
             /* ... */
-            'SomeApi\V1\Rest\Tasks\TasksResource' => array(
+            'SomeApi\V1\Rest\Tasks\TasksResource' => [
                 /* ... */
-                'features' => array(
-                    'sequence' => array(
+                'features' => [
+                    'sequence' => [
                         'primaryKeyField' => '<name of primary key column>',
                         'sequenceName' => '<name of sequence>',
-                    ),
-                ),
-            ),
+                    ],
+                ],
+            ],
             /* ... */
-        ),
-    ),
+        ],
+    ],
     /* ... */
 ```
 

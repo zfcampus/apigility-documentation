@@ -81,14 +81,14 @@ Finally, add the module name to your project's `config/application.config.php` u
 key:
 
 ```php
-return array(
+return [
     /* ... */
-    'modules' => array(
+    'modules' => [
         /* ... */
         'ZfrCors',
-    ),
+    ],
     /* ... */
-);
+];
 ```
 
 ### Configuration
@@ -99,23 +99,23 @@ First copy the file `vendor/zfr/zfr-cors/config/zfr_cors.global.php.dist` to
 To carry on with our example, let's adapt the ZfrCors module configuration file as follows:
 
 ```php
-return array(
-    'zfr_cors' => array(
+return [
+    'zfr_cors' => [
          /**
           * Set the list of allowed origins domain with protocol.
           */
-         'allowed_origins' => array('http://www.sexywidgets.com'),
+         'allowed_origins' => ['http://www.sexywidgets.com'],
 
          /**
           * Set the list of HTTP verbs.
           */
-         'allowed_methods' => array('GET', 'OPTIONS'),
+         'allowed_methods' => ['GET', 'OPTIONS'],
 
          /**
           * Set the list of headers. This is returned in the preflight request to indicate
           * which HTTP headers can be used when making the actual request
           */
-         'allowed_headers' => array('Authorization', 'Content-Type'),
+         'allowed_headers' => ['Authorization', 'Content-Type'],
 
          /**
           * Set the max age of the preflight request in seconds. A non-zero max age means
@@ -128,7 +128,7 @@ return array(
           * to access to some headers using the getResponseHeader() JavaScript method. Please
           * note that this feature is buggy and some browsers do not implement it correctly
           */
-         // 'exposed_headers' => array(),
+         // 'exposed_headers' => [],
 
          /**
           * Standard CORS requests do not send or set any cookies by default. For this to work,
@@ -137,8 +137,8 @@ return array(
           * the proper response header.
           */
          // 'allowed_credentials' => false,
-    ),
-);
+    ],
+];
 ```
 
 > #### A couple of notes :

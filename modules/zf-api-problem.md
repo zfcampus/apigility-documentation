@@ -37,14 +37,14 @@ Finally, add the module name to your project's `config/application.config.php` u
 key:
 
 ```php
-return array(
+return [
     /* ... */
-    'modules' => array(
+    'modules' => [
         /* ... */
         'ZF\ApiProblem',
-    ),
+    ],
     /* ... */
-);
+];
 ```
 
 Configuration
@@ -72,26 +72,26 @@ The following configuration is provided in `config/module.config.php` to enable 
 function:
 
 ```php
-'service_manager' => array(
-    'aliases'   => array(
+'service_manager' => [
+    'aliases'   => [
         'ZF\ApiProblem\ApiProblemListener'  => 'ZF\ApiProblem\Listener\ApiProblemListener',
         'ZF\ApiProblem\RenderErrorListener' => 'ZF\ApiProblem\Listener\RenderErrorListener',
         'ZF\ApiProblem\ApiProblemRenderer'  => 'ZF\ApiProblem\View\ApiProblemRenderer',
         'ZF\ApiProblem\ApiProblemStrategy'  => 'ZF\ApiProblem\View\ApiProblemStrategy',
-    ),
-    'factories' => array(
+    ],
+    'factories' => [
         'ZF\ApiProblem\Listener\ApiProblemListener'             => 'ZF\ApiProblem\Factory\ApiProblemListenerFactory',
         'ZF\ApiProblem\Listener\RenderErrorListener'            => 'ZF\ApiProblem\Factory\RenderErrorListenerFactory',
         'ZF\ApiProblem\Listener\SendApiProblemResponseListener' => 'ZF\ApiProblem\Factory\SendApiProblemResponseListenerFactory',
         'ZF\ApiProblem\View\ApiProblemRenderer'                 => 'ZF\ApiProblem\Factory\ApiProblemRendererFactory',
         'ZF\ApiProblem\View\ApiProblemStrategy'                 => 'ZF\ApiProblem\Factory\ApiProblemStrategyFactory',
-    ),
-),
-'view_manager' => array(
+    ],
+],
+'view_manager' => [
     // Enable this in your application configuration in order to get full
     // exception stack traces in your API-Problem responses.
     'display_exceptions' => false,
-),
+],
 ```
 
 ZF2 Events
@@ -179,7 +179,7 @@ class ApiProblem {
         $detail,
         $type = null,
         $title = null,
-        array $additional = array()
+        array $additional = []
     ) {
         /* ... */
     }

@@ -31,36 +31,36 @@ For instance, this is an example of config with two authentication adapters (HTT
 
 ```php
 // config/autoload/local.php
-return array(
-    'zf-mvc-auth' => array(
-        'authentication' => array(
-            'adapters' => array(
-                'basic' => array(
+return [
+    'zf-mvc-auth' => [
+        'authentication' => [
+            'adapters' => [
+                'basic' => [
                     'adapter' => 'ZF\\MvcAuth\\Authentication\\HttpAdapter',
-                    'options' => array(
-                        'accept_schemes' => array(
+                    'options' => [
+                        'accept_schemes' => [
                             0 => 'basic',
-                        ),
+                        ],
                         'realm' => 'api',
                         'htpasswd' => 'data/users.htpasswd',
-                    ),
-                ),
-                'digest' => array(
+                    ],
+                ],
+                'digest' => [
                     'adapter' => 'ZF\\MvcAuth\\Authentication\\HttpAdapter',
-                    'options' => array(
-                        'accept_schemes' => array(
+                    'options' => [
+                        'accept_schemes' => [
                             0 => 'digest',
-                        ),
+                        ],
                         'realm' => 'Secure API',
                         'digest_domains' => '',
                         'nonce_timeout' => '3600',
                         'htdigest' => 'data/users.htdigest',
-                    ),
-                ),
-            ),
-        ),
-    ),
-);
+                    ],
+                ],
+            ],
+        ],
+    ],
+];
 ```
 
 At this point, HTTP Digest authentication has been setup and is ready to use.
