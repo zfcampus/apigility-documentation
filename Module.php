@@ -10,17 +10,17 @@ class Module
 {
     public function getConfig()
     {
-        return array(
-            'asset_manager' => array(
-                'resolver_configs' => array(
-                    'paths' => array(
+        return [
+            'asset_manager' => [
+                'resolver_configs' => [
+                    'paths' => [
                         __DIR__ . '/asset',
-                    ),
-                ),
-            ),
-            'apigility-documentation' => array(
+                    ],
+                ],
+            ],
+            'apigility-documentation' => [
                 'path' => realpath(__DIR__),
-            ),
-        );
+            ],
+        ];
     }
 }
