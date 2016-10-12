@@ -11,7 +11,7 @@ Answer
 
 `Collection Query String whitelist` under `Content Negotiation` in the Admin UI, or its analogue
 `collection_query_whitelist` key within `zf-rest` in `module.config.php`, whitelists query string
-arguments, allowing their value to be received by your REST resource's `fetchAll($params = array())`
+arguments, allowing their value to be received by your REST resource's `fetchAll($params = [])`
 method.
 
 This can be useful if you need to allow visitors to filter or search the collection, such as:

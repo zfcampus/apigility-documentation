@@ -100,29 +100,29 @@ We suggest putting your routes in a configuration file:
 ```php
 // config/routes.php
 
-return array(
-    array(
+return [
+    [
         'name'  => 'self-update',
         'description' => 'When executed via the Phar file, performs a self-update by querying
 the package repository. If successful, it will report the new version.',
         'short_description' => 'Perform a self-update of the script',
-    ),
-    array(
+    ],
+    [
         'name' => 'build',
         'route' => '<package> [--target=]',
         'description' => 'Build a package, using <package> as the package filename, and --target
 as the application directory to be packaged.',
         'short_description' => 'Build a package',
-        'options_descriptions' => array(
+        'options_descriptions' => [
             '<package>' => 'Package filename to build',
             '--target'  => 'Name of the application directory to package; defaults to current working directory',
-        ),
-        'defaults' => array(
+        ],
+        'defaults' => [
             'target' => getcwd(), // default to current working directory
-        ),
+        ],
         'handler' => 'My\Builder',
-    ),
-);
+    ],
+];
 ```
 
 > #### On Routes
@@ -564,22 +564,22 @@ $dispatcher->map('build', function ($route, $console) use ($buildModel) {
 $application = new Application(
     'Builder',
     VERSION,
-    array(
-        array(
+    [
+        [
             'name' => 'build',
             'route' => 'build <package> [--target=]',
             'description' => 'Build a package, using <package> as the package filename, and --target
     as the application directory to be packaged.',
             'short_description' => 'Build a package',
-            'options_descriptions' => array(
+            'options_descriptions' => [
                 '<package>' => 'Package filename to build',
                 '--target'  => 'Name of the application directory to package; defaults to current working directory',
-            ),
-            'defaults' => array(
+            ],
+            'defaults' => [
                 'target' => getcwd(), // default to current working directory
-            ),
-        ),
-    ),
+            ],
+        ],
+    ],
     Console::getInstance(),
     $dispatcher
 );
@@ -639,14 +639,14 @@ split those into an array as follows:
 
 use Zend\Filter\Callback as CallbackFilter;
 
-return array(
-    array(
+return [
+    [
         'name' => 'filter',
         'route' => 'filter [--exclude=]',
-        'default' => array(
-            'exclude' => array(),
-        ),
-        'filters' => array(
+        'default' => [
+            'exclude' => [],
+        ],
+        'filters' => [
             'exclude' => new CallbackFilter(function ($value) {
                 if (! is_string($value)) {
                     return $value;
@@ -655,9 +655,9 @@ return array(
                 array_walk($exclude, 'trim');
                 return $exclude;
             }),
-        ),
-    )
-);
+        ],
+    ]
+];
 ```
 
 Using filters and validators well, you can ensure that when your dispatch callbacks receive data, it
@@ -675,22 +675,22 @@ is already sanitized and ready to use.
   
   use ZF\Console\Filter\Explode as ExplodeFilter;
   
-  return array(
-      array(
+  return [
+      [
           'name' => 'filter',
           'route' => 'filter [--exclude=]',
-          'default' => array(
-              'exclude' => array(),
-          ),
-          'filters' => array(
+          'default' => [
+              'exclude' => [],
+          ],
+          'filters' => [
               'exclude' => new ExplodeFilter(','),
-          ),
-      )
-  );
+          ],
+      ]
+  ];
   ```
 
   The above would explode values provided to `--exclude` using a `,`; `--exclude=foo,bar,baz` would
-  set `exclude` to `array('foo', 'bar', 'baz')`. By default, if no delimiter is provided, `,` is
+  set `exclude` to `['foo', 'bar', 'baz']`. By default, if no delimiter is provided, `,` is
   assumed.
 
 - `ZF\Console\Filter\Json` allows you to specify a JSON-formatted string; it will then deserialize
@@ -701,22 +701,22 @@ is already sanitized and ready to use.
   
   use ZF\Console\Filter\Json as JsonFilter;
   
-  return array(
-      array(
+  return [
+      [
           'name' => 'filter',
           'route' => 'filter [--exclude=]',
-          'default' => array(
-              'exclude' => array(),
-          ),
-          'filters' => array(
+          'default' => [
+              'exclude' => [],
+          ],
+          'filters' => [
               'exclude' => new JsonFilter(),
-          ),
-      )
-  );
+          ],
+      ]
+  ];
   ```
 
   The above would deserialize a JSON value provided to `--exclude`; `--exclude='["foo","bar","baz"]'` would
-  set `exclude` to `array('foo', 'bar', 'baz')`.
+  set `exclude` to `['foo', 'bar', 'baz']`.
 
 - `ZF\Console\Filter\QueryString` allows you to specify a form-encoded string; it will then
   deserialize it to native PHP values.
@@ -726,22 +726,22 @@ is already sanitized and ready to use.
   
   use ZF\Console\Filter\QueryString;
   
-  return array(
-      array(
+  return [
+      [
           'name' => 'filter',
           'route' => 'filter [--exclude=]',
-          'default' => array(
-              'exclude' => array(),
+          'default' => [
+              'exclude' => [],
           ),
-          'filters' => array(
+          'filters' => [
               'exclude' => new QueryString(),
-          ),
-      )
-  );
+          ],
+      ]
+  ];
   ```
 
   The above would deserialize a form-encoded value provided to `--exclude`;
-  `--exclude='foo=bar&baz=bat'` would set `exclude` to `array('foo' => 'bar', 'baz' => 'bat')`.
+  `--exclude='foo=bar&baz=bat'` would set `exclude` to `['foo' => 'bar', 'baz' => 'bat']`.
 
 Classes
 -------

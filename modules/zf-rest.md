@@ -42,14 +42,14 @@ Finally, add the module name to your project's `config/application.config.php` u
 key:
 
 ```php
-return array(
+return [
     /* ... */
-    'modules' => array(
+    'modules' => [
         /* ... */
         'ZF\Rest',
-    ),
+    ],
     /* ... */
-);
+];
 ```
 
 Configuration
@@ -141,28 +141,28 @@ of service attacks on your API.
 #### User configuration example:
 
 ```php
-'AddressBook\\V1\\Rest\\Contact\\Controller' => array(
+'AddressBook\\V1\\Rest\\Contact\\Controller' => [
     'listener' => 'AddressBook\\V1\\Rest\\Contact\\ContactResource',
     'route_name' => 'address-book.rest.contact',
     'route_identifier_name' => 'contact_id',
     'collection_name' => 'contact',
-    'entity_http_methods' => array(
+    'entity_http_methods' => [
         0 => 'GET',
         1 => 'PATCH',
         2 => 'PUT',
         3 => 'DELETE',
-    ),
-    'collection_http_methods' => array(
+    ],
+    'collection_http_methods' => [
         0 => 'GET',
         1 => 'POST',
-    ),
-    'collection_query_whitelist' => array(),
+    ],
+    'collection_query_whitelist' => [
     'page_size' => 25,
     'page_size_param' => null,
     'entity_class' => 'AddressBook\\V1\\Rest\\Contact\\ContactEntity',
     'collection_class' => 'AddressBook\\V1\\Rest\\Contact\\ContactCollection',
     'service_name' => 'Contact',
-),
+],
 ```
 
 ### System Configuration
@@ -171,26 +171,26 @@ The `zf-rest` module provides the following configuration to ensure it operates 
 Framework 2 application.
 
 ```php
-'service_manager' => array(
-    'invokables' => array(
+'service_manager' => [
+    'invokables' => [
         'ZF\Rest\RestParametersListener' => 'ZF\Rest\Listener\RestParametersListener',
-    ),
-    'factories' => array(
+    ],
+    'factories' => [
         'ZF\Rest\OptionsListener' => 'ZF\Rest\Factory\OptionsListenerFactory',
-    ),
-),
+    ],
+],
 
-'controllers' => array(
-    'abstract_factories' => array(
+'controllers' => [
+    'abstract_factories' => [
         'ZF\Rest\Factory\RestControllerFactory'
-    )
-),
+    ]
+],
 
-'view_manager' => array(
+'view_manager' => [
     // Enable this in your application configuration in order to get full
     // exception stack traces in your API-Problem responses.
     'display_exceptions' => false,
-),
+],
 ```
 
 ZF2 Events
@@ -231,7 +231,7 @@ The following methods are called during `dispatch()`, depending on the HTTP meth
 - `delete($id)` - Triggered by a `DELETE` request to a resource *entity*.
 - `deleteList($data)` - Triggered by a `DELETE` request to a resource *collection*.
 - `fetch($id)` - Triggered by a `GET` request to a resource *entity*.
-- `fetchAll($params = array())` - Triggered by a `GET` request to a resource *collection*.
+- `fetchAll($params = [])` - Triggered by a `GET` request to a resource *collection*.
 - `patch($id, $data)` - Triggered by a `PATCH` request to resource *entity*.
 - `patchList($data)` - Triggered by a `PATCH` request to a resource *collection*.
 - `update($id, $data)` - Triggered by a `PUT` request to a resource *entity*.

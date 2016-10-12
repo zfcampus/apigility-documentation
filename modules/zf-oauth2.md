@@ -130,13 +130,13 @@ use this database, you can configure your `config/autoload/oauth2.local.php`
 file as follow:
 
 ```php
-return array(
-    'zf-oauth2' => array(
-        'db' => array(
+return [
+    'zf-oauth2' => [
+        'db' => [
             'dsn' => 'sqlite:<path to zf-oauth2 module>/data/dbtest.sqlite',
-        ),
-    ),
-);
+        ],
+    ],
+];
 ```
 
 Mongo Configuration
@@ -177,13 +177,13 @@ Provided with this repository is an alternative provider,
 to use this service, change the `ZF\OAuth2\Provider\UserId` service alias to point at it:
 
 ```php
-return array(
-    'service_manager' => 
-        'aliases' => array(
+return [
+    'service_manager' => [
+        'aliases' => [
             'ZF\OAuth2\Provider\UserId' => 'ZF\OAuth2\Provider\UserId\AuthenticationService',
-        ),
-    ),
-);
+        ],
+    ],
+];
 ```
 
 How to test OAuth2
@@ -293,13 +293,13 @@ configuration of `allow_implicit` to `true` in the
 
 
 ```php
-return array(
-    'zf-oauth2' => array(
+return [
+    'zf-oauth2' => [
         // ...
         'allow_implicit' => true,
         // ...
-    ),
-);
+    ],
+];
 ```
 
 To request a token from the client side, you need to request authorization via

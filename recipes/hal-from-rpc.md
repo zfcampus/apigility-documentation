@@ -35,7 +35,7 @@ class RegisterController extends AbstractActionController
     public function registerAction()
     {
         /* ... do some work ... get a user ... */
-        return new ViewModel(array('user' => $user));
+        return new ViewModel(['user' => $user]);
     }
 }
 ```
@@ -59,9 +59,9 @@ class RegisterController extends AbstractActionController
          * ... get a $user
          * ... assume we have also now have an $id
          */
-        return new ViewModel(array(
+        return new ViewModel([
             'payload' => new Entity($user, $id),
-        ));
+        ]);
     }
 }
 ```
@@ -79,9 +79,9 @@ class RegisterController extends AbstractActionController
         /* ... do some work
          * ... get a $users collection
          */
-        return new ViewModel(array(
+        return new ViewModel([
             'payload' => $this->getPluginManager()->get('hal')->createCollection($users)
-        ));
+        ]);
     }
 }
 ```
@@ -102,19 +102,19 @@ return from the RPC service, in which case you will be done. However, if you wan
 manually configure the metadata map in your API module's `config/module.config.php` file:
 
 ```php
-return array(
+return [
     /* ... */
-    'zf-hal' => array(
-        'metadata_map' => array(
-            'User' => array(
+    'zf-hal' => [
+        'metadata_map' => [
+            'User' => [
                 'route_name' => 'api.rest.user',
                 'entity_identifier_name' => 'username',
                 'route_identifier_name' => 'user_id',
                 'hydrator' => 'Zend\Stdlib\Hydrator\ObjectProperty',
-            ),
-        ),
-    ),
-);
+            ],
+        ],
+    ],
+];
 ```
 
 Finally, we need to make sure that the service is configured to actually return HAL. We can do this
@@ -127,16 +127,16 @@ Alternately, you can do this manually in the API module's `config/module.config.
 `zf-content-negotiation` section:
 
 ```php
-return array(
+return [
     /* ... */
-    'zf-content-negotiation' => array(
-        'controllers' => array(
+    'zf-content-negotiation' => [
+        'controllers' => [
             /* ... */
             'RegisterController' => 'HalJson',
-        ),
+        ],
         /* ... */
-    ),
-);
+    ],
+];
 ```
 
 Once your changes are complete, when you make a successful request to the URI for your "register"

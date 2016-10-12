@@ -57,15 +57,15 @@ The `apiList` type will also have an `apis` variable passed to the view. The `ap
 contains a nested array structure:
 
 ```php
-array(
-    array(
+[
+    [
         'name' => 'API_Name',
-        'versions' => array(
+        'versions' => [
             1,
             2, // etc.
-        ),
-    ),
-)
+        ],
+    ],
+]
 ```
 
 In other words, each item in the array is an associative array with two keys, `name` and `versions`.
@@ -138,13 +138,13 @@ In order to expose your custom documentation markup, you will need to tell the Z
 Manager to select your own view script. This can be done with the following configuration:
 
 ```php
-array(
-    'view_manager' => array(
-        'template_map' => array(
+[
+    'view_manager' => [
+        'template_map' => [
             'zf-apigility-documentation/show' => 'path/to/your/custom/view_script.phtml',
-        ),
-    ),
-)
+        ],
+    ],
+]
 ```
 
 This can be placed in a ZF2 module's configuration, or in your global application configuration
@@ -232,8 +232,8 @@ class SwaggerViewStrategy extends AbstractListenerAggregate
      */
     public function attach(EventManagerInterface $events, $priority = 200)
     {
-        $this->listeners[] = $events->attach(ViewEvent::EVENT_RENDERER, array($this, 'selectRenderer'), $priority);
-        $this->listeners[] = $events->attach(ViewEvent::EVENT_RESPONSE, array($this, 'injectResponse'), $priority);
+        $this->listeners[] = $events->attach(ViewEvent::EVENT_RENDERER, [$this, 'selectRenderer'], $priority);
+        $this->listeners[] = $events->attach(ViewEvent::EVENT_RESPONSE, [$this, 'injectResponse'], $priority);
     }
 
     /**
@@ -323,7 +323,7 @@ class Module
     {
         $app    = $e->getTarget();
         $events = $app->getEventManager();
-        $events->attach('render', array($this, 'onRender'), 200);
+        $events->attach('render', [$this, 'onRender'], 200);
     }
 
     public function onRender($e)
@@ -377,17 +377,17 @@ the `Documentation` sub-subkey. Each element of this array is a view model name 
 array of media types as the value.
 
 ```php
-array(
-    'zf-content-negotiation' => array(
-        'selectors' => array(
-            'Documentation' => array(
-                'YourApi\RamlViewModel' => array(
+[
+    'zf-content-negotiation' => [
+        'selectors' => [
+            'Documentation' => [
+                'YourApi\RamlViewModel' => [
                     'application/raml+yaml',
-                ),
-            ),
-        ),
-    ),
-)
+                ],
+            ],
+        ],
+    ],
+]
 ```
 
 The above configuration _adds_ to the existing `Documentation` content negotiation selector, and

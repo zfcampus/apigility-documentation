@@ -23,7 +23,7 @@
         }
     },
     "require": {
-        "php": ">=5.3.23"
+        "php": "^5.6 || ^7.0"
     },
     "suggest": {
         "erusev/parsedown": ">=0.9.4 for rendering GitHub-flavored Markdown in PHP",

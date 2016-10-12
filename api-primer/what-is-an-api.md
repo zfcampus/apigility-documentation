@@ -99,11 +99,11 @@ return, which is roughly equivalent to an anonymous object or an associative arr
 value might look like this:
 
 ```php
-array(
+[
     'status' => 'First post!',
     'user' => 'mwop',
     'timestamp' => '20140328T15:22:21',
-)
+]
 ```
 
 When errors occur, most established RPC formats have a standard way to report them; for XML-RPC,
