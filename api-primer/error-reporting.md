@@ -117,9 +117,9 @@ problem detail prior to throwing the exception:
 $ex = new \ZF\ApiProblem\Exception\DomainException('The request you made was malformed', 400);
 $ex->setType('/documentation/problems/malformed-request');
 $ex->setTitle('Malformed Request');
-$ex->setAdditionalDetails(array(
+$ex->setAdditionalDetails([
     'missing-sort-direction' => 'The sort direction query string was missing and is required'
-));
+]);
 throw $ex;
 ```
 

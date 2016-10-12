@@ -28,16 +28,16 @@ The latter capability is only provided via manual configuration at this time.
 `zf-content-validation` configuration has the following structure:
 
 ```php
-array(
-    'zf-content-validation' => array(
-        'Controller Service Name' => array(
+[
+    'zf-content-validation' => [
+        'Controller Service Name' => [
             'input_filter' => 'input filter service to use if no method specific filter available',
             'PATCH' => 'input filter service for PATCH requests',
             'POST' => 'input filter service for POST requests',
             'PUT' => 'input filter service for PUT requests',
-        ),
-    ),
-)
+        ],
+    ],
+]
 ```
 
 The values for each key must be a valid input filter as defined either in the `input_filter_specs`
@@ -50,12 +50,12 @@ same input filter, define that in the `input_filter` key, and then define only y
 filter separately:
 
 ```php
-array(
-    'zf-content-validation' => array(
-        'AddressBook\V1\Rest\Contact\Controller' => array(
+[
+    'zf-content-validation' => [
+        'AddressBook\V1\Rest\Contact\Controller' => [
             'input_filter' => 'AddressBook\V1\Rest\Contact\Validator',
             'POST' => 'AddressBook\V1\Rest\Contact\NewContactValidator',
-        ),
-    ),
-)
+        ],
+    ],
+]
 ```

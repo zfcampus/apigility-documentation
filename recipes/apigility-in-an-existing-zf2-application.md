@@ -51,7 +51,7 @@ Now, enable the necessary production modules by editing your `config/application
 
 ```php
     /* ... */
-    'modules => array(
+    'modules => [
         'Application',
         'ZF\Apigility',
         'ZF\Apigility\Provider',
@@ -67,7 +67,7 @@ Now, enable the necessary production modules by editing your `config/application
         'ZF\Versioning',
         'ZF\DevelopmentMode',
         // any other modules you have...
-    ),
+    ],
     /* ... */
 ```
 
@@ -86,17 +86,17 @@ content:
  * @copyright Copyright (c) 2014 Zend Technologies USA Inc. (http://www.zend.com)
  */
 
-return array(
+return [
     // Development time modules
-    'modules' => array(
+    'modules' => [
         'ZF\Apigility\Admin',
         'ZF\Configuration',
-    ),
+    ],
     // development time configuration globbing
-    'module_listener_options' => array(
-        'config_glob_paths' => array('config/autoload/{,*.}{global,local}-development.php')
-    )
-);
+    'module_listener_options' => [
+        'config_glob_paths' => ['config/autoload/{,*.}{global,local}-development.php'],
+    ],
+];
 ```
 
 The above file is a template file used by `ZF\DevelopmentMode`; when you call 
@@ -245,7 +245,7 @@ class StatusResource extends AbstractResourceListener
 {
     /* ... */
 
-    public function fetchAll($params = array())
+    public function fetchAll($params = [])
     {
         return $this->statusMapper->fetchAll();
     }

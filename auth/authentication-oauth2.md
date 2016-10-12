@@ -169,13 +169,13 @@ if desired, you can customize this view script.
 > of a ZF2 module you have defined in your application:
 >
 > ```php
-> 'view_manager' => array(
+> 'view_manager' => [
 >     /* ... */
->     'template_map' => array(
+>     'template_map' => [
 >         'oauth/authorize' => __DIR__ . '/../view/oauth/authorize.phtml',
->     ),
+>     ],
 >     /* ... */
-> ),
+> ],
 > ```
 
 ### 2) Approve the authorization access
@@ -198,13 +198,13 @@ script can also be customized.
 > of a ZF2 module you have defined in your application:
 >
 > ```php
-> 'view_manager' => array(
+> 'view_manager' => [
 >     /* ... */
->     'template_map' => array(
+>     'template_map' => [
 >         'oauth/receive-code' => __DIR__ . '/../view/oauth/receive-code.phtml',
->     ),
+>     ],
 >     /* ... */
-> ),
+> ],
 > ```
 
 ### 3) Request the Bearer token
@@ -284,13 +284,13 @@ This grant type is disabled by default and you need to enable it manually, chang
 configuration of `allow_implicit` to `true` in the `config/autoload/local.php` file:
 
 ```php
-return array(
-    'zf-oauth2' => array(
+return [
+    'zf-oauth2' => [
         // ...
         'allow_implicit' => true,
         // ...
-    ),
-);
+    ],
+];
 ```
 
 After this change, we can request the access token using the browser-based application 2 steps:
@@ -480,16 +480,16 @@ If you want to generate a new `refresh_token` value, you need to enable the
 `config/autoload/local.php` file of your Apigility project.
 
 ```php
-return array(
+return [
     // ...
-    'zf-oauth2' => array(
+    'zf-oauth2' => [
         // ...
-        'options' => array(
+        'options' => [
             'always_issue_new_refresh_token' => true,
-        ),
-    ),
+        ],
+    ],
     // ...
-);
+];
 ```
 
 You can also change the lifetime of the new refresh token using the `refresh_token_lifetime`

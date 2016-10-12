@@ -30,59 +30,59 @@ information is then stored in the API's module configuration file, under two sep
 `zf-content-validation` key and the `input_filter_specs` key.  Here is a sample:
 
 ```php
-return array(
-    'zf-content-validation' => array(
-        'AddressBook\\V1\\Rest\\Contact\\Controller' => array(
+return [
+    'zf-content-validation' => [
+        'AddressBook\\V1\\Rest\\Contact\\Controller' => [
             'input_filter' => 'AddressBook\\V1\\Rest\\Contact\\Validator',
-        ),
-    ),
-    'input_filter_specs' => array(
-        'AddressBook\\V1\\Rest\\Contact\\Validator' => array(
-            0 => array(
+        ],
+    ],
+    'input_filter_specs' => [
+        'AddressBook\\V1\\Rest\\Contact\\Validator' => [
+            0 => [
                 'name' => 'name',
                 'required' => true,
                 'filters' => array(),
                 'validators' => array(),
                 'allow_empty' => false,
                 'continue_if_empty' => false,
-            ),
-            1 => array(
+            ],
+            1 => [
                 'name' => 'email',
                 'required' => true,
-                'filters' => array(),
-                'validators' => array(
-                    0 => array(
+                'filters' => [],
+                'validators' => [
+                    0 => [
                         'name' => 'Zend\\Validator\\EmailAddress',
                         'options' => array(),
-                    ),
-                ),
+                    ],
+                ],
                 'allow_empty' => false,
                 'continue_if_empty' => false,
-            ),
-            2 => array(
+            ],
+            2 => [
                 'name' => 'age',
                 'required' => true,
-                'filters' => array(),
-                'validators' => array(
-                    0 => array(
+                'filters' => [],
+                'validators' => [
+                    0 => [
                         'name' => 'Zend\\Validator\\Digits',
-                        'options' => array(),
-                    ),
-                ),
+                        'options' => [],
+                    ],
+                ],
                 'allow_empty' => false,
                 'continue_if_empty' => false,
-            ),
-            3 => array(
+            ],
+            3 => [
                 'name' => 'notes',
                 'required' => false,
-                'filters' => array(),
-                'validators' => array(),
+                'filters' => [],
+                'validators' => [],
                 'allow_empty' => false,
                 'continue_if_empty' => false,
-            ),
-        ),
-    ),
-);
+            ],
+        ],
+    ],
+];
 ```
 
 The above configuration describes the linking of a particular input filter specification with a

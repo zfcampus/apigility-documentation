@@ -42,24 +42,24 @@ of identities with HTTP Basic is possible.
 
 ```php
 // config/autoload/local.php
-return array(
-    'zf-mvc-auth' => array(
-        'authentication' => array(
-            'adapters' => array(
-                'basic' => array(
+return [
+    'zf-mvc-auth' => [
+        'authentication' => [
+            'adapters' => [
+                'basic' => [
                     'adapter' => 'ZF\\MvcAuth\\Authentication\\HttpAdapter',
-                    'options' => array(
-                        'accept_schemes' => array(
+                    'options' => [
+                        'accept_schemes' => [
                             0 => 'basic',
                         ),
                         'realm' => 'api',
                         'htpasswd' => 'data/users.htpasswd',
-                    ),
-                ),
-            ),
-        ),
-    ),
-);
+                    ],
+                ],
+            ],
+        ],
+    ],
+];
 ```
 
 At this point, HTTP Basic authentication with the previously entered username and password is ready
