@@ -63,6 +63,7 @@ Recipes
 - [Upload Files Via Your API](/recipes/upload-files-to-api.md)
 - [Allowing requests from other domains](/recipes/allowing-request-from-other-domains.md)
 - [Use URL Parameters to Filter or Sort Data](/recipes/use-url-parameters-to-filter-or-sort-data.md)
+- [Using Social Authentication for your API](/recipes/integrate-social-logins.md)
 
 Module Reference
 ----------------
