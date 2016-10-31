@@ -80,7 +80,7 @@ class RegisterController extends AbstractActionController
          * ... get a $users collection
          */
         return new ViewModel([
-            'payload' => $this->getPluginManager()->get('hal')->createCollection($users)
+            'payload' => $this->getPluginManager()->get('Hal')->createCollection($users)
         ]);
     }
 }
