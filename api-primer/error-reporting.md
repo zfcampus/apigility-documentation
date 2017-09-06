@@ -10,7 +10,7 @@ standardize on the response format.
 For JSON APIs, though, two formats are starting to achieve large adoption:
 `application/vnd.error+json` and `application/problem+json`. Apigility provides
 support for the latter, which goes by the cumbersome title of [Problem Details for HTTP
-APIs](http://tools.ietf.org/html/draft-nottingham-http-problem-06); Apigility refers to it as
+APIs](https://tools.ietf.org/html/rfc7807); Apigility refers to it as
 `API Problem` and provides support for it via the
 [zf-api-problem](https://github.com/zfcampus/zf-api-problem) module.
 
