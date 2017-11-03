@@ -161,7 +161,7 @@ the user must be fetched using the `ZF\OAuth2\Provider\UserId` alias.  You may c
 a custom method of fetching an id.
 
 This is the default.
-```
+```php
     'service_manager' => [
         'aliases' => [
             'ZF\OAuth2\Provider\UserId' => 'ZF\OAuth2\Provider\UserId\AuthenticationService',
@@ -175,7 +175,7 @@ of the identity will be used to assign to OAuth2.  When an OAuth2 resource is re
 will be fetched from the database and assigned to the AuthenticatedIdentity.
 
 Here is an example `UserIdentity`
-```
+```php
 namespace Application\Identity;
 
 use ZF\MvcAuth\Identity\IdentityInterface;
