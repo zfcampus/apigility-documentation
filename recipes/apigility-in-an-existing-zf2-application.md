@@ -51,7 +51,7 @@ Now, enable the necessary production modules by editing your `config/application
 
 ```php
     /* ... */
-    'modules => [
+    'modules' => [
         'Application',
         'ZF\Apigility',
         'ZF\Apigility\Provider',
