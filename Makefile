@@ -8,7 +8,7 @@
 #   tree
 # - all     - currently, synonym for modules target
 
-PHP ?= /usr/local/zend/bin/php
+PHP ?= `which php`
 
 BIN = $(CURDIR)/bin
 
