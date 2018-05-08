@@ -1,8 +1,5 @@
-ZF Apigility
-============
-
-Introduction
-------------
+# ZF Apigility
+## Introduction
 
 Meta-module for Zend Framework combining features from:
 
@@ -19,13 +16,11 @@ in order to provide a cohesive solution for exposing web-based APIs.
 
 Also features database-connected REST resources.
 
-Requirements
-------------
+## Requirements
   
 Please see the [composer.json](https://github.com/zfcampus/zf-apigility/tree/master/composer.json) file.
 
-Installation
-------------
+## Installation
 
 Run the following `composer` command:
 
@@ -63,8 +58,7 @@ return [
 > that plugin will install zf-apigility, and all modules it depends on, as a
 > module in your application configuration for you.
 
-Assets
-------
+## Assets
 
 If you are using this module along with the [admin](https://github.com/zfcampus/zf-apigility-admin)
 and/or the [welcome screen](https://github.com/zfcampus/zf-apigility-welcome),
@@ -83,8 +77,7 @@ you have two options:
   plugin *first*, and then this module. (If you have already installed this
   module, remove it using `composer remove zfcampus/zf-apigility`.)
 
-Configuration
-=============
+## Configuration
 
 ### User Configuration
 
@@ -168,8 +161,7 @@ return [
 ];
 ```
 
-ZF Events
-=========
+## ZF Events
 
 ### Listeners
 
@@ -194,8 +186,7 @@ conditionally attach `ZF\ApiProblem\RenderErrorListener` when an `MvcEvent`'s re
 `HalJsonModel` or `JsonModel`, ensuring `zf-api-problem` can render a response in situations where
 a rendering error occurs.
 
-ZF Services
-===========
+## ZF Services
 
 ### Factories
 

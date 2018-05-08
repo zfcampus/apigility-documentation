@@ -1,6 +1,5 @@
 ZF Versioning
 =============
-
 Introduction
 ------------
 
@@ -95,11 +94,29 @@ would look like:
 The `default_version` key provides the default version number to use in case a version is not
 provided by the client.  `1` is the default for `default_version`.
 
+The setting accepts one of the two following possible values:
+
+- A PHP `integer` indicating the default version number for *all* routes.
+- An associative array, where the keys are route names, and the values the default version to use with the associated route.
+
 Full Example:
 
 ```php
+// Set v2 as default version for all routes
 'zf-versioning' => [
-    'default_version' => 1,
+    'default_version' => 2,
+],
+```
+
+or
+
+```php
+// Set default version to v2 and v3 for the users and status routes respectively
+'zf-versioning' => [
+    'default_version' => [
+        'myapi.rest.users' => 2,
+        'myapi.rpc.status' => 3,
+    ],
 ],
 ```
 

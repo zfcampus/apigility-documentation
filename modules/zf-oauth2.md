@@ -1,18 +1,14 @@
-Zf-OAuth2
-=========
-
-ZF2 module for [OAuth2](http://oauth.net/2/) authentication.
+# zf-oauth2
+ZF module for [OAuth2](http://oauth.net/2/) authentication.
 
 This module uses the [oauth2-server-php](https://github.com/bshaffer/oauth2-server-php)
 library by Brent Shaffer to provide OAuth2 support.
 
-Requirements
-------------
+## Requirements
   
 Please see the [composer.json](composer.json) file.
 
-Installation
-------------
+## Installation
 
 You can install using:
 
@@ -45,8 +41,7 @@ configuration:
 > that plugin will install zf-oauth2 and its other Apigility dependencies as
 > modules for you.
 
-Configuration
--------------
+## Configuration
 
 This module uses any PDO-suported database to manage the OAuth2 information
 (users, client, token, etc).  The database structure is stored in
@@ -130,17 +125,16 @@ use this database, you can configure your `config/autoload/oauth2.local.php`
 file as follow:
 
 ```php
-return [
-    'zf-oauth2' => [
-        'db' => [
+return array(
+    'zf-oauth2' => array(
+        'db' => array(
             'dsn' => 'sqlite:<path to zf-oauth2 module>/data/dbtest.sqlite',
-        ],
-    ],
-];
+        ),
+    ),
+);
 ```
 
-Mongo Configuration
--------------------
+## Mongo Configuration
 
 The Mongo OAuth2 adapter wraps the bshaffer adapter by adding the same password encryption
 as the rest of apigility.  The collections needed are the same as above in the PDO
@@ -156,8 +150,7 @@ oauth_clients collection:
 }
 ```
 
-User ID Provider
-----------------
+## User ID Provider
 
 When a user requests an authorization code they may provide their user_id as a request parameter to
 the `/oauth/authorize` route.  This will store the `user_id` in the `access_token`, `refresh_token`,
@@ -177,17 +170,16 @@ Provided with this repository is an alternative provider,
 to use this service, change the `ZF\OAuth2\Provider\UserId` service alias to point at it:
 
 ```php
-return [
-    'service_manager' => [
-        'aliases' => [
+return array(
+    'service_manager' => 
+        'aliases' => array(
             'ZF\OAuth2\Provider\UserId' => 'ZF\OAuth2\Provider\UserId\AuthenticationService',
-        ],
-    ],
-];
+        ),
+    ),
+);
 ```
 
-How to test OAuth2
-------------------
+## How to test OAuth2
 
 To test the OAuth2 module, you have to add a `client_id` and a `client_secret`
 into the oauth2 database. If you are using the SQLite test database, you don't
@@ -230,8 +222,7 @@ To test the OAuth2 module, you can use an HTTP client like
 [HTTPie](https://github.com/jkbr/httpie) or [CURL](http://curl.haxx.se/).  The
 examples below use HTTPie and the test account "testclient"/"testpass".
 
-REQUEST TOKEN (client\_credentials)
------------------------------------
+## REQUEST TOKEN (client\_credentials)
 
 You can request an OAuth2 token using the following HTTPie command:
 
@@ -258,8 +249,7 @@ call, a [TLS/SSL](http://en.wikipedia.org/wiki/Transport_Layer_Security)
 connection is required.
 
 
-AUTHORIZE (code)
-----------------
+## AUTHORIZE (code)
 
 If you have to integrate an OAuth2 service with a web application, you need to
 use the Authorization Code grant type.  This grant requires an approval step to
@@ -293,13 +283,13 @@ configuration of `allow_implicit` to `true` in the
 
 
 ```php
-return [
-    'zf-oauth2' => [
+return array(
+    'zf-oauth2' => array(
         // ...
         'allow_implicit' => true,
         // ...
-    ],
-];
+    ),
+);
 ```
 
 To request a token from the client side, you need to request authorization via
@@ -344,8 +334,7 @@ var parseQueryString = function( queryString ) {
 var tokenParams = parseQueryString(window.location.hash.substr(1));
 ```
 
-REVOKE (code)
--------------
+## REVOKE (code)
 
 Starting with version 1.4.0, you can revoke access tokens. By default, revocation
 happens via a POST request to the path `/oauth/revoke`, which expects a payload
@@ -357,8 +346,7 @@ with:
 
 The payload may be delivered as `application/x-www-form-urlencoded` or as JSON.
 
-Access a test resource
-----------------------
+## Access a test resource
 
 When you obtain a valid token, you can access a restricted API resource. The
 OAuth2 module is shipped with a test resource that is accessible with the URL
@@ -376,8 +364,7 @@ As you can see, the OAuth2 module supports the data either via POST, using the
 `access_token` value, or using the [Bearer](http://tools.ietf.org/html/rfc6750)
 authorization header.
 
-How to protect your API using OAuth2
-------------------------------------
+## How to protect your API using OAuth2
 
 You can protect your API using the following code (for instance, at the top of a
 controller):

@@ -1,6 +1,5 @@
 ZF RPC
 ======
-
 Introduction
 ------------
 

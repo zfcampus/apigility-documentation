@@ -1,6 +1,5 @@
 ZF MVC Auth
 ===========
-
 Introduction
 ------------
 
@@ -204,7 +203,7 @@ return [
                         'dsn' => 'mysql:host=localhost;dbname=oauth2',
                         'username' => 'username',
                         'password' => 'password',
-                        'options' => aray(
+                        'options' => [
                             1002 => 'SET NAMES utf8', // PDO::MYSQL_ATTR_INIT_COMMAND
                         ],
                     ],
@@ -254,7 +253,7 @@ Example:
 > As an example:
 >
 > ```php
-> `authorization` => [
+> 'authorization' => [
 >     'deny_by_default' => true,
 >     'ZF\\OAuth2\\Controller\\Auth' => [
 >         'actions' => [
@@ -292,7 +291,7 @@ the behavior of the `deny_by_default` key (discussed above) will be assumed.
 Below is an example:
 
 ```php
-`authorization` => [
+'authorization' => [
     'Controller\Service\Name' => [
         'actions' => [
             'action' => [
