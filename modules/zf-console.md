@@ -1,21 +1,16 @@
-ZF\Console: Console Tool Helper
-===============================
-
-Introduction
-------------
+# ZF\Console: Console Tool Helper
+## Introduction
 
 `zf-console` provides functionality on top of `Zend\Console`, specifically a methodology for
 creating standalone PHP console applications using `Zend\Console`'s `DefaultRouteMatcher`.
 It includes built-in "help" and "version" commands, and colorization (via `Zend\Console`), as
 well as support for shell autocompletion.
 
-Requirements
-------------
+## Requirements
   
 Please see the [composer.json](https://github.com/zfcampus/zf-console/tree/master/composer.json) file.
 
-Installation
-------------
+## Installation
 
 Run the following `composer` command:
 
@@ -33,8 +28,7 @@ Alternately, manually add the following to your `composer.json`, in the `require
 
 And then run `composer update` to ensure the module is installed.
 
-Creating an application
------------------------
+## Creating an application
 
 Console applications written with `zf-console` consist of:
 
@@ -100,29 +94,29 @@ We suggest putting your routes in a configuration file:
 ```php
 // config/routes.php
 
-return [
-    [
+return array(
+    array(
         'name'  => 'self-update',
         'description' => 'When executed via the Phar file, performs a self-update by querying
 the package repository. If successful, it will report the new version.',
         'short_description' => 'Perform a self-update of the script',
-    ],
-    [
+    ),
+    array(
         'name' => 'build',
         'route' => '<package> [--target=]',
         'description' => 'Build a package, using <package> as the package filename, and --target
 as the application directory to be packaged.',
         'short_description' => 'Build a package',
-        'options_descriptions' => [
+        'options_descriptions' => array(
             '<package>' => 'Package filename to build',
             '--target'  => 'Name of the application directory to package; defaults to current working directory',
-        ],
-        'defaults' => [
+        ),
+        'defaults' => array(
             'target' => getcwd(), // default to current working directory
-        ],
+        ),
         'handler' => 'My\Builder',
-    ],
-];
+    ),
+);
 ```
 
 > #### On Routes
@@ -222,8 +216,7 @@ $exit = $application->run();
 exit($exit);
 ```
 
-Features
---------
+## Features
 
 `zf-console` provides a number of features "out of the box." These include:
 
@@ -354,8 +347,7 @@ $ echo "source \$HOME/bin/{script}_autocomplete.sh" > > $HOME/{your_shell_rc}
 where `{script}` is the name of the command, and `{your_shell_rc}` is the location of your shell's
 runtime configutation file (e.g., `.bashrc`, `.zshrc`).
 
-Dispatcher callables
---------------------
+## Dispatcher callables
 
 The `Dispatcher` will invoke the callable associated with a given route by calling it with two
 arguments:
@@ -375,8 +367,7 @@ The `Route` instance contains several methods of interest:
 - `getName()` will return the name of the route (which may be useful if you use the same callable
   for multiple routes).
 
-Custom dispatchers
-------------------
+## Custom dispatchers
 
 > - Since 1.3.0
 
@@ -426,14 +417,13 @@ instance when initializing it:
 $application = new Application('App', 1.0, $routes, null, $dispatcher);
 ```
 
-Pulling commands from a container
----------------------------------
+## Pulling commands from a container
 
 > - Since 1.3.0
 
 Instead of specifying a callable or a class name for a command handler, you may
-store your handlers within a dependency injection container compatible with
-[container-interop](https://github.com/container-interop/container-interop);
+store your handlers within a dependency injection container compatible with the
+[PSR-11 specification](https://github.com/php-fig/container);
 when you do so, you can specify the *service name* of the handler instead.
 
 To do this, you will need to create a `Dispatcher` instance, passing it the
@@ -470,8 +460,7 @@ In the above examples, when the `hello` route is matched, the `Dispatcher` will
 attempt to pull the `HelloCommand` service from the container prior to
 dispatching it.
 
-Exception Handling
-------------------
+## Exception Handling
 
 `zf-console` provides exception handling by default, via `ZF\Console\ExceptionHandler`. When your
 console application raises an exception, this handler will provide a "pretty" view of the error,
@@ -523,8 +512,7 @@ mode:
 $application->setDebug(true);
 ```
 
-Using zf-console in Zend Framework 2 Applications
--------------------------------------------------
+## Using zf-console in Zend Framework 2 Applications
 
 While Zend Framework 2 integrates console functionality into the MVC, you may want to write scripts
 that do not use the MVC. For instance, it may be easier to write an application-specific script
@@ -536,7 +524,7 @@ To do this, you will need to bootstrap your application first. We'll assume you'
 script in your application's `bin/` directory for this example.
 
 ```php
-use Zend\Console\Adapter\AdapterInterface as Console;
+use Zend\Console\Console;
 use Zend\Console\ColorInterface as Color;
 use ZF\Console\Application;
 use ZF\Console\Dispatcher;
@@ -564,22 +552,22 @@ $dispatcher->map('build', function ($route, $console) use ($buildModel) {
 $application = new Application(
     'Builder',
     VERSION,
-    [
-        [
+    array(
+        array(
             'name' => 'build',
             'route' => 'build <package> [--target=]',
             'description' => 'Build a package, using <package> as the package filename, and --target
     as the application directory to be packaged.',
             'short_description' => 'Build a package',
-            'options_descriptions' => [
+            'options_descriptions' => array(
                 '<package>' => 'Package filename to build',
                 '--target'  => 'Name of the application directory to package; defaults to current working directory',
-            ],
-            'defaults' => [
+            ),
+            'defaults' => array(
                 'target' => getcwd(), // default to current working directory
-            ],
-        ],
-    ],
+            ),
+        ),
+    ),
     Console::getInstance(),
     $dispatcher
 );
@@ -592,8 +580,7 @@ ensures all modules are bootstrapped, which means all configuration is loaded an
 services are wired, and all listeners are attached. You then pull relevant services from the
 `ServiceManager` and pass them to your console callbacks.
 
-Best Practices
---------------
+## Best Practices
 
 We recommend the following practices when creating applications using `zf-console`.
 
@@ -639,14 +626,14 @@ split those into an array as follows:
 
 use Zend\Filter\Callback as CallbackFilter;
 
-return [
-    [
+return array(
+    array(
         'name' => 'filter',
         'route' => 'filter [--exclude=]',
-        'default' => [
-            'exclude' => [],
-        ],
-        'filters' => [
+        'default' => array(
+            'exclude' => array(),
+        ),
+        'filters' => array(
             'exclude' => new CallbackFilter(function ($value) {
                 if (! is_string($value)) {
                     return $value;
@@ -655,9 +642,9 @@ return [
                 array_walk($exclude, 'trim');
                 return $exclude;
             }),
-        ],
-    ]
-];
+        ),
+    )
+);
 ```
 
 Using filters and validators well, you can ensure that when your dispatch callbacks receive data, it
@@ -675,22 +662,22 @@ is already sanitized and ready to use.
   
   use ZF\Console\Filter\Explode as ExplodeFilter;
   
-  return [
-      [
+  return array(
+      array(
           'name' => 'filter',
           'route' => 'filter [--exclude=]',
-          'default' => [
-              'exclude' => [],
-          ],
-          'filters' => [
+          'default' => array(
+              'exclude' => array(),
+          ),
+          'filters' => array(
               'exclude' => new ExplodeFilter(','),
-          ],
-      ]
-  ];
+          ),
+      )
+  );
   ```
 
   The above would explode values provided to `--exclude` using a `,`; `--exclude=foo,bar,baz` would
-  set `exclude` to `['foo', 'bar', 'baz']`. By default, if no delimiter is provided, `,` is
+  set `exclude` to `array('foo', 'bar', 'baz')`. By default, if no delimiter is provided, `,` is
   assumed.
 
 - `ZF\Console\Filter\Json` allows you to specify a JSON-formatted string; it will then deserialize
@@ -701,22 +688,22 @@ is already sanitized and ready to use.
   
   use ZF\Console\Filter\Json as JsonFilter;
   
-  return [
-      [
+  return array(
+      array(
           'name' => 'filter',
           'route' => 'filter [--exclude=]',
-          'default' => [
-              'exclude' => [],
-          ],
-          'filters' => [
+          'default' => array(
+              'exclude' => array(),
+          ),
+          'filters' => array(
               'exclude' => new JsonFilter(),
-          ],
-      ]
-  ];
+          ),
+      )
+  );
   ```
 
   The above would deserialize a JSON value provided to `--exclude`; `--exclude='["foo","bar","baz"]'` would
-  set `exclude` to `['foo', 'bar', 'baz']`.
+  set `exclude` to `array('foo', 'bar', 'baz')`.
 
 - `ZF\Console\Filter\QueryString` allows you to specify a form-encoded string; it will then
   deserialize it to native PHP values.
@@ -726,25 +713,24 @@ is already sanitized and ready to use.
   
   use ZF\Console\Filter\QueryString;
   
-  return [
-      [
+  return array(
+      array(
           'name' => 'filter',
           'route' => 'filter [--exclude=]',
-          'default' => [
-              'exclude' => [],
+          'default' => array(
+              'exclude' => array(),
           ),
-          'filters' => [
+          'filters' => array(
               'exclude' => new QueryString(),
-          ],
-      ]
-  ];
+          ),
+      )
+  );
   ```
 
   The above would deserialize a form-encoded value provided to `--exclude`;
-  `--exclude='foo=bar&baz=bat'` would set `exclude` to `['foo' => 'bar', 'baz' => 'bat']`.
+  `--exclude='foo=bar&baz=bat'` would set `exclude` to `array('foo' => 'bar', 'baz' => 'bat')`.
 
-Classes
--------
+## Classes
 
 This library defines the following classes:
 

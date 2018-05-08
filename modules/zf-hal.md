@@ -1,6 +1,5 @@
 ZF HAL
 ======
-
 Introduction
 ------------
 
@@ -66,7 +65,7 @@ consists of the following keys:
   hydrator by the `Hal` plugin when no hydrator is configured for an entity class.
 - `render_embedded_entities` - boolean, default `true`, to render full embedded entities in HAL
   responses; if `false`, embedded entities will contain only their relational links.
-- `render_collections` - boolean, default is `true`, to render collections in HAL responses; if
+- `render_embedded_collections` - boolean, default is `true`, to render collections in HAL responses; if
   `false`, only a collection's relational links will be rendered.
 - `hydrators` - a map of entity class names to hydrator service names that the `Hal` plugin can use
   when hydrating entities.
@@ -124,7 +123,7 @@ For now we have only one option available who contains the following configurati
 
 - `use_proxy` - boolean; set to `true` when you are using a proxy (for using
   `HTTP_X_FORWARDED_PROTO`, `HTTP_X_FORWARDED_HOST`, and
-  `HTTP_X_FORWARDED_PROTO` instead of `SSL HTTPS`, `HTTP_HOST, SERVER_PORT`)
+  `HTTP_X_FORWARDED_PORT` instead of `SSL_HTTPS`, `HTTP_HOST, SERVER_PORT`)
 
 ### System Configuration
 
@@ -229,6 +228,10 @@ Notes on individual events:
     entity.
 - `getIdFromEntity` defines one parameter, `entity`, which is an array or object
   from which an identifier needs to be extracted.
+- `fromLink.pre` (since 1.5.0) defines one parameter, `linkDefinition`, which is a
+  `ZF\Hal\Link\Link` instance. This is generally useful from
+  `ZF\Rest\RestController::create()`, when you may want to manipulate the self
+  relational link for purposes of generating the `Link` header.
 
 ### Listeners
 

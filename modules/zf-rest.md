@@ -1,6 +1,5 @@
 ZF REST
 =======
-
 Introduction
 ------------
 
@@ -25,14 +24,14 @@ Installation
 Run the following `composer` command:
 
 ```console
-$ composer require "zfcampus/zf-rest:~1.0-dev"
+$ composer require zfcampus/zf-rest
 ```
 
 Alternately, manually add the following to your `composer.json`, in the `require` section:
 
 ```javascript
 "require": {
-    "zfcampus/zf-rest": "~1.0-dev"
+    "zfcampus/zf-rest": "^1.3"
 }
 ```
 
@@ -52,8 +51,13 @@ return [
 ];
 ```
 
+> ### zf-component-installer
+>
+> If you use [zf-component-installer](https://github.com/zendframework/zf-component-installer),
+> that plugin will install zf-rest as a module for you.
+
 Configuration
--------------
+=============
 
 ### User Configuration
 
@@ -156,7 +160,7 @@ of service attacks on your API.
         0 => 'GET',
         1 => 'POST',
     ],
-    'collection_query_whitelist' => [
+    'collection_query_whitelist' => [],
     'page_size' => 25,
     'page_size_param' => null,
     'entity_class' => 'AddressBook\\V1\\Rest\\Contact\\ContactEntity',
@@ -168,7 +172,7 @@ of service attacks on your API.
 ### System Configuration
 
 The `zf-rest` module provides the following configuration to ensure it operates properly in a Zend
-Framework 2 application.
+Framework application.
 
 ```php
 'service_manager' => [
@@ -182,8 +186,8 @@ Framework 2 application.
 
 'controllers' => [
     'abstract_factories' => [
-        'ZF\Rest\Factory\RestControllerFactory'
-    ]
+        'ZF\Rest\Factory\RestControllerFactory',
+    ],
 ],
 
 'view_manager' => [

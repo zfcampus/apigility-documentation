@@ -31,14 +31,14 @@ Finally, add the module name to your project's `config/application.config.php` u
 key:
 
 ```php
-return [
+return array(
     /* ... */
-    'modules' => [
+    'modules' => array(
         /* ... */
         'ZF\Apigility\Admin',
-    ],
+    ),
     /* ... */
-];
+);
 ```
 
 Typically, this module should be used along with
