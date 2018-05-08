@@ -1,8 +1,5 @@
-ZF Apigility Documentation
-==========================
-
-Introduction
-------------
+# ZF Apigility Documentation
+## Introduction
 
 This Zend Framework module can be used with conjunction with Apigility in order to:
 
@@ -21,13 +18,11 @@ This module accomplishes all the above use cases by providing an endpoint to con
 (`/apigility/documentation[/:api[-v:version][/:service]]`), using content-negotiation to provide
 both HTML and JSON representations.
 
-Requirements
-------------
+## Requirements
   
 Please see the [composer.json](https://github.com/zfcampus/zf-apigility-documentation/tree/master/composer.json) file.
 
-Installation
-------------
+## Installation
 
 Run the following `composer` command:
 
@@ -64,8 +59,7 @@ return [
 > If you use [zf-component-installer](https://github.com/zendframework/zf-component-installer),
 > that plugin will install zf-apigility-documentation as a module for you.
 
-Configuration
-=============
+## Configuration
 
 ### User Configuration
 
@@ -80,7 +74,7 @@ MVC application.
 namespace ZF\Apigility\Documentation;
 
 use Zend\ServiceManager\Factory\InvokableFactory;
-use Zend\View\Modle\ViewModel;
+use Zend\View\Model\ViewModel;
 
 return [
     'router' => [
@@ -165,13 +159,11 @@ return [
 ];
 ```
 
-ZF2 Events
-==========
+## ZF Events
 
 This module has no events or listeners.
 
-ZF2 Services
-============
+## ZF Services
 
 ### View Helpers
 

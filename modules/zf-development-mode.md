@@ -1,9 +1,10 @@
-# zf-development-mode
+# zf-development-mode[![Total Downloads](https://poser.pugx.org/zfcampus/zf-development-mode/downloads)](https://packagist.org/packages/zfcampus/zf-development-mode)
 
 This package provides a script to allow you to enable and disable development
-mode for a zend-mvc application. The script allows you to specify configuration
-and modules that should only be enabled when in development, and not when in
-production.
+mode for [zend-mvc](https://docs.zendframework.com/zend-mvc) (both versions 2
+and 3) and [Expressive](https://docs.zendframework.com/zend-expressive)
+applications. The script allows you to specify configuration and modules that
+should only be enabled when in development, and not when in production.
 
 ## Note to v2 users
 

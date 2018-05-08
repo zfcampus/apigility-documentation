@@ -1,6 +1,5 @@
 ZF Content Validation
 =====================
-
 Introduction
 ------------
 
@@ -30,7 +29,7 @@ Alternately, manually add the following to your `composer.json`, in the `require
 
 ```javascript
 "require": {
-    "zfcampus/zf-content-validation": "^1.3"
+    "zfcampus/zf-content-validation": "^1.4"
 }
 ```
 
@@ -51,7 +50,7 @@ return [
 ```
 
 Configuration
-=============
+-------------
 
 ### User Configuration
 
@@ -173,8 +172,8 @@ return [
 ];
 ```
 
-ZF2 Events
-==========
+ZF Events
+---------
 
 ### Listeners
 
@@ -188,8 +187,35 @@ the Zend Framework 2 input filter plugin manager) in order to validate the incom
 particular listener utilizes the data from the `zf-content-negotiation` data container in order to
 get the deserialized content body parameters.
 
-ZF2 Services
-============
+### Events
+
+#### ZF\ContentValidation\ContentValidationListener::EVENT_BEFORE_VALIDATE
+
+This event is emitted by `ZF\ContentValidation\ContentValidationListener::onRoute()`
+(described above) in between aggregating data to validate and determining the
+input filter, and the actual validation of data. Its purpose is to allow users:
+
+- the ability to manipulate input filters. 
+- to modify the data set to validate (available since 1.4.0).
+
+As an example, you might want to validate an identifier provided via the URI,
+and matched during routing. You may do this as follows:
+
+```php
+$events->listen(ContentValidationListener::EVENT_BEFORE_VALIDATE, function ($e) {
+    if ($e->getController() !== MyRestController::class) {
+        return;
+    }
+
+    $matches = $e->getRouteMatch();
+    $data = $e->getParam('ZF\ContentValidation\ParameterData') ?: [];
+    $data['id'] = $matches->getParam('id');
+    $e->setParam('ZF\ContentValidation\ParameterData', $data);
+});
+```
+
+ZF Services
+-----------
 
 ### Controller Plugins
 

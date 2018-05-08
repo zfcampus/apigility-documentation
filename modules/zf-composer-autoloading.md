@@ -1,15 +1,23 @@
 zf-composer-autoloading
 =======================
-
 Introduction
 ------------
 
 The `zf-composer-autoloading` package provides a single vendor binary,
-`autoload-module-via-composer`, which will:
+`zf-composer-autoloading`, which provides following commands:
 
-- Add the named module to the project autoloading rules defined in
-  `composer.json`, and
-- Dump the autoloading rules on completion.
+- `enable` - add the named module to the project autoloading rules
+  defined in `composer.json`, and
+- `disable` - remove autoloading rules for the module from
+  `composer.json`
+
+Both commands also dump the autoloading rules on completion.
+
+> ### Upgrading
+>
+> If you were using the v1 series of this component, the script previously
+> exposed was `autoload-module-via-composer`. That script is now renamed
+> to `zf-composer-autoloading`.
 
 Installation
 ------------
@@ -20,16 +28,25 @@ Run the following `composer` command:
 $ composer require --dev "zfcampus/zf-composer-autoloading"
 ```
 
+Note the `--dev` flag; this tool is intended for use in development only.
+
 Usage
 -----
 
 ```bash
-$ ./vendor/bin/autoload-module-via-composer \
+$ ./vendor/bin/zf-composer-autoloading \
+> enable|disable \
 > [help|--help|-h] \
 > [--composer|-c <composer path>] \
 > [--type|-t <psr0|psr4>] \
+> [--modules-path|-p <path>] \
 > modulename
 ```
+
+### Commands
+
+- `enable` - enables composer-based autoloading for the module.
+- `disable` - disables composer-based autoloading for the module.
 
 ### Arguments
 
@@ -39,6 +56,8 @@ $ ./vendor/bin/autoload-module-via-composer \
 - `--type` and `-t` allow you to specify the autoloading type, which should be
   one of `psr-0` or `psr-4`; if not provided, the script will attempt to
   auto-determine the value based on the directory structure of the module.
+- `--modules-path` and `-p` allow you to specify the path to the modules
+  directory; default to `module`.
 - `modulename` is the name of the module for which to setup Composer-based
   autoloading.
 
@@ -47,35 +66,51 @@ $ ./vendor/bin/autoload-module-via-composer \
 - Modules are assumed to have a `src/` directory. If they do not, the
   autoloading generated will be incorrect.
 - If unable to determine the autoloading type, PSR-0 will be assumed.
-- If the `Module` class file for the module is in the module root, it will be
-  moved to the module's `src/` directory.
+- On enabling autoloading, if the `Module` class file for the module
+  is in the module root, it will be moved to the module's `src/` directory
+  (zend-mvc applications only).
 
 Examples
 --------
 
 1. Autodetect a module's autoloading type, and generate a Composer autoloading
-   entry.
+   entry for "Status" module.
 
    ```bash
-   $ ./vendor/bin/autoload-module-via-composer Status
+   $ ./vendor/bin/zf-composer-autoloading enable Status
+   ```
+   
+1. Autodetect a module's autoloading type, and remove a Composer autoloading
+   entry for "Status" module.
+   
+   ```bash
+   $ ./vendor/bin/zf-composer-autoloading disable Status
    ```
 
 1. Specify PSR-0 for the module type, and generate a Composer autoloading
-   entry.
+   entry for "Status" module.
 
    ```bash
-   $ ./vendor/bin/autoload-module-via-composer --type psr0 Status
+   $ ./vendor/bin/zf-composer-autoloading enable --type psr0 Status
    ```
 
 1. Specify PSR-4 for the module type, and generate a Composer autoloading
-   entry.
+   entry for "Status" module.
 
    ```bash
-   $ ./vendor/bin/autoload-module-via-composer --type psr4 Status
+   $ ./vendor/bin/zf-composer-autoloading enable --type psr4 Status
    ```
 
-1. Specify the path to the composer binary when generating autoloading entries:
+1. Specify the path to the composer binary when generating autoloading entry
+   for "Status" module:
 
    ```bash
-   $ ./vendor/bin/autoload-module-via-composer -c composer.phar Status
+   $ ./vendor/bin/zf-composer-autoloading enable -c composer.phar Status
+   ```
+
+1. Specify the path to modules directory, and generate a Composer autoloading
+   entry for "Status" module.
+
+   ```bash
+   $ ./vendor/bin/zf-composer-autoloading enable -p src Status
    ```

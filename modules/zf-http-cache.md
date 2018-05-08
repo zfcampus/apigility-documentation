@@ -1,6 +1,5 @@
 ZF Http Cache
 =============
-
 Introduction
 ------------
 
@@ -68,7 +67,7 @@ header configuration specific to the given rule.
 Example:
 
 ```php
-// See the `config/application.config.php` for a complete commented example
+// See `config/module.config.php` for a complete commented example
 'zf-http-cache' => [
     /* ... */
     'controllers' => [

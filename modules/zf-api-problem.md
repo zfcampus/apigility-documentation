@@ -1,6 +1,5 @@
 ZF Api Problem
 ==============
-
 Introduction
 ------------
 
@@ -20,14 +19,14 @@ Installation
 Run the following `composer` command:
 
 ```console
-$ composer require "zfcampus/zf-api-problem:~1.0-dev"
+$ composer require zfcampus/zf-api-problem
 ```
 
 Alternately, manually add the following to your `composer.json`, in the `require` section:
 
 ```javascript
 "require": {
-    "zfcampus/zf-api-problem": "~1.0-dev"
+    "zfcampus/zf-api-problem": "^1.2"
 }
 ```
 
@@ -47,8 +46,13 @@ return [
 ];
 ```
 
+> ### zf-component-installer
+>
+> If you use [zf-component-installer](https://github.com/zendframework/zf-component-installer),
+> that plugin will install zf-api-problem as a module for you.
+
 Configuration
--------------
+=============
 
 ### User Configuration
 
@@ -173,7 +177,8 @@ encountered.  An instance of `ApiProblem` is typically wrapped in an
 constructor:
 
 ```php
-class ApiProblem {
+class ApiProblem
+{
     public function __construct(
         $status,
         $detail,
