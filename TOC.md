@@ -64,6 +64,7 @@ Recipes
 - [Allowing requests from other domains](/recipes/allowing-request-from-other-domains.md)
 - [Use URL Parameters to Filter or Sort Data](/recipes/use-url-parameters-to-filter-or-sort-data.md)
 - [Using Social Authentication for your API](/recipes/integrate-social-logins.md)
+- [Providing REST endpoints that JOIN table data](/recipes/join-tables.md)
 
 Module Reference
 ----------------
