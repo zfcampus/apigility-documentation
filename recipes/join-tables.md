@@ -140,8 +140,8 @@ or a table gateway to back it, you can likely pull the above into your existing
 resource, and, with a little work, have it returning your entities and
 collections.
 
-For DB-Connected resources, though, we now need to do a little work to integrate
-it into our Apigility application.
+For DB-Connected resources, though, we now need to integrate it into our
+Apigility application.
 
 ### Integrating the JOIN
 
@@ -151,9 +151,15 @@ In default usage, DB-Connected services are single-table, and there are no
 facilities available to change behavior. In fact, when you create a DB-Connected
 service, it only creates the entity and collection classes, and configuration!
 
-Behind every DB-Connected service are two "virtual" classes. The first is a
+Behind every DB-Connected service are two classes. The first is a
 `ZF\Apigility\DbConnectedResource`, and the other is a
 `Zend\Db\TableGateway\TableGateway`; the former delegates to the latter.
+Creation of these is configuration-driven: the configuration values generated
+when you create a DB-Connected resource are used to provide resource-specific
+behavior.
+
+What we will be doing is replacing this configuration-driven approach with an
+explicit approach that provides extensions to these two classes.
 
 To start, we will create a custom `TableGateway` implementation,
 `Users\V1\Rest\Users\UsersTableGateway`. We will use our knowledge of creating
@@ -283,12 +289,13 @@ tell the resource to use these new methods.
 
 ### Updating the resource
 
-As noted earlier, DB-Connected services have a "virtual" resource. zf-apigility
-creates a `ZF\Apigility\DbConnectedResource` instance that performs the various
-operations. We need to somehow alter this to use our new table gateway, and also
-use the new methods it presents. How do we do that?
+As noted earlier, DB-Connected services use a configuration-backed
+`ZF\Apigility\DbConnectedResource`. zf-apigility creates an instance of that
+class which then performs the various operations you allow. In order to use our
+new table gateway functionality, we will need to _extend_ that class, _override_
+the relevent methods, and tell the container to use our new class.
 
-We will create a new class named after the resource already created for us,
+First, we will create a new class named after the resource already created for us,
 `Users\V1\Rest\Users\UsersResource`, making it an extension of
 `DbConnectedResource`; it will override the `fetch()` and `fetchAll()` methods.
 
@@ -319,7 +326,7 @@ class UsersResource extends DbConnectedResource
 
 What is this class doing?
 
-In `fetch()`, it pulls a result set by executing the table gateway's
+In `fetch()`, it retrieves a result set by executing the table gateway's
 `getUserWithCity()` method, passing it the identifier. If the result has no
 rows, we throw an exception, but otherwise, return the first found.
 
