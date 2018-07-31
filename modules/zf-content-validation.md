@@ -102,6 +102,19 @@ behavior:
 > This feature is only available when manually configuring your API; it is not
 > exposed in the Admin UI.
 
+> ### Validating collection requests
+>
+> Since 1.5.0
+>
+> Starting in 1.5.0, you may specify any of:
+>
+> - `POST_COLLECTION`
+> - `PUT_COLLECTION`
+> - `PATCH_COLLECTION`
+>
+> as keys. These will then be used specifically with the given HTTP method, but
+> only on requests matching the collection endpoint.
+
 #### input_filter_spec
 
 `input_filter_spec` is for configuration-driven creation of input filters.  The keys for this array
