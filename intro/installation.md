@@ -14,6 +14,7 @@ If you do not have [curl](http://curl.haxx.se/) installed you can use PHP itself
 ```console
 $ php -r "readfile('https://apigility.org/install');" | php
 ```
+
 Otherwise you can install `Apigility` using one of the alternative following procedures.
 
 ## Via release tarball
@@ -52,6 +53,20 @@ $ composer install
 ```
 
 ## All methods
+
+> ### PHP 7.1+ users
+>
+> If you are on PHP 7.1 or greater, you will want to prepare your skeleton to
+> use the latest versions of dependencies, as several dependencies have new
+> major releases that can make use of the newer PHP versions. To do this,
+> execute the following within your project root:
+>
+> ```console
+> $ rm composer.lock vendor
+> $ composer install
+> ```
+>
+> and answer any prompts as they occur.
 
 Once you have the basic installation, you need to put it in development mode:
 
