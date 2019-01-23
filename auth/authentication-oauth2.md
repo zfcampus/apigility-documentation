@@ -1,12 +1,12 @@
 OAuth2
 ======
 
-[OAuth2](http://oauth.net/2/) is an authentication framework used worldwide; for instance
-[Facebook](https://developers.facebook.com/docs/reference/dialogs/oauth/) ,
+[OAuth2](http://oauth.net/2/) is an authentication framework used worldwide.
+[Facebook](https://developers.facebook.com/docs/reference/dialogs/oauth/),
 [Github](http://developer.github.com/v3/oauth/#oauth-authorizations-api), and
 [Twitter](https://dev.twitter.com/docs/api/1.1/post/oauth2/token) use this protocol to authenticate
-their APIs. Before introducing the Apigility OAuth2 functionalities, let's briefly look at the core
-concepts of this authentication system.
+their APIs. Before introducing Apigility OAuth2 functionalilty, let's briefly look at the core
+concepts of this authentication system:
 
 In the OAuth2 specification ([RFC 6749](http://tools.ietf.org/html/rfc6749)), we have the following
 definitions:
@@ -19,8 +19,7 @@ definitions:
 In Apigility, the *Resource Server* and the *Authorization Server* are delivered from the same API
 server.
 
-The OAuth2 protocol is actually a framework for authorization. From the abstract of RFC 6749
-we can read:
+The OAuth2 protocol is a framework for Authorization. From the abstract of RFC 6749 we can read:
 
 > The OAuth 2.0 authorization framework enables a third-party application to obtain limited access
 > to an HTTP service, either on behalf of a resource owner by orchestrating an approval interaction
@@ -36,11 +35,11 @@ The use cases covered by the OAuth2 framework are:
 - *Application access*
 
 In all these use cases, the goal of the OAuth2 protocol is to exchange a **token** between the
-Client and the Resource Server. This token is used to authenticate all the API calls using the
-`Authorization` HTTP header. Below is reported an example of the `Bearer` token ([RFC 7650](http://tools.ietf.org/html/rfc6750)
-), the most used token type of OAuth2:
+Client and the Resource Server. This token is used to authenticate API calls using the
+`Authorization` HTTP header. Below is reported an example of the `Bearer` token ([RFC 7650](http://tools.ietf.org/html/rfc6750)),
+the most used token type of OAuth2:
 
-```
+```HTTP
 Authorization: Bearer RsT5OjbzRn430zqMLgV3Ia
 ```
 
@@ -48,14 +47,13 @@ Security considerations
 -----------------------
 
 The OAuth2 protocol does not guarantee confidentiality and integrity of communications.
-That means you must protect HTTP communications using an additional layer. One possible
+That means you must protect HTTP communications using an additional layer. The best
 solution is the usage of [SSL/TLS](http://en.wikipedia.org/wiki/Secure_Sockets_Layer) (HTTPS) to
 encrypt the communication channel from the client to the server.
 
 The first version of OAuth ([OAuth1](http://tools.ietf.org/html/rfc5849)) supported an
 authentication mechanism based on the HMAC algorithm to guarantee confidentiality and integrity;
-OAuth2 does not (although a [Draft proposal](http://tools.ietf.org/search/draft-ietf-oauth-v2-http-mac-05)
-exists to support [MAC](http://en.wikipedia.org/wiki/Message_authentication_code) tokens). The lack
+OAuth2 does not. The lack
 of message hashing is the primary concern raised regarding the security of OAuth2, and the one most
 developers complain about (e.g.  this [blog post by Eran Hammer](http://hueniverse.com/2012/07/oauth-2-0-and-the-road-to-hell),
 the ex-lead of the OAuth specifications).
@@ -67,45 +65,48 @@ Setup OAuth2
 ------------
 
 Before we jump into the different use cases for OAuth2 authentication, we need to configure
-an authentication adapter for Apigility. Go to the Authentication page, click on the "New adapter"
+an authentication adapter for Apigility. Go to the Authentication page and click on the "New adapter"
 button:
 
 ![Authentication settings](/asset/apigility-documentation/img/auth-authentication-settings.jpg)
 
-You need to choose which adapter to use for the OAuth2 dataset. You can manage the dataset using a
+Choose which adapter to use for the OAuth2 dataset. You can manage the dataset using a
 relational database (the OAuth2 library Apigility utilizes uses
 [PDO](http://www.php.net/manual/en/book.pdo.php) specifically) or
-[MongoDB](https://www.mongodb.org/).
+[MongoDB](https://www.mongodb.org/). Other adapters are available such as
+[zf-oauth2-doctrine](https://github.com/API-Skeletons/zf-oauth2-doctrine).
 
-If you select the OAuth2 PDO adapter, you will see the following form:
+When you select the OAuth2 PDO adapter, you will see the following form:
 
 ![PDO adapter](/asset/apigility-documentation/img/auth-oauth2-pdo.png)
 
 In this form, you need to insert the appropriate configuration to access the OAuth2 database, as
-well as the URI path to use for authentication (the proposed one is `/oauth`).
+well as the URI path to use for authentication (the default is `/oauth`).
 
-The OAuth2 database schema is reported in the file `vendor/zfcampus/zf-oauth2/data/db_oauth2.sql`.
+The OAuth2 database schema for PDO is [in the `zf-oauth2` repository](https://github.com/zfcampus/zf-oauth2/tree/master/data).
 
 > ### OAuth2 implementation
 >
 > Apigility uses the [oauth2-server-php](https://github.com/bshaffer/oauth2-server-php) library
 > by Brent Shaffer to manage the OAuth2 authentication framework.
 
-For testing purposes, you can use the SQLite database shipped in the
-[zf-oauth2](https://github.com/zfcampus/zf-oauth2) module, in the file
-`vendor/zfcampus/zf-oauth2/data/dbtest.sqlite`; we suggest copying it to `data/oauth2-test.sqlite`.
-To use this example, you need to specify the absolute path of the database file in the PDO DSN
-field, using the syntax `sqlite:/path/to/database/file`.  In this database we created a client with
+For testing purposes, you can use the SQLite database shipped
+[in the `zf-oauth2` repository](https://github.com/zfcampus/zf-oauth2/tree/master/data) in the file
+`dbtest.sqlite`; copy this to `data/oauth2-test.sqlite` in your application to use this example database.
+To use this example, you need to specify the _absolute_ path of the database file in the PDO DSN
+field, using the syntax `sqlite:/path/to/database/file`. In this database we created a client with
 `client_id` **testclient** and `client_secret` **testpass**, and a user with `username` **testuser**
-and a `password` **testpass**. We will use this data in the following use cases.
+and a `password` **testpass**. We will use this data in the following use cases:
 
 All sensitive data such as `client_secret` (in the `oauth_clients` table) and `password` (in the
 `oauth_users` table), are hashed by Apigility using the
 [bcrypt](http://en.wikipedia.org/wiki/Bcrypt) algorithm. If you want to generate the bcrypt value of
 a plaintext password, you can use the
 [Zend\Crypt\Password\Bcrypt](http://framework.zend.com/manual/2.2/en/modules/zend.crypt.password.html#bcrypt)
-component of Zend Framework 2. We have also included a tool to generate bcrypt hash values from the
-command line; this tool is located at `vendor/zfcampus/zf-oauth2/bin/bcrypt.php`.  For instance, to
+component of Zend Framework. Also included is a tool to generate bcrypt hash values from the
+command line; this tool is located
+[in the `zf-oauth2` repository](https://github.com/zfcampus/zf-oauth2/tree/master/bin/bcrypt.php)
+For instance, to
 generate the bcrypt value of the string "test", you can use the following command:
 
 ```console
@@ -114,14 +115,14 @@ $ php vendor/zfcampus/zf-oauth2/bin/bcrypt.php test
 
 You will see output like the following:
 
-```
+```console
 $2y$10$8gHQy/sn0vB8H5wbAbhUi.tbUfpf6aE7PBllKHeKaCYTqEyd7vjo6
 ```
 
 Note that the output of the bcrypt algorithm is a string of 60 bytes.
 
-Web-server applications
------------------------
+Web-server Applications (Authorization Code Grant Type)
+-------------------------------------------------------
 
 The Web-server applications scenario is used to authenticate a web application with a third-party
 service (e.g., imagine you built a web application that needs to consume the API of Facebook).
@@ -153,28 +154,27 @@ http://<apigility URL>/oauth/authorize?response_type=code&client_id=testclient&r
 
 > `<apigility URL>` in the above example is the domain where you installed Apigility (if you are
 > using the internal PHP web server, this can be something like `localhost:8888`). Remember, in
-> production, you should always use SSL/TLS to secure your API when using OAuth2.
+> production, you should always use SSL/TLS (HTTPS) to secure your API when using OAuth2.
 
 Going to this URL, you will see a web page like the following:
 
 ![Authorize](/asset/apigility-documentation/img/auth-oauth2-authorize.png)
 
-This web page is stored in the view script `vendor/zfcampus/zf-oauth2/view/zf/auth/authorize.phtml`;
-if desired, you can customize this view script.
+This web page is stored in the view script `vendor/zfcampus/zf-oauth2/view/zf/auth/authorize.phtml`
+[in the `zf-oauth2` repository](https://github.com/zfcampus/zf-oauth2/tree/master/view/zf/auth/authorize.phtml).
+If desired, you can customize the view script by overriding it.
 
 > #### Customize the authorize page
 >
-> The best way to customize the authorization page is to override the view template
-> `oauth/authorize` using the `template_map` value of the `view_manager` in the `config.module.php`
-> of a ZF2 module you have defined in your application:
+> To override the view template `oauth/authorize`, update the `template_map`
+> value of the `view_manager` configuration in the `config.module.php`
+> of a Zend Framework module you have defined in your application as follows:
 >
 > ```php
 > 'view_manager' => [
->     /* ... */
 >     'template_map' => [
 >         'oauth/authorize' => __DIR__ . '/../view/oauth/authorize.phtml',
 >     ],
->     /* ... */
 > ],
 > ```
 
@@ -187,23 +187,22 @@ below:
 
 ![Authentication code](/asset/apigility-documentation/img/auth-oauth2-authentication-code.png)
 
-This web page is stored in the view script
-`vendor/zfcampus/zf-oauth2/view/zf/auth/receive-code.phtml`; like the authorization page, this
-script can also be customized.
+This web page is stored in the view script `vendor/zfcampus/zf-oauth2/view/zf/auth/receive-code.phtml`
+[in the `zf-oauth2` repository](https://github.com/zfcampus/zf-oauth2/tree/master/view/zf/auth/receive-code.phtml).
+Like the authorization page, this view script can be customized.
 
 > #### Customize the receive code page
 >
 > The best way to customize the "receive code" page is to override the view template
-> `oauth/receive-code` using the `template_map` value of the `view_manager` in the `config.module.php`
-> of a ZF2 module you have defined in your application:
+> `oauth/receive-code` by updating the `template_map` value of the
+> `view_manager` configuration in the `config.module.php`
+> of a Zend Framework module you have defined in your application:
 >
 > ```php
 > 'view_manager' => [
->     /* ... */
 >     'template_map' => [
 >         'oauth/receive-code' => __DIR__ . '/../view/oauth/receive-code.phtml',
 >     ],
->     /* ... */
 > ],
 > ```
 
@@ -256,8 +255,8 @@ Accept: application/json
 Authorization: Bearer 907c762e069589c2cd2a229cdae7b8778caa9f07
 ```
 
-Browser-based applications
---------------------------
+Browser-based Applications (Implicit Grant Type)
+------------------------------------------------
 
 This scenario is quite common when using a Javascript client (e.g., a Single Page Application) that
 requests access to the API of a third-party server.  In a browser-based application, you cannot
@@ -286,9 +285,7 @@ configuration of `allow_implicit` to `true` in the `config/autoload/local.php` f
 ```php
 return [
     'zf-oauth2' => [
-        // ...
         'allow_implicit' => true,
-        // ...
     ],
 ];
 ```
@@ -309,9 +306,9 @@ http://<apigility URL>/oauth/authorize?response_type=token&client_id=testclient&
 
 > `<apigility URL>` in the above example is the domain where you installed Apigility (if you are
 > using the internal PHP web server, this can be something like `localhost:8888`). Remember, in
-> production, you should always use SSL/TLS to secure your API when using OAuth2.
+> production, you should always use SSL/TLS (HTTPS) to secure your API when using OAuth2.
 
-We will see the same web page as shown in the *Web-server application* scenario, asking for
+We will see the same web page as shown in the *Web-server application* scenario asking for
 authorization approval.
 
 ### 2) Approve authorization access
@@ -329,7 +326,7 @@ value. An example of this javascript code is shown below:
 
 ```javascript
 // function to parse fragment parameters
-var parseQueryString = function( queryString ) {
+var parseQueryString = function(queryString) {
     var params = {}, queries, temp, i, l;
 
     // Split into key/value pairs
@@ -340,6 +337,7 @@ var parseQueryString = function( queryString ) {
         temp = queries[i].split('=');
         params[temp[0]] = temp[1];
     }
+
     return params;
 };
 
@@ -347,8 +345,8 @@ var parseQueryString = function( queryString ) {
 var tokenParams = parseQueryString(window.location.hash.substr(1));
 ```
 
-Mobile apps
------------
+Mobile apps (Implicit Grant Type)
+---------------------------------
 
 This OAuth2 scenario is similar to browser-based applications. The only difference is the
 `redirect_uri`, which, in the mobile world, can be a custom URI scheme. This allow native mobile
@@ -363,11 +361,11 @@ Below illustrates OAuth2 authentication with Mobile apps:
 
 As you can see, the flow is a 2 step authentication mechanism similar to browser-based applications.
 
-Username and password access
-----------------------------
+Username and password access (Password Grant Type)
+--------------------------------------------------
 
-This use case can be used to authenticate an API with user based grants (also known as a
-*password* grant).  The typical scenario includes a *Login* web page with username and password that
+This use case can be used to authenticate an API with user based grants.
+The typical scenario includes a *Login* web page with username and password that
 is used to authenticate against a first-party API. Password grant is only appropriate for trusted
 clients.  If you build your own website as a client of your API, then this is a great way to handle
 logging in.
@@ -442,7 +440,7 @@ with a new lifetime. This action can be performed using the `refresh_token` that
 server provides in the response during the authentication step.
 
 In Apigility, you can refresh the access token with a `POST` to the OAuth2 server endpoint.
-In the example SQLite database, we can perform a refresh token using the following command:
+Using the example SQLite database, we can refresh the token using the following command:
 
 ```HTTP
 POST /oauth HTTP/1.1
@@ -476,19 +474,15 @@ the `refresh_token` fields.
 
 If you want to generate a new `refresh_token` value, you need to enable the
 `always_issue_new_refresh_token` zf-oauth2 configuration option, setting it to
-`true` (the default is `false`). This option can be changed in the
-`config/autoload/local.php` file of your Apigility project.
+`true` (the default is `false`).
 
 ```php
 return [
-    // ...
     'zf-oauth2' => [
-        // ...
         'options' => [
             'always_issue_new_refresh_token' => true,
         ],
     ],
-    // ...
 ];
 ```
 

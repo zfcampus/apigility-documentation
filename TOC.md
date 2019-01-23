@@ -31,6 +31,7 @@ Authentication and Authorization
 - [OAuth2 Authentication](/auth/authentication-oauth2.md)
 - [Authorization](/auth/authorization.md)
 - [Advanced Auth Events and Services](/auth/advanced.md)
+- [User Differentiation](/auth/user-differentiation.md)
 
 Content Validation
 ------------------

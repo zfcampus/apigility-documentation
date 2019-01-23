@@ -1,4 +1,4 @@
-HTTP Digest Configuration
+ HTTP Digest Configuration
 =========================
 
 HTTP Digest authentication provides similar setup requirements to HTTP Basic, and adds the benefit
@@ -25,9 +25,9 @@ of the HTTP Digest authentication configuration screen, shown here:
 
 The configuration data will be stored in `config/autoload/local.php` under the key
 `['zf-mvc-auth']['authentication']['adapters']['digest']` where `digest` is the name of the adapter chosen
-in the previous screenshot.
-You can have many authentication adapters in your configuration file, and choose the one to be used for your API.
-For instance, this is an example of config with two authentication adapters (HTTP Basic and Digest).
+in the previous screenshot. You can have many authentication adapters in your configuration file,
+and choose the one to be used for your API. Below is an example of config with two authentication adapters
+(HTTP Basic and Digest).
 
 ```php
 // config/autoload/local.php
@@ -104,10 +104,13 @@ Content-Type: application/problem+json
 }
 ```
 
-Important notes:
+
+Important Notes
+---------------
 
 - Your client should be capable of properly encoding the HTTP Digest `Authorization` header, and
   able to fulfill the digest handshake.
-- In production, ensure a `htdigest` file can be utilized in the same relative location as in
+- In production, ensure an `htdigest` file can be utilized in the same relative location as in
   development, even if the `htdigest` was not checked into your VCS.
-- No `Authorization` header in the request implies that the "guest" identity will be used.
+- No `Authorization` header in the request implies that the "guest" `ZF\MvcAuth\Identity\GuestIdentity`
+  identity will be used.
