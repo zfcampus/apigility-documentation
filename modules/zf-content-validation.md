@@ -93,7 +93,7 @@ behavior:
 
 > ### Validating GET requests
 >
-> Since 1.3.0.
+> - **Since 1.3.0.**
 >
 > Starting in 1.3.0, you may also specify `GET` as an HTTP method, mapping it to
 > an input filter in order to validate your query parameters. Configuration is
@@ -104,7 +104,7 @@ behavior:
 
 > ### Validating collection requests
 >
-> Since 1.5.0
+> - **Since 1.5.0**
 >
 > Starting in 1.5.0, you may specify any of:
 >
@@ -114,6 +114,19 @@ behavior:
 >
 > as keys. These will then be used specifically with the given HTTP method, but
 > only on requests matching the collection endpoint.
+
+> ### Validating DELETE requests
+>
+> - **Since 1.6.0**
+>
+> Starting in 1.6.0, you may specify each of the following keys for input
+> filters:
+>
+> - `DELETE`
+> - `DELETE_COLLECTION`
+>
+> The input filter associated with the key will be used to validate data sent in
+> the request body.
 
 #### input_filter_spec
 
