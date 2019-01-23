@@ -32,9 +32,9 @@ the "New adapter" button, you will see something like that:
 You need to specify an authentication adapter name, select the HTTP Basic type, provide a realm value
 and the path of the `htpasswd` file.
 
-Of the configuration entered into this screen the generated configuration is stored in `config/autoload/local.php`
+Of the configuration entered into this screen, the generated configuration is stored in `config/autoload/local.php`
 file. This file is **not** intended for check-in into your version control system and should be excluded
-via `.gitignore`.  The intended purpose is to ensure that if an authentication scheme was on your local
+via `.gitignore`. The intended purpose is to ensure that if an authentication scheme was on your local
 development system, when pushed into production, the system will still be configured to look for
 authentication even if a user/password store is not available in your VCS.  At this point, your
 production system should get a non-VCS user/password `htpasswd` file to ensure proper authentication
@@ -62,10 +62,10 @@ return [
 ];
 ```
 
-It is important to note that local.php configuration is generally intended to be duplicated to a deployment
-environment but with different configuration for usernames, passwords, etc.  So in this case of the basic
-adapter configured via local.php it's a bit unusual because given this example configuration it is equally
-valid for a deployment.
+It is important to note that `local.php` configuration is generally intended to be duplicated to a
+deployment environment, but with different configuration for usernames, passwords, etc. The above
+example detailing basic adapter configuration via `local.php` is unusual as it is equally valid for
+deployment.
 
 At this point, HTTP Basic authentication with the previously entered username and password is ready
 to use. A successfully authenticated identity will allow the user to access the given API:
@@ -91,6 +91,8 @@ An incorrect username or password should result in an `401 Unauthorized` attempt
 GET /foo HTTP/1.1
 Accept: application/json
 Authorization: Basic #invalid-token#
+
+
 ```
 
 ```HTTP
@@ -109,7 +111,8 @@ Content-Type: application/problem+json
 Important Notes
 ---------------
 
-* Your client should be capable of properly encoding the HTTP Basic `Authorization` header.
-* In production, ensure a `htpasswd` file can be utilized in the same relative location as in
+- Your client should be capable of properly encoding the HTTP Basic `Authorization` header.
+- In production, ensure an `htpasswd` file can be utilized in the same relative location as in
   development, even if the `htpasswd` was not checked into your VCS.
-* Omitting the `Authorization` header implies that the "guest" `ZF\MvcAuth\Identity\GuestIdentity` identity will be used.
+- Omitting the `Authorization` header implies that the "guest" `ZF\MvcAuth\Identity\GuestIdentity`
+  identity will be used.
