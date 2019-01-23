@@ -2,7 +2,7 @@ API Documentation
 =================
 
 Apigility offers the ability to generate API documentation using the Admin UI.  The documentation is
-generated in HTML format and, optionally, in [Swagger](https://helloreverb.com/developers/swagger)
+generated in HTML format and, optionally, in [Swagger](https://swagger.io/)
 format. The HTML API documentation is linked in the Apigility UI in the top bar, under the menu item
 "Documentation".
 
