@@ -35,6 +35,7 @@ The latter capability is only provided via manual configuration at this time.
             'PATCH' => 'input filter service for PATCH requests',
             'POST' => 'input filter service for POST requests',
             'PUT' => 'input filter service for PUT requests',
+            'GET' => 'input filter service for GET requests',
         ],
     ],
 ]
@@ -44,6 +45,10 @@ The values for each key must be a valid input filter as defined either in the `i
 configuration (which is what the Apigility Admin UI manipulates), or a valid input filter service
 registered with the `input_filters` configuration (or within the `getInputFilterConfig()` method of
 a Zend Framework module).
+
+Since version 1.5.0 of zf-content-validation, when a `GET` request is made, the
+input filter element keys are used as a query whitelist, and merged with those
+in the admin UI if any exist.
 
 Provide only the configuration you need; for instance, if your `PATCH` and `PUT` requests use the
 same input filter, define that in the `input_filter` key, and then define only your `POST` input
