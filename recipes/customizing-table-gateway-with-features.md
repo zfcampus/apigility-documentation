@@ -40,7 +40,7 @@ class TableGatewayFeaturesDelegatorFactory implements DelegatorFactoryInterface
         $callback
     ) {
         $table  = $callback();
-        $config = $services->get('Config');
+        $config = $services->get('config');
  
         // TableGateway service for DB-Connected ends in "\\Table"; strip that
         $resourceName = substr($requestedName, 0, strlen($requestedName) - 6);
